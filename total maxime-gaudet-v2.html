@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#F4F3EF">
+<title>Legacy Protocol — Maxime Gaudet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F3EF;--card:#FFFFFF;--card2:#F8F7F3;--black:#1C1C1C;--black2:#252525;--orange:#C85A00;--ol:#E8751A;--wh:#FFFFFF;--txt:#1C1C1C;--txt2:#444444;--txt3:#888888;--br:rgba(0,0,0,0.07);--shadow:0 2px 12px rgba(0,0,0,0.07);--green:#2a7a3b;--red:#c0392b;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-height:100vh;padding-bottom:80px;-webkit-font-smoothing:antialiased;font-size:15px}
+.hdr{background:var(--black);border-bottom:3px solid var(--orange);padding:14px 18px 12px;position:sticky;top:0;z-index:300}
+.hdr-row{display:flex;justify-content:space-between;align-items:flex-start}
+.hdr-protocol{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.35);font-weight:500;margin-bottom:2px}
+.hdr-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--wh);line-height:1}
+.clock{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--wh);letter-spacing:2px;line-height:1;text-align:right}
+.clock-date{font-size:9px;color:var(--orange);letter-spacing:1.5px;margin-top:2px;font-family:'Bebas Neue',sans-serif;text-align:right}
+.nav{display:flex;overflow-x:auto;background:var(--black2);border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:68px;z-index:200;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:13px 20px;white-space:nowrap;cursor:pointer;color:rgba(255,255,255,0.35);border-bottom:3px solid transparent;transition:all .2s;flex-shrink:0;background:none;border-top:none;border-left:none;border-right:none}
+.nav-btn.active{color:var(--orange);border-bottom-color:var(--orange)}
+.panel{display:none;animation:fadeUp .2s ease}
+.panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--card);border-radius:14px;border:1px solid var(--br);margin:14px 14px 0;overflow:hidden;box-shadow:var(--shadow)}
+.card-hdr{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--br);background:var(--black)}
+.cdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ctitle{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2.5px;color:var(--wh)}
+.cbadge{margin-left:auto;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,0.35)}
+.sdiv{display:flex;align-items:center;gap:10px;margin:16px 14px 0}
+.sdiv-line{flex:1;height:1px;background:var(--br)}
+.sdiv-txt{font-size:9px;letter-spacing:2.5px;color:var(--txt3);white-space:nowrap;font-family:'Bebas Neue',sans-serif}
+/* HOME */
+.home-hero{padding:28px 20px 0;text-align:center}
+.faem-logo-wrap{width:96px;height:96px;background:var(--black);border-radius:18px;margin:0 auto 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,0.08)}
+.faem-fa{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--wh);letter-spacing:2px;line-height:1}
+.faem-em{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--wh);letter-spacing:3px;line-height:1}
+.home-sub{font-size:9px;letter-spacing:3px;color:var(--txt3);font-weight:500;margin-bottom:4px}
+.home-week{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;color:var(--black);line-height:1;margin-bottom:4px}
+.home-phase{font-size:10px;letter-spacing:2px;color:var(--orange);font-weight:600;margin-bottom:18px}
+.week-msg{background:var(--card);border-radius:14px;border:1px solid var(--br);border-left:4px solid var(--orange);padding:18px 18px 14px;text-align:left;margin:0 14px 16px;box-shadow:var(--shadow)}
+.week-msg-body{font-family:'Playfair Display',serif;font-style:italic;font-size:14px;color:var(--txt2);line-height:1.85}
+.week-msg-sig{margin-top:12px;text-align:right;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--orange)}
+.home-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 14px 6px}
+.home-btn{border-radius:14px;padding:22px 14px;text-align:center;cursor:pointer;transition:transform .15s;border:none;width:100%}
+.home-btn:active{transform:scale(0.97)}
+.home-btn-dark{background:var(--black)}
+.home-btn-orange{background:var(--orange)}
+.home-btn-label{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2.5px;color:var(--wh)}
+.home-btn-sub{font-size:10px;color:rgba(255,255,255,0.45);margin-top:4px;letter-spacing:0.5px}
+.week-status{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 14px 0}
+.ws-card{background:var(--card);border-radius:12px;border:1px solid var(--br);padding:12px 10px;text-align:center;box-shadow:var(--shadow)}
+.ws-label{font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:1px;color:var(--txt3);margin-bottom:8px}
+.ws-indicator{width:30px;height:30px;border-radius:50%;margin:0 auto;border:2px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--txt3)}
+.ws-done{background:var(--orange);border-color:var(--orange);color:var(--wh)}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(0,0,0,0.07);margin:14px 14px 0;border-radius:12px;overflow:hidden}
+.stat-cell{background:var(--black);padding:13px 8px;text-align:center}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--orange);letter-spacing:1px;line-height:1}
+.stat-n.green{color:#4CAF50}
+.stat-l{font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.5px;margin-top:3px}
+.chart-wrap{padding:16px}
+.chart-container{position:relative;height:140px;width:100%}
+.chart-empty{height:80px;display:flex;align-items:center;justify-content:center;background:var(--card2);border-radius:10px;border:1px dashed rgba(0,0,0,0.1)}
+.chart-empty-txt{font-size:11px;color:var(--txt3)}
+.metric-bar{margin-bottom:12px}
+.metric-bar:last-child{margin-bottom:0}
+.metric-row{display:flex;justify-content:space-between;margin-bottom:5px}
+.metric-name{font-size:12px;font-weight:500;color:var(--txt)}
+.metric-val{font-size:12px;font-weight:700;color:var(--orange)}
+.bar-track{height:7px;background:var(--card2);border-radius:4px;overflow:hidden;border:1px solid var(--br)}
+.bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.checkin-cta{margin:14px 14px 0;background:var(--card);border:2px solid var(--orange);border-radius:12px;padding:15px;text-align:center;cursor:pointer}
+.checkin-cta-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--orange)}
+.checkin-cta-sub{font-size:10px;color:var(--txt3);margin-top:3px}
+/* ENTRAÎNEMENT */
+.seance-hdr{background:var(--black);padding:14px 18px;border-bottom:3px solid var(--orange)}
+.seance-protocol{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.35);margin-bottom:2px}
+.seance-title-row{display:flex;justify-content:space-between;align-items:center}
+.seance-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--wh)}
+.seance-day{font-size:10px;color:var(--orange);letter-spacing:1.5px;font-weight:600}
+.seance-desc{font-size:10px;color:rgba(255,255,255,0.35);margin-top:4px}
+.sub-nav{display:flex;background:var(--black2);overflow-x:auto;border-bottom:1px solid rgba(255,255,255,0.07);scrollbar-width:none}
+.sub-nav::-webkit-scrollbar{display:none}
+.sub-btn{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1.5px;padding:10px 16px;color:rgba(255,255,255,0.3);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;flex-shrink:0;background:none;border-top:none;border-left:none;border-right:none;transition:all .2s}
+.sub-btn.active{color:var(--orange);border-bottom-color:var(--orange)}
+.sub-panel{display:none}
+.sub-panel.active{display:block}
+.warmup{background:var(--black);border-radius:12px;padding:13px 16px;margin:14px 14px 0}
+.warmup-label{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.35);font-weight:600;margin-bottom:7px;font-family:'Bebas Neue',sans-serif}
+.warmup-txt{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.9}
+.bloc-hdr{display:flex;align-items:center;gap:10px;margin:14px 14px 0}
+.bloc-line{flex:1;height:1px;background:var(--br)}
+.bloc-label{font-size:9px;letter-spacing:2px;color:var(--txt3);white-space:nowrap;font-weight:600;font-family:'Bebas Neue',sans-serif}
+.ex-card{background:var(--card);border-radius:14px;border:1px solid var(--br);margin:8px 14px 0;overflow:hidden;box-shadow:var(--shadow)}
+.ex-thead{display:grid;grid-template-columns:1fr 44px 44px 66px 66px;gap:4px;padding:8px 14px;background:var(--black);border-bottom:1px solid rgba(255,255,255,0.07)}
+.ex-th{font-size:9px;letter-spacing:1.5px;color:rgba(255,255,255,0.35);font-weight:600;font-family:'Bebas Neue',sans-serif;text-align:center}
+.ex-th:first-child{text-align:left}
+.ex-row{display:grid;grid-template-columns:1fr 44px 44px 66px 66px;gap:4px;padding:11px 14px;border-bottom:1px solid var(--br);align-items:center}
+.ex-row:last-child{border-bottom:none}
+.ex-name{font-size:13px;font-weight:600;color:var(--txt);line-height:1.3}
+.ex-note{font-size:10px;color:var(--txt3);margin-top:2px;line-height:1.4}
+.ex-editable{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--orange);text-align:center;border:none;background:transparent;width:100%;outline:none}
+.ex-editable-rep{font-size:15px;color:var(--txt2);font-weight:600;text-align:center;border:none;background:transparent;width:100%;outline:none;font-family:'DM Sans',sans-serif}
+.ex-target{font-size:12px;font-weight:700;color:var(--txt);text-align:center;background:var(--card2);border-radius:8px;padding:7px 4px;border:1px solid var(--br)}
+.ex-input-wrap{background:var(--card2);border:1.5px solid var(--br);border-radius:8px;padding:5px 4px;text-align:center;transition:border-color .15s}
+.ex-input-wrap:focus-within{border-color:var(--orange)}
+.ex-input-wrap.disabled{opacity:0.35;pointer-events:none}
+.ex-input{width:100%;border:none;background:transparent;font-size:13px;font-weight:700;color:var(--orange);text-align:center;outline:none;font-family:'DM Sans',sans-serif}
+.ex-input::placeholder{color:rgba(200,90,0,0.3);font-weight:400}
+.finisher-card{background:var(--black);border-radius:14px;margin:8px 14px 0;padding:14px 16px;border-left:4px solid var(--orange)}
+.fin-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.07)}
+.fin-row:last-child{border-bottom:none}
+.fin-name{font-size:13px;font-weight:600;color:var(--wh)}
+.fin-note{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.fin-badge{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--orange);letter-spacing:1px;flex-shrink:0}
+.timer-btn{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.5);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;margin-left:8px}
+.notes-card{background:var(--card);border-radius:14px;border:1px solid var(--br);margin:14px 14px 0;padding:14px 16px;box-shadow:var(--shadow)}
+.notes-label{font-size:9px;letter-spacing:2px;color:var(--txt3);font-weight:600;margin-bottom:8px;font-family:'Bebas Neue',sans-serif}
+.notes-area{width:100%;border:1.5px solid var(--br);border-radius:10px;padding:11px;font-size:13px;color:var(--txt2);font-family:'DM Sans',sans-serif;resize:none;height:80px;outline:none;background:var(--card2);transition:border-color .15s}
+.notes-area:focus{border-color:var(--orange)}
+.save-btn{margin:12px 14px 0;background:var(--orange);border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:none;width:calc(100% - 28px);transition:opacity .15s;display:block}
+.save-btn:active{opacity:0.85}
+.save-btn-label{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2.5px;color:var(--wh)}
+/* NUTRITION */
+.nutri-goals{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,0,0,0.07);margin:14px 14px 0;border-radius:12px;overflow:hidden}
+.nutri-goal-cell{background:var(--black);padding:12px 6px;text-align:center}
+.nutri-goal-n{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--orange);line-height:1}
+.nutri-goal-l{font-size:8px;color:rgba(255,255,255,0.35);margin-top:3px;letter-spacing:0.5px}
+.meal-row{display:flex;justify-content:space-between;align-items:flex-start;padding:11px 16px;border-bottom:1px solid var(--br)}
+.meal-row:last-child{border-bottom:none}
+.meal-time{font-size:11px;color:var(--orange);font-weight:600;min-width:52px;flex-shrink:0;margin-top:1px}
+.meal-body{flex:1}
+.meal-name{font-size:13px;font-weight:600;color:var(--txt);line-height:1.3}
+.meal-detail{font-size:11px;color:var(--txt3);margin-top:3px;line-height:1.5}
+.meal-macros{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap}
+.macro-pill{font-size:9px;padding:2px 7px;border-radius:10px;background:var(--card2);color:var(--txt3);letter-spacing:0.5px;border:1px solid var(--br)}
+.macro-pill.prot{background:rgba(200,90,0,0.08);color:var(--orange);border-color:rgba(200,90,0,0.15)}
+.meal-cal{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--orange);letter-spacing:1px;flex-shrink:0;margin-left:10px;margin-top:1px}
+.day-totals{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,0,0,0.07);margin:0;border-radius:0}
+.day-total-cell{background:var(--black);padding:10px 6px;text-align:center}
+.day-total-n{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--orange);line-height:1}
+.day-total-l{font-size:8px;color:rgba(255,255,255,0.35);margin-top:2px;letter-spacing:0.5px}
+.batch-step{display:flex;gap:14px;align-items:flex-start;padding:12px 16px;border-bottom:1px solid var(--br)}
+.batch-step:last-child{border-bottom:none}
+.batch-num{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--orange);flex-shrink:0;min-width:24px;line-height:1.1}
+.batch-title{font-size:13px;font-weight:600;color:var(--txt);line-height:1.3}
+.batch-detail{font-size:11px;color:var(--txt3);margin-top:3px;line-height:1.55}
+.epic-section{padding:14px 16px;border-bottom:1px solid var(--br)}
+.epic-section:last-child{border-bottom:none}
+.epic-cat{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:var(--orange);margin-bottom:10px}
+.epic-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--br)}
+.epic-item:last-child{border-bottom:none}
+.epic-name{font-size:13px;font-weight:500;color:var(--txt)}
+.epic-qty{font-size:12px;color:var(--txt3);font-weight:600}
+.rule-row{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-bottom:1px solid var(--br)}
+.rule-row:last-child{border-bottom:none}
+.rule-num{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--orange);flex-shrink:0;min-width:22px;line-height:1.1}
+.rule-title{font-size:13px;font-weight:600;color:var(--txt)}
+.rule-detail{font-size:11px;color:var(--txt3);margin-top:3px;line-height:1.6}
+/* CHECK-IN */
+.checkin-form{margin:14px 14px 0;background:var(--card);border-radius:14px;border:1px solid var(--br);overflow:hidden;box-shadow:var(--shadow)}
+.ci-row{padding:14px 16px;border-bottom:1px solid var(--br)}
+.ci-row:last-child{border-bottom:none}
+.ci-top{display:flex;justify-content:space-between;align-items:center}
+.ci-label{font-size:13px;font-weight:600;color:var(--txt)}
+.ci-sub{font-size:10px;color:var(--txt3);margin-top:2px}
+.ci-val{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--orange);letter-spacing:1px}
+.ci-slider{width:100%;margin-top:10px;accent-color:var(--orange)}
+.ci-input{border:1.5px solid var(--br);border-radius:8px;padding:8px 12px;font-size:14px;font-weight:600;color:var(--txt);background:var(--card2);outline:none;width:100px;text-align:center;font-family:'DM Sans',sans-serif}
+.ci-input:focus{border-color:var(--orange)}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 14px 0}
+.photo-slot{aspect-ratio:3/4;background:var(--card2);border-radius:10px;border:1px solid var(--br);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;position:relative}
+.photo-slot-plus{font-size:24px;color:var(--txt3)}
+.photo-slot-label{font-size:9px;letter-spacing:1.5px;color:var(--txt3);margin-top:6px;font-family:'Bebas Neue',sans-serif}
+.photo-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:none}
+/* PROGRESSION */
+.prog-chart-card{background:var(--card);border-radius:14px;border:1px solid var(--br);margin:14px 14px 0;overflow:hidden;box-shadow:var(--shadow)}
+.prog-chart-hdr{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--br);background:var(--black)}
+.prog-chart-title{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--wh)}
+.prog-chart-badge{font-size:10px;color:var(--orange);font-weight:600}
+.prog-chart-body{padding:16px}
+.prog-legend{display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap}
+.prog-leg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--txt3)}
+.prog-leg-dot{width:12px;height:3px;border-radius:2px}
+canvas{display:block;width:100%!important}
+/* TIMER */
+.timer-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:500;align-items:center;justify-content:center}
+.timer-modal.show{display:flex}
+.timer-box{background:var(--black);border-radius:20px;padding:32px 28px;text-align:center;border:2px solid var(--orange);min-width:240px}
+.timer-big{font-family:'Bebas Neue',sans-serif;font-size:72px;color:var(--orange);letter-spacing:4px;line-height:1}
+.timer-exname{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:2px;margin-bottom:12px;font-family:'Bebas Neue',sans-serif}
+.timer-close{margin-top:20px;background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.6);font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:10px 24px;border-radius:8px;cursor:pointer}
+.spacer{height:24px}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-row">
+    <div><div class="hdr-protocol">LEGACY PROTOCOL · FATHER EMPOWERING</div><div class="hdr-name">MAXIME GAUDET</div></div>
+    <div><div class="clock" id="clock">--:--</div><div class="clock-date" id="clock-date">--- -- ----</div></div>
+  </div>
+</div>
+
+<div class="nav" id="main-nav">
+  <button class="nav-btn active" onclick="showPanel('home',this)">ACCUEIL</button>
+  <button class="nav-btn" onclick="showPanel('entrainement',this)">ENTRAÎNEMENT</button>
+  <button class="nav-btn" onclick="showPanel('nutrition',this)">NUTRITION</button>
+  <button class="nav-btn" onclick="showPanel('checkin',this)">CHECK-IN</button>
+  <button class="nav-btn" onclick="showPanel('progression',this)">PROGRESSION</button>
+</div>
+
+<!-- ══ ACCUEIL ══ -->
+<div class="panel active" id="panel-home">
+  <div class="home-hero">
+    <div class="faem-logo-wrap"><div class="faem-fa">FA</div><div class="faem-em">EM</div></div>
+    <div class="home-sub">FATHER EMPOWERING</div>
+    <div class="home-week">SEMAINE 1</div>
+    <div class="home-phase">PHASE FONDAMENTALE · 55% DU 1RM</div>
+  </div>
+  <div class="week-msg">
+    <div class="week-msg-body">Tu n'es pas ici pour te prouver quelque chose à personne d'autre qu'à toi-même.<br><br>Cette semaine, on pose les bases. Pas les bases du physique. Les bases du gars que tu vas redevenir.<br><br>Chaque rep que tu fais cette semaine est une déclaration à la version de toi qui a arrêté de se battre.<br><br>Les 100 prochains jours vont te changer. Mais ça commence ici. Cette semaine.<br><br>Fais le travail.</div>
+    <div class="week-msg-sig">— Max</div>
+  </div>
+  <div class="home-btns">
+    <button class="home-btn home-btn-dark" onclick="showPanel('nutrition',document.querySelectorAll('#main-nav .nav-btn')[2])">
+      <div class="home-btn-label">NUTRITION</div><div class="home-btn-sub">Plan complet</div>
+    </button>
+    <button class="home-btn home-btn-orange" onclick="showPanel('entrainement',document.querySelectorAll('#main-nav .nav-btn')[1])">
+      <div class="home-btn-label">ENTRAÎNEMENT</div><div class="home-btn-sub">Séance A · B · C</div>
+    </button>
+  </div>
+  <div class="sdiv"><div class="sdiv-line"></div><div class="sdiv-txt">SÉANCES CETTE SEMAINE</div><div class="sdiv-line"></div></div>
+  <div class="week-status">
+    <div class="ws-card"><div class="ws-label">LUNDI · A</div><div class="ws-indicator" id="status-a">A</div></div>
+    <div class="ws-card"><div class="ws-label">MERCREDI · B</div><div class="ws-indicator" id="status-b">B</div></div>
+    <div class="ws-card"><div class="ws-label">VENDREDI · C</div><div class="ws-indicator" id="status-c">C</div></div>
+  </div>
+  <div class="sdiv"><div class="sdiv-line"></div><div class="sdiv-txt">PROGRESSION</div><div class="sdiv-line"></div></div>
+  <div class="stats-row">
+    <div class="stat-cell"><div class="stat-n">215</div><div class="stat-l">lbs départ</div></div>
+    <div class="stat-cell"><div class="stat-n" id="home-actuel">—</div><div class="stat-l">lbs actuel</div></div>
+    <div class="stat-cell"><div class="stat-n green" id="home-diff">—</div><div class="stat-l">différence</div></div>
+  </div>
+  <div class="card">
+    <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">Poids corporel</div><div class="cbadge" id="home-trend"></div></div>
+    <div class="chart-wrap"><div class="chart-container"><canvas id="homeWeightChart"></canvas></div></div>
+  </div>
+  <div class="checkin-cta" onclick="showPanel('checkin',document.querySelectorAll('#main-nav .nav-btn')[3])">
+    <div class="checkin-cta-label">+ CHECK-IN HEBDOMADAIRE</div>
+    <div class="checkin-cta-sub">Poids · Sommeil · Stress · Énergie · Photos</div>
+  </div>
+  <div class="spacer"></div>
+</div>
+
+<!-- ══ ENTRAÎNEMENT ══ -->
+<div class="panel" id="panel-entrainement">
+  <div class="seance-hdr">
+    <div class="seance-protocol">LEGACY PROTOCOL — SEMAINE 1 — 55% DU 1RM</div>
+    <div class="seance-title-row"><div class="seance-title" id="s-title">SÉANCE A</div><div class="seance-day" id="s-day">LUNDI · GYM</div></div>
+    <div class="seance-desc" id="s-desc">Full Body · Pull dominant · Chaîne postérieure · 45 min</div>
+  </div>
+  <div class="sub-nav">
+    <button class="sub-btn active" onclick="showSeance('a',this)">SÉANCE A</button>
+    <button class="sub-btn" onclick="showSeance('b',this)">SÉANCE B</button>
+    <button class="sub-btn" onclick="showSeance('c',this)">SÉANCE C</button>
+  </div>
+
+  <!-- SÉANCE A -->
+  <div class="sub-panel active" id="sub-a">
+    <div class="warmup"><div class="warmup-label">ÉCHAUFFEMENT — 5 MIN</div><div class="warmup-txt">3 min rameur ou vélo léger · Band pull-apart 2×15 · Rotation thoracique 1 min</div></div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">BLOC 1 — PUSH / PULL</div><div class="bloc-line"></div></div>
+    <div class="ex-card">
+      <div class="ex-thead"><div class="ex-th" style="text-align:left">EXERCICE</div><div class="ex-th">SÉR</div><div class="ex-th">REP</div><div class="ex-th">CIBLE</div><div class="ex-th">RÉEL</div></div>
+      <div class="ex-row"><div><div class="ex-name">Pendlay Row</div><div class="ex-note">Dos plat · dépôt complet · tirage explosif · repos 2 min</div></div><div><input class="ex-editable" type="number" value="4" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="8" min="1" max="30"></div><div class="ex-target">140 lbs</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="a_row"></div></div>
+      <div class="ex-row"><div><div class="ex-name">Landmine Press</div><div class="ex-note">8 reps / côté · ligne diagonale · tronc solide · repos 2 min</div></div><div><input class="ex-editable" type="number" value="4" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="8" min="1" max="30"></div><div class="ex-target">Établir</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="a_landmine"></div></div>
+      <div class="ex-row"><div><div class="ex-name">Neutral Grip Lat Pulldown</div><div class="ex-note">Initie avec omoplates · repos 1:45</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="10" min="1" max="30"></div><div class="ex-target">70 lbs</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="a_pulldown"></div></div>
+    </div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">BLOC 2 — CHAÎNE POSTÉRIEURE</div><div class="bloc-line"></div></div>
+    <div class="ex-card">
+      <div class="ex-thead"><div class="ex-th" style="text-align:left">EXERCICE</div><div class="ex-th">SÉR</div><div class="ex-th">REP</div><div class="ex-th">CIBLE</div><div class="ex-th">RÉEL</div></div>
+      <div class="ex-row"><div><div class="ex-name">Romanian Deadlift</div><div class="ex-note">Dos neutre · charnière pure · ischios en tension · repos 1:45</div></div><div><input class="ex-editable" type="number" value="4" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="10" min="1" max="30"></div><div class="ex-target">155 lbs</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="a_rdl"></div></div>
+      <div class="ex-row"><div><div class="ex-name">Hip Thrust</div><div class="ex-note">Pause 1 sec en haut · fessiers contractés · repos 1:45</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="10" min="1" max="30"></div><div class="ex-target">125 lbs</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="a_hipthrust"></div></div>
+    </div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">BLOC 3 — SANTÉ ÉPAULE</div><div class="bloc-line"></div></div>
+    <div class="ex-card">
+      <div class="ex-thead"><div class="ex-th" style="text-align:left">EXERCICE</div><div class="ex-th">SÉR</div><div class="ex-th">REP</div><div class="ex-th">CIBLE</div><div class="ex-th">RÉEL</div></div>
+      <div class="ex-row"><div><div class="ex-name">Face Pull</div><div class="ex-note">Coudes hauts · contraction arrière · fixe toutes les semaines</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="15" min="1" max="30"></div><div class="ex-target">Léger</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="a_facepull"></div></div>
+      <div class="ex-row"><div><div class="ex-name">Band Pull-Apart</div><div class="ex-note">Contrôle total · élastique · santé scapulaire</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="20" min="1" max="30"></div><div class="ex-target">—</div><div class="ex-input-wrap disabled"><input class="ex-input" placeholder="—" disabled></div></div>
+    </div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label" style="color:var(--orange)">FINISHER ANTI-ARM PUMP</div><div class="bloc-line"></div></div>
+    <div class="finisher-card">
+      <div class="fin-row"><div><div class="fin-name">Dead Hang</div><div class="fin-note">Objectif 60 sec — transfert direct grip moto</div></div><div style="display:flex;align-items:center"><div class="fin-badge">3 × MAX</div><button class="timer-btn" onclick="startTimer(105,'Dead Hang',this)">⏱</button></div></div>
+      <div class="fin-row"><div><div class="fin-name">Farmer Carry</div><div class="fin-note">40 mètres · sans sangles · charge modérée</div></div><div style="display:flex;align-items:center"><div class="fin-badge">3 × 40M</div><button class="timer-btn" onclick="startTimer(105,'Farmer Carry',this)">⏱</button></div></div>
+    </div>
+    <div class="notes-card"><div class="notes-label">NOTES — SÉANCE A</div><textarea class="notes-area" id="notes-a" placeholder="Comment tu te sens ? Charges, sensations, douleurs..."></textarea></div>
+    <button class="save-btn" id="savebtn-a" onclick="saveSeance('a')"><div class="save-btn-label">SÉANCE A COMPLÉTÉE</div></button>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- SÉANCE B -->
+  <div class="sub-panel" id="sub-b">
+    <div class="warmup"><div class="warmup-label">ÉCHAUFFEMENT — 5 MIN</div><div class="warmup-txt">5 min vélo stationnaire résistance légère · Activation fessiers élastique 2×15 · Mobilité hanches 1 min</div></div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">BLOC 1 — JAMBES</div><div class="bloc-line"></div></div>
+    <div class="ex-card">
+      <div class="ex-thead"><div class="ex-th" style="text-align:left">EXERCICE</div><div class="ex-th">SÉR</div><div class="ex-th">REP</div><div class="ex-th">CIBLE</div><div class="ex-th">RÉEL</div></div>
+      <div class="ex-row"><div><div class="ex-name">Leg Press</div><div class="ex-note">Pieds hauts · amplitude 90° max · genou gauche protégé · repos 1:45</div></div><div><input class="ex-editable" type="number" value="4" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="10" min="1" max="30"></div><div class="ex-target">345 lbs</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="b_legpress"></div></div>
+      <div class="ex-row"><div><div class="ex-name">Hip Thrust</div><div class="ex-note">Chaîne post. sans stress genou · pause 1 sec · repos 1:45</div></div><div><input class="ex-editable" type="number" value="4" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="10" min="1" max="30"></div><div class="ex-target">125 lbs</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="b_hipthrust"></div></div>
+    </div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">BLOC 2 — ADDUCTEURS + STABILITÉ GENOU</div><div class="bloc-line"></div></div>
+    <div class="ex-card">
+      <div class="ex-thead"><div class="ex-th" style="text-align:left">EXERCICE</div><div class="ex-th">SÉR</div><div class="ex-th">REP</div><div class="ex-th">CIBLE</div><div class="ex-th">RÉEL</div></div>
+      <div class="ex-row"><div><div class="ex-name">Copenhagen Plank</div><div class="ex-note">Grip bike avec les jambes — transfert direct moto · repos 1:00</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="20" min="1" max="120"></div><div class="ex-target">20 sec</div><div class="ex-input-wrap disabled"><input class="ex-input" placeholder="—" disabled></div></div>
+      <div class="ex-row"><div><div class="ex-name">Banded Lateral Walk</div><div class="ex-note">⚠️ Alt. temporaire Hip Abduction Machine · élastique</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="20" min="1" max="30"></div><div class="ex-target">pas/côté</div><div class="ex-input-wrap disabled"><input class="ex-input" placeholder="—" disabled></div></div>
+    </div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">BLOC 3 — HAUT DU CORPS COMPLÉMENTAIRE</div><div class="bloc-line"></div></div>
+    <div class="ex-card">
+      <div class="ex-thead"><div class="ex-th" style="text-align:left">EXERCICE</div><div class="ex-th">SÉR</div><div class="ex-th">REP</div><div class="ex-th">CIBLE</div><div class="ex-th">RÉEL</div></div>
+      <div class="ex-row"><div><div class="ex-name">Neutral Grip Lat Pulldown</div><div class="ex-note">Omoplates actives · repos 1:45</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="10" min="1" max="30"></div><div class="ex-target">70 lbs</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="b_pulldown"></div></div>
+      <div class="ex-row"><div><div class="ex-name">Lateral Raise</div><div class="ex-note">Lent · strict · stabilité épaule sur le bike</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="12" min="1" max="30"></div><div class="ex-target">Léger</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="b_lateral"></div></div>
+    </div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">BLOC 4 — CORE ANTI-ROTATION</div><div class="bloc-line"></div></div>
+    <div class="ex-card">
+      <div class="ex-thead"><div class="ex-th" style="text-align:left">EXERCICE</div><div class="ex-th">SÉR</div><div class="ex-th">REP</div><div class="ex-th">CIBLE</div><div class="ex-th">RÉEL</div></div>
+      <div class="ex-row"><div><div class="ex-name">Dead Bug</div><div class="ex-note">Bas du dos au sol · respiration contrôlée</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="10" min="1" max="30"></div><div class="ex-target">/ côté</div><div class="ex-input-wrap disabled"><input class="ex-input" placeholder="—" disabled></div></div>
+      <div class="ex-row"><div><div class="ex-name">Plank</div><div class="ex-note">Alignement parfait · gainage profond</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="40" min="1" max="120"></div><div class="ex-target">40 sec</div><div class="ex-input-wrap disabled"><input class="ex-input" placeholder="—" disabled></div></div>
+    </div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label" style="color:var(--orange)">FINISHER ANTI-ARM PUMP</div><div class="bloc-line"></div></div>
+    <div class="finisher-card">
+      <div class="fin-row"><div><div class="fin-name">Dead Hang</div><div class="fin-note">Objectif 60 sec</div></div><div style="display:flex;align-items:center"><div class="fin-badge">3 × MAX</div><button class="timer-btn" onclick="startTimer(105,'Dead Hang',this)">⏱</button></div></div>
+      <div class="fin-row"><div><div class="fin-name">Farmer Carry</div><div class="fin-note">40 mètres · sans sangles</div></div><div style="display:flex;align-items:center"><div class="fin-badge">3 × 40M</div><button class="timer-btn" onclick="startTimer(105,'Farmer Carry',this)">⏱</button></div></div>
+    </div>
+    <div class="notes-card"><div class="notes-label">NOTES — SÉANCE B</div><textarea class="notes-area" id="notes-b" placeholder="Comment tu te sens ? Charges, sensations, douleurs..."></textarea></div>
+    <button class="save-btn" id="savebtn-b" onclick="saveSeance('b')"><div class="save-btn-label">SÉANCE B COMPLÉTÉE</div></button>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- SÉANCE C -->
+  <div class="sub-panel" id="sub-c">
+    <div class="warmup"><div class="warmup-label">ÉCHAUFFEMENT — 5 MIN</div><div class="warmup-txt">3 min vélo Tacx résistance légère · Activation élastique fessiers 15 reps · Rotation hanches + thoracique 1 min · Mobilité chevilles 1 min</div></div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label" style="color:var(--orange)">BLOC ANAÉROBIE TACX — 6 MIN EXACT</div><div class="bloc-line"></div></div>
+    <div class="finisher-card">
+      <div class="fin-row"><div><div class="fin-name">Rounds 1–6</div><div class="fin-note">Montée progressive — 85% effort max</div></div><div class="fin-badge">20s / 10s</div></div>
+      <div class="fin-row"><div><div class="fin-name">Rounds 7–12</div><div class="fin-note">Zone moto — 90–95% effort max</div></div><div class="fin-badge">20s / 10s</div></div>
+      <div class="fin-row"><div><div class="fin-name">Rounds 13–18</div><div class="fin-note">Maintien sous fatigue — 85–90%</div></div><div style="display:flex;align-items:center"><div class="fin-badge">20s / 10s</div><button class="timer-btn" onclick="startTimer(360,'Anaérobie Tacx',this)">⏱</button></div></div>
+    </div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">CIRCUIT TRX + HALTÈRES — 3 ROUNDS</div><div class="bloc-line"></div></div>
+    <div class="ex-card">
+      <div class="ex-thead"><div class="ex-th" style="text-align:left">EXERCICE</div><div class="ex-th">SÉR</div><div class="ex-th">REP</div><div class="ex-th">CIBLE</div><div class="ex-th">RÉEL</div></div>
+      <div class="ex-row"><div><div class="ex-name">TRX Row Explosif</div><div class="ex-note">Force traction guidon · repos 30 sec</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="10" min="1" max="30"></div><div class="ex-target">—</div><div class="ex-input-wrap disabled"><input class="ex-input" placeholder="—" disabled></div></div>
+      <div class="ex-row"><div><div class="ex-name">DB Romanian Deadlift</div><div class="ex-note">Position d'attaque · repos 30 sec</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="12" min="1" max="30"></div><div class="ex-target">Léger</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="c_dbrdl"></div></div>
+      <div class="ex-row"><div><div class="ex-name">Sprawl</div><div class="ex-note">Burpee sans saut · explosivité sans impact genou</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="8" min="1" max="30"></div><div class="ex-target">—</div><div class="ex-input-wrap disabled"><input class="ex-input" placeholder="—" disabled></div></div>
+      <div class="ex-row"><div><div class="ex-name">TRX Plank</div><div class="ex-note">Stabilité core sous fatigue</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="30" min="1" max="120"></div><div class="ex-target">30 sec</div><div class="ex-input-wrap disabled"><input class="ex-input" placeholder="—" disabled></div></div>
+      <div class="ex-row"><div><div class="ex-name">Broad Jump</div><div class="ex-note">Puissance jambes · réception contrôlée · repos 90 sec/round</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="5" min="1" max="30"></div><div class="ex-target">—</div><div class="ex-input-wrap disabled"><input class="ex-input" placeholder="—" disabled></div></div>
+      <div class="ex-row"><div><div class="ex-name">DB Swing</div><div class="ex-note">Chaîne postérieure + cardio</div></div><div><input class="ex-editable" type="number" value="3" min="1" max="9"></div><div><input class="ex-editable-rep" type="number" value="12" min="1" max="30"></div><div class="ex-target">Léger</div><div class="ex-input-wrap"><input class="ex-input" type="number" placeholder="—" data-key="c_swing"></div></div>
+    </div>
+    <div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label" style="color:var(--orange)">FINISHER GRIP</div><div class="bloc-line"></div></div>
+    <div class="finisher-card">
+      <div class="fin-row"><div><div class="fin-name">Dead Hang TRX</div><div class="fin-note">Endurance isométrique guidon</div></div><div class="fin-badge">3 × MAX</div></div>
+      <div class="fin-row"><div><div class="fin-name">Wrist Curl DB léger</div><div class="fin-note">Endurance avant-bras</div></div><div class="fin-badge">3 × 20</div></div>
+    </div>
+    <div class="notes-card"><div class="notes-label">NOTES — SÉANCE C</div><textarea class="notes-area" id="notes-c" placeholder="Avant-bras, cardio, sensations sur le bike ce weekend..."></textarea></div>
+    <button class="save-btn" id="savebtn-c" onclick="saveSeance('c')"><div class="save-btn-label">SÉANCE C COMPLÉTÉE</div></button>
+    <div class="spacer"></div>
+  </div>
+</div>
+
+<!-- ══ NUTRITION ══ -->
+<div class="panel" id="panel-nutrition">
+  <div class="nutri-goals">
+    <div class="nutri-goal-cell"><div class="nutri-goal-n">2400</div><div class="nutri-goal-l">cal repos</div></div>
+    <div class="nutri-goal-cell"><div class="nutri-goal-n">2550</div><div class="nutri-goal-l">cal entraîn.</div></div>
+    <div class="nutri-goal-cell"><div class="nutri-goal-n">190g</div><div class="nutri-goal-l">protéines</div></div>
+    <div class="nutri-goal-cell"><div class="nutri-goal-n">3L+</div><div class="nutri-goal-l">eau / jour</div></div>
+  </div>
+  <div class="sub-nav" style="margin-top:14px">
+    <button class="sub-btn active" onclick="showNutri('dim',this)">DIM · BATCH 1</button>
+    <button class="sub-btn" onclick="showNutri('lun',this)">LUNDI</button>
+    <button class="sub-btn" onclick="showNutri('mar',this)">MARDI</button>
+    <button class="sub-btn" onclick="showNutri('mer',this)">MER · BATCH 2</button>
+    <button class="sub-btn" onclick="showNutri('jeu',this)">JEUDI</button>
+    <button class="sub-btn" onclick="showNutri('ven',this)">VENDREDI</button>
+    <button class="sub-btn" onclick="showNutri('sam',this)">SAMEDI</button>
+    <button class="sub-btn" onclick="showNutri('epic',this)">ÉPICERIE</button>
+    <button class="sub-btn" onclick="showNutri('regles',this)">RÈGLES</button>
+  </div>
+
+  <!-- DIMANCHE -->
+  <div class="sub-panel active" id="nutri-dim">
+    <div class="card">
+      <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">Dimanche — Batch 1</div><div class="cbadge">PRÉPARATION</div></div>
+      <div style="padding:12px 16px;background:rgba(200,90,0,0.06);border-bottom:1px solid var(--br)"><div style="font-size:12px;color:var(--txt2);line-height:1.7">Journée de préparation. Batch cooking pour lundi, mardi et mercredi. Repas de la journée = libre dans les cibles.</div></div>
+      <div style="padding:11px 16px;border-bottom:1px solid var(--br);background:var(--card2)"><div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;margin-bottom:2px">Batch cooking dimanche — 1h à 1h30 max</div><div style="font-size:11px;color:var(--txt3)">Préparation lundi, mardi, mercredi · Tout cuire en parallèle — four + chaudron</div></div>
+      <div class="batch-step"><div class="batch-num">1</div><div><div class="batch-title">Poulet en cubes — four 20–22 min</div><div class="batch-detail">1.5 kg poitrine de poulet. Couper en cubes, huile d'olive, sel, poivre, ail en poudre. Four à 400°F. Divise en 3 contenants de 200g.</div></div></div>
+      <div class="batch-step"><div class="batch-num">2</div><div><div class="batch-title">Riz blanc — chaudron 20 min</div><div class="batch-detail">600g riz sec = environ 1.8 kg cuit. Cuire pendant que le poulet est au four. Divise en 3 portions de 200g cuit.</div></div></div>
+      <div class="batch-step"><div class="batch-num">3</div><div><div class="batch-title">Légumes rôtis — même plaque que le poulet</div><div class="batch-detail">Brocoli + poivrons + zucchini. Huile d'olive, sel. Divise en 3 portions égales.</div></div></div>
+      <div class="batch-step"><div class="batch-num">4</div><div><div class="batch-title">12 oeufs durs — pour les déjeuners</div><div class="batch-detail">10 min dans l'eau bouillante. Réfrigère entiers avec coquille. Se gardent 7 jours.</div></div></div>
+      <div class="batch-step"><div class="batch-num">5</div><div><div class="batch-title">3 patates douces — four 25 min</div><div class="batch-detail">Couper en cubes, four à 400°F. Divise en 3 portions. Optionnel pour varier avec le riz.</div></div></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><div class="cdot" style="background:var(--ol)"></div><div class="ctitle">Repas du dimanche</div><div class="cbadge">LIBRE</div></div>
+      <div class="meal-row"><div class="meal-time">9h00</div><div class="meal-body"><div class="meal-name">Déjeuner</div><div class="meal-detail">4 oeufs entiers + 2 blancs brouillés · 1 tasse avoine + fruits · café noir</div><div class="meal-macros"><span class="macro-pill prot">40g prot</span><span class="macro-pill">60g gluc</span><span class="macro-pill">15g lip</span></div></div><div class="meal-cal">530</div></div>
+      <div class="meal-row"><div class="meal-time">12h00</div><div class="meal-body"><div class="meal-name">Dîner — repas libre</div><div class="meal-detail">Restaurant ou maison. Vise 40g+ de protéines. Évite les produits laitiers. C'est ici ou samedi que tu prends ton repas libre — pas les deux.</div></div><div class="meal-cal" style="color:var(--txt3)">Libre</div></div>
+      <div class="meal-row"><div class="meal-time">15h30</div><div class="meal-body"><div class="meal-name">Collation</div><div class="meal-detail">2 oeufs durs + 30g noix + 1 pomme</div><div class="meal-macros"><span class="macro-pill prot">18g prot</span><span class="macro-pill">20g gluc</span><span class="macro-pill">18g lip</span></div></div><div class="meal-cal">310</div></div>
+      <div class="meal-row"><div class="meal-time">18h30</div><div class="meal-body"><div class="meal-name">Souper</div><div class="meal-detail">200g saumon poêlé (5 min/côté) · 1 patate douce · brocoli · huile d'olive</div><div class="meal-macros"><span class="macro-pill prot">45g prot</span><span class="macro-pill">35g gluc</span><span class="macro-pill">25g lip</span></div></div><div class="meal-cal">560</div></div>
+      <div class="meal-row"><div class="meal-time">20h30</div><div class="meal-body"><div class="meal-name">Collation soir — optionnel</div><div class="meal-detail">1 scoop protéine sans lactose + lait d'amande non sucré. Seulement si la faim est réelle.</div><div class="meal-macros"><span class="macro-pill prot">25g prot</span></div></div><div class="meal-cal">150</div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- LUNDI -->
+  <div class="sub-panel" id="nutri-lun">
+    <div class="card">
+      <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">Lundi — Jour de travail</div><div class="cbadge">2 400 CAL</div></div>
+      <div style="padding:10px 16px;background:rgba(200,90,0,0.06);border-bottom:1px solid var(--br)"><div style="font-size:11px;color:var(--txt2);line-height:1.6">Journée de travail. Pas d'entraînement. Cible : 2 400 cal. Repas du batch dimanche — tout est déjà prêt.</div></div>
+      <div class="meal-row"><div class="meal-time">9h00</div><div class="meal-body"><div class="meal-name">Déjeuner rapide — 5 min</div><div class="meal-detail">3 oeufs durs (batch) · 1 tasse avoine instantanée + banane · café noir</div><div class="meal-macros"><span class="macro-pill prot">35g prot</span><span class="macro-pill">65g gluc</span><span class="macro-pill">15g lip</span></div></div><div class="meal-cal">530</div></div>
+      <div class="meal-row"><div class="meal-time">12h00</div><div class="meal-body"><div class="meal-name">Lunch chantier</div><div class="meal-detail">200g poulet (batch) + 200g riz (batch) + légumes rôtis (batch) · micro-ondes sur le chantier</div><div class="meal-macros"><span class="macro-pill prot">50g prot</span><span class="macro-pill">60g gluc</span><span class="macro-pill">10g lip</span></div></div><div class="meal-cal">530</div></div>
+      <div class="meal-row"><div class="meal-time">15h30</div><div class="meal-body"><div class="meal-name">Collation chantier</div><div class="meal-detail">2 oeufs durs + 1 banane + 30g noix de cajou</div><div class="meal-macros"><span class="macro-pill prot">20g prot</span><span class="macro-pill">30g gluc</span><span class="macro-pill">18g lip</span></div></div><div class="meal-cal">360</div></div>
+      <div class="meal-row"><div class="meal-time">18h30</div><div class="meal-body"><div class="meal-name">Souper — 10 min</div><div class="meal-detail">200g boeuf haché 85% poêlé · patate douce (batch réchauffée) · épinards + huile d'olive</div><div class="meal-macros"><span class="macro-pill prot">45g prot</span><span class="macro-pill">35g gluc</span><span class="macro-pill">28g lip</span></div></div><div class="meal-cal">560</div></div>
+      <div class="meal-row"><div class="meal-time">20h30</div><div class="meal-body"><div class="meal-name">Collation soir — optionnel</div><div class="meal-detail">1 scoop protéine sans lactose + 1 c. soupe beurre d'amande + lait d'amande. Seulement si faim réelle.</div><div class="meal-macros"><span class="macro-pill prot">30g prot</span></div></div><div class="meal-cal">250</div></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,0,0,0.07)">
+        <div class="day-total-cell"><div class="day-total-n">2400</div><div class="day-total-l">cal</div></div>
+        <div class="day-total-cell"><div class="day-total-n">190g</div><div class="day-total-l">protéines</div></div>
+        <div class="day-total-cell"><div class="day-total-n">210g</div><div class="day-total-l">glucides</div></div>
+        <div class="day-total-cell"><div class="day-total-n">75g</div><div class="day-total-l">lipides</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- MARDI -->
+  <div class="sub-panel" id="nutri-mar">
+    <div class="card">
+      <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">Mardi — Entraînement soir</div><div class="cbadge">2 550 CAL</div></div>
+      <div style="padding:10px 16px;background:rgba(200,90,0,0.06);border-bottom:1px solid var(--br)"><div style="font-size:11px;color:var(--txt2);line-height:1.6">Journée de travail + entraînement le soir. Cible : 2 550 cal. La collation de 15h30 est ton carburant pour l'entraînement.</div></div>
+      <div class="meal-row"><div class="meal-time">9h00</div><div class="meal-body"><div class="meal-name">Déjeuner rapide — 5 min</div><div class="meal-detail">3 oeufs durs (batch) · 1 tasse avoine instantanée + baies · café noir</div><div class="meal-macros"><span class="macro-pill prot">35g prot</span><span class="macro-pill">65g gluc</span><span class="macro-pill">15g lip</span></div></div><div class="meal-cal">530</div></div>
+      <div class="meal-row"><div class="meal-time">12h00</div><div class="meal-body"><div class="meal-name">Lunch chantier</div><div class="meal-detail">200g poulet (batch) + 200g riz (batch) + légumes rôtis (batch) · micro-ondes</div><div class="meal-macros"><span class="macro-pill prot">50g prot</span><span class="macro-pill">60g gluc</span><span class="macro-pill">10g lip</span></div></div><div class="meal-cal">530</div></div>
+      <div class="meal-row"><div class="meal-time">15h30</div><div class="meal-body"><div class="meal-name">Collation pré-workout</div><div class="meal-detail">1 scoop protéine sans lactose + 1 banane · rapide, digère bien avant l'entraînement</div><div class="meal-macros"><span class="macro-pill prot">30g prot</span><span class="macro-pill">30g gluc</span></div></div><div class="meal-cal">270</div></div>
+      <div class="meal-row"><div class="meal-time">18h30</div><div class="meal-body"><div class="meal-name">Souper — post-workout</div><div class="meal-detail">200g saumon poêlé (5 min/côté) · 150g riz (batch réchauffé) · épinards + huile d'olive</div><div class="meal-macros"><span class="macro-pill prot">45g prot</span><span class="macro-pill">40g gluc</span><span class="macro-pill">22g lip</span></div></div><div class="meal-cal">540</div></div>
+      <div class="meal-row"><div class="meal-time">20h30</div><div class="meal-body"><div class="meal-name">Collation soir — optionnel</div><div class="meal-detail">1 scoop protéine + lait d'amande + beurre d'amande. Seulement si faim réelle après l'entraînement.</div><div class="meal-macros"><span class="macro-pill prot">30g prot</span></div></div><div class="meal-cal">240</div></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,0,0,0.07)">
+        <div class="day-total-cell"><div class="day-total-n">2550</div><div class="day-total-l">cal</div></div>
+        <div class="day-total-cell"><div class="day-total-n">190g</div><div class="day-total-l">protéines</div></div>
+        <div class="day-total-cell"><div class="day-total-n">230g</div><div class="day-total-l">glucides</div></div>
+        <div class="day-total-cell"><div class="day-total-n">80g</div><div class="day-total-l">lipides</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- MERCREDI BATCH 2 -->
+  <div class="sub-panel" id="nutri-mer">
+    <div class="card">
+      <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">Mercredi — Batch 2 ce soir</div><div class="cbadge">2 400 CAL</div></div>
+      <div style="padding:10px 16px;background:rgba(200,90,0,0.06);border-bottom:1px solid var(--br)"><div style="font-size:11px;color:var(--txt2);line-height:1.6">Journée de travail. Pas d'entraînement. Ce soir = Batch cooking 2 pour jeudi, vendredi, samedi.</div></div>
+      <div class="meal-row"><div class="meal-time">9h00</div><div class="meal-body"><div class="meal-name">Déjeuner rapide</div><div class="meal-detail">3 oeufs durs (batch dimanche — dernier jour) · avoine + banane · café</div><div class="meal-macros"><span class="macro-pill prot">35g prot</span><span class="macro-pill">65g gluc</span><span class="macro-pill">15g lip</span></div></div><div class="meal-cal">530</div></div>
+      <div class="meal-row"><div class="meal-time">12h00</div><div class="meal-body"><div class="meal-name">Lunch chantier</div><div class="meal-detail">200g poulet (batch dimanche) + riz + légumes · micro-ondes</div><div class="meal-macros"><span class="macro-pill prot">50g prot</span><span class="macro-pill">60g gluc</span><span class="macro-pill">10g lip</span></div></div><div class="meal-cal">530</div></div>
+      <div class="meal-row"><div class="meal-time">15h30</div><div class="meal-body"><div class="meal-name">Collation chantier</div><div class="meal-detail">Shake protéiné en bouteille + 1 pomme</div><div class="meal-macros"><span class="macro-pill prot">25g prot</span><span class="macro-pill">25g gluc</span></div></div><div class="meal-cal">260</div></div>
+      <div class="meal-row"><div class="meal-time">18h30</div><div class="meal-body"><div class="meal-name">Souper rapide avant batch</div><div class="meal-detail">2 boîtes thon dans l'eau + 1 avocat + légumes crus + huile d'olive · zéro cuisson</div><div class="meal-macros"><span class="macro-pill prot">50g prot</span><span class="macro-pill">15g gluc</span><span class="macro-pill">22g lip</span></div></div><div class="meal-cal">470</div></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><div class="cdot" style="background:var(--ol)"></div><div class="ctitle">Batch cooking mercredi soir — 1h max</div></div>
+      <div style="padding:10px 16px;background:rgba(200,90,0,0.06);border-bottom:1px solid var(--br)"><div style="font-size:11px;color:var(--txt2)">Préparation jeudi, vendredi, samedi · Après le souper. Four + poêle en parallèle.</div></div>
+      <div class="batch-step"><div class="batch-num">1</div><div><div class="batch-title">Boeuf haché 85% — poêle 15 min</div><div class="batch-detail">1.2 kg boeuf haché. Poêle chaude, cuire en séparant. Sel, poivre, ail. Divise en 3 portions de 200g.</div></div></div>
+      <div class="batch-step"><div class="batch-num">2</div><div><div class="batch-title">Riz blanc — chaudron 20 min</div><div class="batch-detail">600g riz sec. Cuire pendant que le boeuf est dans la poêle. Divise en 3 portions de 200g cuit.</div></div></div>
+      <div class="batch-step"><div class="batch-num">3</div><div><div class="batch-title">Patates douces — micro-ondes 5–7 min chacune</div><div class="batch-detail">3 patates douces moyennes. Ou four à 400°F, 35 min. Divise en 3 portions.</div></div></div>
+      <div class="batch-step"><div class="batch-num">4</div><div><div class="batch-title">12 nouveaux oeufs durs</div><div class="batch-detail">Pour les déjeuners de jeudi, vendredi, samedi. 10 min dans l'eau bouillante.</div></div></div>
+      <div class="batch-step"><div class="batch-num">5</div><div><div class="batch-title">3 collations soir préportionnées</div><div class="batch-detail">3 petits contenants : 30g noix + 2 oeufs durs chacun. Sortir du frigo à 20h30 sans réfléchir.</div></div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- JEUDI -->
+  <div class="sub-panel" id="nutri-jeu">
+    <div class="card">
+      <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">Jeudi — Entraînement soir</div><div class="cbadge">2 550 CAL</div></div>
+      <div style="padding:10px 16px;background:rgba(200,90,0,0.06);border-bottom:1px solid var(--br)"><div style="font-size:11px;color:var(--txt2);line-height:1.6">Journée de travail + entraînement le soir. Cible : 2 550 cal. Repas du batch mercredi.</div></div>
+      <div class="meal-row"><div class="meal-time">9h00</div><div class="meal-body"><div class="meal-name">Déjeuner rapide</div><div class="meal-detail">3 oeufs durs (batch mercredi) · avoine + baies · café noir</div><div class="meal-macros"><span class="macro-pill prot">35g prot</span><span class="macro-pill">65g gluc</span><span class="macro-pill">15g lip</span></div></div><div class="meal-cal">530</div></div>
+      <div class="meal-row"><div class="meal-time">12h00</div><div class="meal-body"><div class="meal-name">Lunch chantier</div><div class="meal-detail">200g boeuf haché (batch) + 200g riz (batch) + patate douce (batch) · micro-ondes</div><div class="meal-macros"><span class="macro-pill prot">48g prot</span><span class="macro-pill">65g gluc</span><span class="macro-pill">18g lip</span></div></div><div class="meal-cal">620</div></div>
+      <div class="meal-row"><div class="meal-time">15h30</div><div class="meal-body"><div class="meal-name">Collation pré-workout</div><div class="meal-detail">1 scoop protéine + 1 banane · contenant préparé du batch mercredi</div><div class="meal-macros"><span class="macro-pill prot">30g prot</span><span class="macro-pill">30g gluc</span></div></div><div class="meal-cal">270</div></div>
+      <div class="meal-row"><div class="meal-time">18h30</div><div class="meal-body"><div class="meal-name">Souper — post-workout</div><div class="meal-detail">200g saumon poêlé · légumes crus + avocat + huile d'olive · sans glucides lourds ce soir</div><div class="meal-macros"><span class="macro-pill prot">45g prot</span><span class="macro-pill">15g gluc</span><span class="macro-pill">28g lip</span></div></div><div class="meal-cal">500</div></div>
+      <div class="meal-row"><div class="meal-time">20h30</div><div class="meal-body"><div class="meal-name">Collation soir — optionnel</div><div class="meal-detail">Contenant préparé (batch mercredi) : 2 oeufs durs + 30g noix. Zéro préparation.</div><div class="meal-macros"><span class="macro-pill prot">18g prot</span><span class="macro-pill">20g lip</span></div></div><div class="meal-cal">280</div></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,0,0,0.07)">
+        <div class="day-total-cell"><div class="day-total-n">2550</div><div class="day-total-l">cal</div></div>
+        <div class="day-total-cell"><div class="day-total-n">190g</div><div class="day-total-l">protéines</div></div>
+        <div class="day-total-cell"><div class="day-total-n">230g</div><div class="day-total-l">glucides</div></div>
+        <div class="day-total-cell"><div class="day-total-n">80g</div><div class="day-total-l">lipides</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- VENDREDI -->
+  <div class="sub-panel" id="nutri-ven">
+    <div class="card">
+      <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">Vendredi — Jour de travail</div><div class="cbadge">2 400 CAL</div></div>
+      <div style="padding:10px 16px;background:rgba(200,90,0,0.06);border-bottom:1px solid var(--br)"><div style="font-size:11px;color:var(--txt2);line-height:1.6">Journée de travail. Pas d'entraînement. Cible : 2 400 cal. Repas du batch mercredi.</div></div>
+      <div class="meal-row"><div class="meal-time">9h00</div><div class="meal-body"><div class="meal-name">Déjeuner rapide</div><div class="meal-detail">3 oeufs durs (batch) · avoine instantanée + banane · café</div><div class="meal-macros"><span class="macro-pill prot">35g prot</span><span class="macro-pill">65g gluc</span><span class="macro-pill">15g lip</span></div></div><div class="meal-cal">530</div></div>
+      <div class="meal-row"><div class="meal-time">12h00</div><div class="meal-body"><div class="meal-name">Lunch chantier</div><div class="meal-detail">200g boeuf haché (batch) + riz (batch) + légumes · micro-ondes</div><div class="meal-macros"><span class="macro-pill prot">48g prot</span><span class="macro-pill">60g gluc</span><span class="macro-pill">18g lip</span></div></div><div class="meal-cal">590</div></div>
+      <div class="meal-row"><div class="meal-time">15h30</div><div class="meal-body"><div class="meal-name">Collation chantier</div><div class="meal-detail">2 oeufs durs + 30g noix (contenant préparé du batch)</div><div class="meal-macros"><span class="macro-pill prot">18g prot</span><span class="macro-pill">20g lip</span></div></div><div class="meal-cal">280</div></div>
+      <div class="meal-row"><div class="meal-time">18h30</div><div class="meal-body"><div class="meal-name">Souper vendredi soir</div><div class="meal-detail">2 boîtes thon + avocat + légumes crus + huile d'olive · ou repas dans les cibles si tu sors</div><div class="meal-macros"><span class="macro-pill prot">50g prot</span><span class="macro-pill">15g gluc</span><span class="macro-pill">22g lip</span></div></div><div class="meal-cal">470</div></div>
+      <div class="meal-row"><div class="meal-time">20h30</div><div class="meal-body"><div class="meal-name">Collation soir — optionnel</div><div class="meal-detail">1 scoop protéine + lait d'amande. Seulement si faim réelle.</div><div class="meal-macros"><span class="macro-pill prot">25g prot</span></div></div><div class="meal-cal">150</div></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,0,0,0.07)">
+        <div class="day-total-cell"><div class="day-total-n">2400</div><div class="day-total-l">cal</div></div>
+        <div class="day-total-cell"><div class="day-total-n">190g</div><div class="day-total-l">protéines</div></div>
+        <div class="day-total-cell"><div class="day-total-n">210g</div><div class="day-total-l">glucides</div></div>
+        <div class="day-total-cell"><div class="day-total-n">75g</div><div class="day-total-l">lipides</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- SAMEDI -->
+  <div class="sub-panel" id="nutri-sam">
+    <div class="card">
+      <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">Samedi — Entraînement soir</div><div class="cbadge">2 550 CAL</div></div>
+      <div style="padding:10px 16px;background:rgba(200,90,0,0.06);border-bottom:1px solid var(--br)"><div style="font-size:11px;color:var(--txt2);line-height:1.6">Pas de travail + entraînement soir. Cible : 2 550 cal. Journée plus libre — dernier repas du batch mercredi. Après le souper — prépare ta liste d'épicerie.</div></div>
+      <div class="meal-row"><div class="meal-time">9h00</div><div class="meal-body"><div class="meal-name">Déjeuner — plus de temps</div><div class="meal-detail">4 oeufs brouillés + 2 blancs · 1 tasse avoine + baies + beurre d'amande · café</div><div class="meal-macros"><span class="macro-pill prot">45g prot</span><span class="macro-pill">70g gluc</span><span class="macro-pill">20g lip</span></div></div><div class="meal-cal">640</div></div>
+      <div class="meal-row"><div class="meal-time">12h00</div><div class="meal-body"><div class="meal-name">Dîner — repas libre dans les cibles</div><div class="meal-detail">Resto ou maison. Vise 40g+ protéines. C'est ici ou dimanche que tu prends ton repas libre — pas les deux.</div></div><div class="meal-cal" style="color:var(--txt3)">Libre</div></div>
+      <div class="meal-row"><div class="meal-time">15h30</div><div class="meal-body"><div class="meal-name">Collation pré-workout</div><div class="meal-detail">1 scoop protéine + 1 banane</div><div class="meal-macros"><span class="macro-pill prot">30g prot</span><span class="macro-pill">30g gluc</span></div></div><div class="meal-cal">270</div></div>
+      <div class="meal-row"><div class="meal-time">18h30</div><div class="meal-body"><div class="meal-name">Souper — post-workout</div><div class="meal-detail">200g boeuf haché (batch mercredi) + patate douce (batch) + épinards + huile d'olive</div><div class="meal-macros"><span class="macro-pill prot">45g prot</span><span class="macro-pill">40g gluc</span><span class="macro-pill">22g lip</span></div></div><div class="meal-cal">540</div></div>
+      <div class="meal-row"><div class="meal-time">20h30</div><div class="meal-body"><div class="meal-name">Collation soir — optionnel</div><div class="meal-detail">1 scoop protéine + lait d'amande + beurre d'amande</div><div class="meal-macros"><span class="macro-pill prot">30g prot</span></div></div><div class="meal-cal">240</div></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,0,0,0.07)">
+        <div class="day-total-cell"><div class="day-total-n">2550</div><div class="day-total-l">cal</div></div>
+        <div class="day-total-cell"><div class="day-total-n">190g</div><div class="day-total-l">protéines</div></div>
+        <div class="day-total-cell"><div class="day-total-n">230g</div><div class="day-total-l">glucides</div></div>
+        <div class="day-total-cell"><div class="day-total-n">80g</div><div class="day-total-l">lipides</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- ÉPICERIE -->
+  <div class="sub-panel" id="nutri-epic">
+    <div class="card">
+      <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">Liste d'épicerie — semaine complète</div></div>
+      <div style="padding:10px 16px;background:rgba(200,90,0,0.06);border-bottom:1px solid var(--br)"><div style="font-size:11px;color:var(--txt2)">Acheter le dimanche matin avant le batch cooking.</div></div>
+      <div class="epic-section">
+        <div class="epic-cat">PROTÉINES</div>
+        <div class="epic-item"><div class="epic-name">Poitrine de poulet</div><div class="epic-qty">1.5 kg</div></div>
+        <div class="epic-item"><div class="epic-name">Boeuf haché 85%</div><div class="epic-qty">1.5 kg</div></div>
+        <div class="epic-item"><div class="epic-name">Saumon — filets</div><div class="epic-qty">600g (3 filets)</div></div>
+        <div class="epic-item"><div class="epic-name">Oeufs</div><div class="epic-qty">2 douzaines</div></div>
+        <div class="epic-item"><div class="epic-name">Thon en conserve dans l'eau</div><div class="epic-qty">6 boîtes</div></div>
+        <div class="epic-item"><div class="epic-name">Protéine en poudre sans lactose</div><div class="epic-qty">~10 scoops</div></div>
+      </div>
+      <div class="epic-section">
+        <div class="epic-cat">GLUCIDES</div>
+        <div class="epic-item"><div class="epic-name">Riz blanc</div><div class="epic-qty">1.5 kg</div></div>
+        <div class="epic-item"><div class="epic-name">Patates douces</div><div class="epic-qty">6 moyennes</div></div>
+        <div class="epic-item"><div class="epic-name">Avoine à cuisson rapide</div><div class="epic-qty">1 kg</div></div>
+        <div class="epic-item"><div class="epic-name">Bananes</div><div class="epic-qty">8–10</div></div>
+        <div class="epic-item"><div class="epic-name">Baies congelées</div><div class="epic-qty">1 sac 600g</div></div>
+        <div class="epic-item"><div class="epic-name">Pommes</div><div class="epic-qty">4–5</div></div>
+      </div>
+      <div class="epic-section">
+        <div class="epic-cat">LÉGUMES</div>
+        <div class="epic-item"><div class="epic-name">Brocoli</div><div class="epic-qty">2 têtes</div></div>
+        <div class="epic-item"><div class="epic-name">Poivrons mixtes</div><div class="epic-qty">4</div></div>
+        <div class="epic-item"><div class="epic-name">Zucchini</div><div class="epic-qty">2</div></div>
+        <div class="epic-item"><div class="epic-name">Épinards en sac</div><div class="epic-qty">300g</div></div>
+        <div class="epic-item"><div class="epic-name">Légumes crus — carottes, céleri</div><div class="epic-qty">1 sac</div></div>
+      </div>
+      <div class="epic-section">
+        <div class="epic-cat">LIPIDES &amp; CONDIMENTS</div>
+        <div class="epic-item"><div class="epic-name">Avocats</div><div class="epic-qty">4–5</div></div>
+        <div class="epic-item"><div class="epic-name">Noix mixtes ou cajou</div><div class="epic-qty">400g</div></div>
+        <div class="epic-item"><div class="epic-name">Beurre d'amande sans sucre ajouté</div><div class="epic-qty">1 pot</div></div>
+        <div class="epic-item"><div class="epic-name">Huile d'olive</div><div class="epic-qty">1 bouteille</div></div>
+        <div class="epic-item"><div class="epic-name">Lait d'amande non sucré</div><div class="epic-qty">2 litres</div></div>
+        <div class="epic-item"><div class="epic-name">Sel, poivre, ail en poudre</div><div class="epic-qty">si manque</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- RÈGLES -->
+  <div class="sub-panel" id="nutri-regles">
+    <div class="card">
+      <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">5 règles non-négociables</div></div>
+      <div style="padding:10px 16px;background:rgba(200,90,0,0.06);border-bottom:1px solid var(--br)"><div style="font-size:11px;color:var(--txt2)">Simples. Pas de restriction. Structure seulement.</div></div>
+      <div class="rule-row"><div class="rule-num">1</div><div><div class="rule-title">Protéine en premier à chaque repas</div><div class="rule-detail">Ouvre le contenant, mange la protéine avant le reste. Le volume total se régule naturellement ensuite.</div></div></div>
+      <div class="rule-row"><div class="rule-num">2</div><div><div class="rule-title">La collation de 20h30 est planifiée — toujours</div><div class="rule-detail">Elle est dans le frigo. Préparée à l'avance. Zéro décision quand tu es fatigué. Si tu n'as pas faim, tu la sautes.</div></div></div>
+      <div class="rule-row"><div class="rule-num">3</div><div><div class="rule-title">Un repas libre par semaine — samedi ou dimanche</div><div class="rule-detail">Pas les deux. Mange ce que tu veux. Vise 40g+ de protéines quand même.</div></div></div>
+      <div class="rule-row"><div class="rule-num">4</div><div><div class="rule-title">Les 30 premiers jours — tu pèses et tu notes</div><div class="rule-detail">Après 30 jours, tu connais tes portions à l'oeil. Plus besoin de peser chaque gramme.</div></div></div>
+      <div class="rule-row"><div class="rule-num">5</div><div><div class="rule-title">Eau — minimum 3 litres par jour</div><div class="rule-detail">Construction + entraînement + recomposition. Une bouteille de 1L à remplir 3 fois dans la journée.</div></div></div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="card-hdr"><div class="cdot" style="background:var(--ol)"></div><div class="ctitle">Intolérance &amp; Suppléments</div></div>
+      <div style="padding:0 16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--br)"><div style="font-size:13px;font-weight:500;color:var(--txt)">Produits laitiers</div><div style="font-size:11px;color:var(--red);font-weight:700;letter-spacing:1px">ÉVITER</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--br)"><div style="font-size:13px;font-weight:500;color:var(--txt)">Protéine en poudre</div><div style="font-size:11px;color:var(--txt2)">Sans lactose obligatoire</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--br)"><div style="font-size:13px;font-weight:500;color:var(--txt)">Green · Multi · Omega-3 · D3 · Magnésium</div><div style="font-size:11px;color:var(--green);font-weight:700;letter-spacing:1px">QUOTIDIEN</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0"><div style="font-size:13px;font-weight:500;color:var(--txt)">Créatine (période riding actif)</div><div style="font-size:11px;color:var(--red);font-weight:700;letter-spacing:1px">SUSPENDRE</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+</div>
+
+<!-- ══ CHECK-IN ══ -->
+<div class="panel" id="panel-checkin">
+  <div class="sdiv"><div class="sdiv-line"></div><div class="sdiv-txt">CHECK-IN HEBDOMADAIRE</div><div class="sdiv-line"></div></div>
+  <div class="checkin-form">
+    <div class="ci-row"><div class="ci-top"><div><div class="ci-label">Poids corporel</div><div class="ci-sub">En livres (lbs)</div></div><input class="ci-input" type="number" id="ci-poids" placeholder="215" step="0.5"></div></div>
+    <div class="ci-row"><div class="ci-top"><div><div class="ci-label">Niveau d'énergie</div><div class="ci-sub">1 = vide · 10 = optimal</div></div><div class="ci-val" id="ci-energie-val">5</div></div><input class="ci-slider" type="range" min="1" max="10" value="5" id="ci-energie" oninput="document.getElementById('ci-energie-val').textContent=this.value"></div>
+    <div class="ci-row"><div class="ci-top"><div><div class="ci-label">Qualité du sommeil</div><div class="ci-sub">1 = très mauvais · 10 = excellent</div></div><div class="ci-val" id="ci-sommeil-val">5</div></div><input class="ci-slider" type="range" min="1" max="10" value="5" id="ci-sommeil" oninput="document.getElementById('ci-sommeil-val').textContent=this.value"></div>
+    <div class="ci-row"><div class="ci-top"><div><div class="ci-label">Niveau de stress</div><div class="ci-sub">1 = calme · 10 = très élevé</div></div><div class="ci-val" id="ci-stress-val">5</div></div><input class="ci-slider" type="range" min="1" max="10" value="5" id="ci-stress" oninput="document.getElementById('ci-stress-val').textContent=this.value"></div>
+    <div class="ci-row"><div class="ci-label" style="margin-bottom:8px">Note de la semaine</div><textarea class="notes-area" id="ci-note" placeholder="Comment s'est passée cette semaine ?" style="height:70px;margin-top:0"></textarea></div>
+  </div>
+  <div class="sdiv"><div class="sdiv-line"></div><div class="sdiv-txt">PHOTOS DE PROGRESSION</div><div class="sdiv-line"></div></div>
+  <div class="photo-grid">
+    <div class="photo-slot" onclick="triggerPhoto('face')"><div class="photo-slot-plus">+</div><div class="photo-slot-label">FACE</div><img id="photo-face" alt=""></div>
+    <div class="photo-slot" onclick="triggerPhoto('profil')"><div class="photo-slot-plus">+</div><div class="photo-slot-label">PROFIL</div><img id="photo-profil" alt=""></div>
+    <div class="photo-slot" onclick="triggerPhoto('dos')"><div class="photo-slot-plus">+</div><div class="photo-slot-label">DOS</div><img id="photo-dos" alt=""></div>
+  </div>
+  <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="handlePhoto(event)">
+  <div style="margin:8px 14px 0;font-size:10px;color:var(--txt3);text-align:center;line-height:1.7">Même éclairage · même position · chaque semaine</div>
+  <button class="save-btn" id="savebtn-checkin" onclick="saveCheckin()"><div class="save-btn-label">SAUVEGARDER LE CHECK-IN</div></button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ══ PROGRESSION ══ -->
+<div class="panel" id="panel-progression">
+  <div class="stats-row" style="margin-top:14px">
+    <div class="stat-cell"><div class="stat-n">215</div><div class="stat-l">lbs départ</div></div>
+    <div class="stat-cell"><div class="stat-n" id="prog-actuel">—</div><div class="stat-l">lbs actuel</div></div>
+    <div class="stat-cell"><div class="stat-n green" id="prog-diff">—</div><div class="stat-l">lbs perdus</div></div>
+  </div>
+  <div class="prog-chart-card">
+    <div class="prog-chart-hdr"><div class="prog-chart-title">Poids corporel — lbs</div><div class="prog-chart-badge" id="prog-trend"></div></div>
+    <div class="prog-chart-body"><div style="position:relative;height:160px"><canvas id="weightChart"></canvas></div></div>
+  </div>
+  <div class="prog-chart-card">
+    <div class="prog-chart-hdr"><div class="prog-chart-title">Progression des charges</div></div>
+    <div class="prog-chart-body">
+      <div class="prog-legend">
+        <div class="prog-leg-item"><div class="prog-leg-dot" style="background:#C85A00"></div>Pendlay Row</div>
+        <div class="prog-leg-item"><div class="prog-leg-dot" style="background:#1C1C1C"></div>RDL</div>
+        <div class="prog-leg-item"><div class="prog-leg-dot" style="background:#E8751A"></div>Leg Press ÷4</div>
+      </div>
+      <div style="position:relative;height:160px"><canvas id="chargesChart"></canvas></div>
+    </div>
+  </div>
+  <div class="prog-chart-card">
+    <div class="prog-chart-hdr"><div class="prog-chart-title">Énergie · Sommeil · Stress</div></div>
+    <div class="prog-chart-body"><div id="checkin-bars"><div class="chart-empty"><div class="chart-empty-txt">Complète ton premier check-in</div></div></div></div>
+  </div>
+  <div class="sdiv"><div class="sdiv-line"></div><div class="sdiv-txt">HISTORIQUE DES SÉANCES</div><div class="sdiv-line"></div></div>
+  <div class="card">
+    <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">Séances complétées</div><div class="cbadge" id="seances-count">0 / 3 · S1</div></div>
+    <div id="seances-history" style="padding:14px 16px"><div style="font-size:12px;color:var(--txt3);text-align:center">Aucune séance complétée cette semaine</div></div>
+  </div>
+  <div class="spacer"></div>
+</div>
+
+<!-- TIMER -->
+<div class="timer-modal" id="timerModal">
+  <div class="timer-box">
+    <div class="timer-exname" id="timerExName">REPOS</div>
+    <div class="timer-big" id="timerDisplay">1:45</div>
+    <button class="timer-close" onclick="closeTimer()">FERMER</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+const SK='faem_mg_v2';
+function load(){try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch(e){return{}}}
+function save(d){try{localStorage.setItem(SK,JSON.stringify(d))}catch(e){}}
+let D=load();
+
+// CLOCK
+(function tick(){
+  const n=new Date(),days=['DIM','LUN','MAR','MER','JEU','VEN','SAM'],months=['JAN','FÉV','MAR','AVR','MAI','JUN','JUL','AOÛ','SEP','OCT','NOV','DÉC'];
+  document.getElementById('clock').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+  document.getElementById('clock-date').textContent=days[n.getDay()]+' '+n.getDate()+' '+months[n.getMonth()]+' '+n.getFullYear();
+  setTimeout(tick,30000);
+})();
+
+// NAVIGATION PRINCIPALE — FIX: passer l'élément bouton directement
+function showPanel(id, btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#main-nav .nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  if(btn && btn instanceof Element) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='progression') setTimeout(renderCharts,150);
+}
+
+// SOUS-NAV SÉANCES
+const SI={a:{title:'SÉANCE A',day:'LUNDI · GYM',desc:'Full Body · Pull dominant · Chaîne postérieure · 45 min'},b:{title:'SÉANCE B',day:'MERCREDI · GYM',desc:'Full Body · Jambes · Core Motocross · 45 min'},c:{title:'SÉANCE C',day:'VENDREDI · MAISON',desc:'Conditionnement Motocross · Tacx · TRX · Haltères · 40 min'}};
+function showSeance(id,btn){
+  document.querySelectorAll('#panel-entrainement .sub-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#panel-entrainement .sub-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sub-'+id).classList.add('active');
+  btn.classList.add('active');
+  const s=SI[id];
+  document.getElementById('s-title').textContent=s.title;
+  document.getElementById('s-day').textContent=s.day;
+  document.getElementById('s-desc').textContent=s.desc;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// SOUS-NAV NUTRITION
+function showNutri(id,btn){
+  document.querySelectorAll('#panel-nutrition .sub-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#panel-nutrition .sub-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('nutri-'+id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// SAVE SÉANCE
+function saveSeance(id){
+  if(!D.seances)D.seances={};
+  const charges={};
+  document.querySelectorAll('#sub-'+id+' [data-key]').forEach(inp=>{if(inp.value)charges[inp.dataset.key]=inp.value;});
+  const notes=document.getElementById('notes-'+id);
+  D.seances['s1_'+id]={date:new Date().toISOString(),charges,notes:notes?notes.value:'',done:true};
+  save(D);updateStatus();renderHistory();
+  const btn=document.getElementById('savebtn-'+id);
+  const orig=btn.innerHTML;
+  btn.innerHTML='<div class="save-btn-label">SÉANCE SAUVEGARDÉE ✓</div>';
+  btn.style.background='var(--green)';
+  setTimeout(()=>{btn.innerHTML=orig;btn.style.background='var(--orange)';},2500);
+}
+
+// STATUS INDICATEURS
+function updateStatus(){
+  let count=0;
+  ['a','b','c'].forEach(id=>{
+    const el=document.getElementById('status-'+id);
+    const done=D.seances&&D.seances['s1_'+id]&&D.seances['s1_'+id].done;
+    if(done){el.classList.add('ws-done');el.textContent='✓';count++;}
+    else{el.classList.remove('ws-done');el.textContent=id.toUpperCase();}
+  });
+  const el=document.getElementById('seances-count');
+  if(el)el.textContent=count+' / 3 · S1';
+}
+
+function renderHistory(){
+  const c=document.getElementById('seances-history');
+  if(!c)return;
+  const entries=[];
+  ['a','b','c'].forEach(id=>{const s=D.seances&&D.seances['s1_'+id];if(s&&s.done)entries.push({id,date:new Date(s.date),notes:s.notes});});
+  if(!entries.length){c.innerHTML='<div style="font-size:12px;color:var(--txt3);text-align:center">Aucune séance complétée cette semaine</div>';return;}
+  c.innerHTML=entries.map(e=>`<div style="padding:10px 0;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:flex-start"><div><div style="font-size:13px;font-weight:600;color:var(--txt)">Séance ${e.id.toUpperCase()} <span style="font-size:11px;color:var(--green)">✓</span></div>${e.notes?`<div style="font-size:11px;color:var(--txt3);margin-top:3px;line-height:1.5">${e.notes.substring(0,90)}${e.notes.length>90?'...':''}</div>`:''}</div><div style="font-size:10px;color:var(--txt3);flex-shrink:0;margin-left:10px">${e.date.toLocaleDateString('fr-CA')}</div></div>`).join('');
+}
+
+// CHECK-IN
+function saveCheckin(){
+  const poids=parseFloat(document.getElementById('ci-poids').value)||null;
+  const energie=parseInt(document.getElementById('ci-energie').value);
+  const sommeil=parseInt(document.getElementById('ci-sommeil').value);
+  const stress=parseInt(document.getElementById('ci-stress').value);
+  const note=document.getElementById('ci-note').value;
+  if(!D.checkins)D.checkins=[];
+  D.checkins.push({date:new Date().toISOString(),poids,energie,sommeil,stress,note});
+  save(D);updateHomeStats();renderCheckinBars();renderCharts();
+  const btn=document.getElementById('savebtn-checkin');
+  const orig=btn.innerHTML;
+  btn.innerHTML='<div class="save-btn-label">CHECK-IN SAUVEGARDÉ ✓</div>';
+  btn.style.background='var(--green)';
+  setTimeout(()=>{btn.innerHTML=orig;btn.style.background='var(--orange)';},2500);
+}
+
+function updateHomeStats(){
+  if(!D.checkins||!D.checkins.length)return;
+  const last=D.checkins.filter(c=>c.poids).pop();
+  if(!last||!last.poids)return;
+  const start=215,actuel=last.poids,diff=Math.round((actuel-start)*10)/10;
+  document.getElementById('home-actuel').textContent=actuel;
+  document.getElementById('home-diff').textContent=(diff<=0?diff:'+'+diff)+' lbs';
+  document.getElementById('prog-actuel').textContent=actuel;
+  document.getElementById('prog-diff').textContent=(diff<=0?diff:'+'+diff);
+  const trend=diff<0?'▼ '+Math.abs(diff)+' lbs':diff>0?'▲ '+diff+' lbs':'stable';
+  ['home-trend','prog-trend'].forEach(id=>{const el=document.getElementById(id);if(el){el.textContent=trend;el.style.color=diff<0?'#4CAF50':diff>0?'var(--orange)':'var(--txt3)';}});
+}
+
+function renderCheckinBars(){
+  const c=document.getElementById('checkin-bars');
+  if(!c)return;
+  if(!D.checkins||!D.checkins.length){c.innerHTML='<div class="chart-empty"><div class="chart-empty-txt">Complète ton premier check-in</div></div>';return;}
+  const last=D.checkins[D.checkins.length-1];
+  c.innerHTML=`<div class="metric-bar"><div class="metric-row"><span class="metric-name">Énergie</span><span class="metric-val">${last.energie}/10</span></div><div class="bar-track"><div class="bar-fill" style="width:${last.energie*10}%;background:var(--orange)"></div></div></div><div class="metric-bar"><div class="metric-row"><span class="metric-name">Sommeil</span><span class="metric-val">${last.sommeil}/10</span></div><div class="bar-track"><div class="bar-fill" style="width:${last.sommeil*10}%;background:var(--black)"></div></div></div><div class="metric-bar"><div class="metric-row"><span class="metric-name">Stress</span><span class="metric-val">${last.stress}/10</span></div><div class="bar-track"><div class="bar-fill" style="width:${last.stress*10}%;background:var(--ol)"></div></div></div>`;
+}
+
+// CHARTS
+let wChart=null,cChart=null,hwChart=null;
+const baseOpts={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10},color:'#888'}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10},color:'#888'}}}};
+function renderCharts(){
+  if(typeof Chart==='undefined')return;
+  const pe=(D.checkins||[]).filter(c=>c.poids);
+  const pl=pe.map((_,i)=>'S'+(i+1));
+  const pd=pe.map(c=>c.poids);
+  const wCtx=document.getElementById('weightChart');
+  if(wCtx){if(wChart)wChart.destroy();wChart=new Chart(wCtx,{type:'line',data:{labels:pl.length?pl:['S1'],datasets:[{data:pd.length?pd:[null],borderColor:'#C85A00',backgroundColor:'rgba(200,90,0,0.08)',borderWidth:2.5,pointBackgroundColor:'#C85A00',pointRadius:4,tension:0.3,fill:true,spanGaps:false}]},options:baseOpts});}
+  const hwCtx=document.getElementById('homeWeightChart');
+  if(hwCtx){if(hwChart)hwChart.destroy();hwChart=new Chart(hwCtx,{type:'line',data:{labels:pl.length?pl:['S1'],datasets:[{data:pd.length?pd:[null],borderColor:'#C85A00',backgroundColor:'rgba(200,90,0,0.08)',borderWidth:2,pointBackgroundColor:'#C85A00',pointRadius:3,tension:0.3,fill:true,spanGaps:false}]},options:baseOpts});}
+  const rowD=[],rdlD=[],legD=[];
+  if(D.seances){Object.keys(D.seances).sort().forEach(k=>{const s=D.seances[k];if(k.includes('_a')&&s.charges){if(s.charges.a_row)rowD.push(+s.charges.a_row);if(s.charges.a_rdl)rdlD.push(+s.charges.a_rdl);}if(k.includes('_b')&&s.charges&&s.charges.b_legpress)legD.push(+s.charges.b_legpress/4);});}
+  const ml=Math.max(rowD.length,rdlD.length,legD.length,1);
+  const cl=Array.from({length:ml},(_,i)=>'S'+(i+1));
+  const cCtx=document.getElementById('chargesChart');
+  if(cCtx){if(cChart)cChart.destroy();cChart=new Chart(cCtx,{type:'line',data:{labels:cl,datasets:[{label:'Row',data:rowD.length?rowD:[null],borderColor:'#C85A00',backgroundColor:'transparent',borderWidth:2.5,pointBackgroundColor:'#C85A00',pointRadius:4,tension:0.3,spanGaps:false},{label:'RDL',data:rdlD.length?rdlD:[null],borderColor:'#1C1C1C',backgroundColor:'transparent',borderWidth:2.5,pointBackgroundColor:'#1C1C1C',pointRadius:4,tension:0.3,spanGaps:false},{label:'Leg',data:legD.length?legD:[null],borderColor:'#E8751A',backgroundColor:'transparent',borderWidth:2,borderDash:[5,3],pointBackgroundColor:'#E8751A',pointRadius:4,tension:0.3,spanGaps:false}]},options:{...baseOpts,plugins:{legend:{display:false}}}});}
+}
+
+// TIMER
+let timerInt=null;
+function startTimer(sec,name,btn){
+  clearInterval(timerInt);let r=sec;
+  document.getElementById('timerExName').textContent='REPOS — '+name.toUpperCase();
+  document.getElementById('timerModal').classList.add('show');
+  function tick(){
+    const m=Math.floor(r/60),s=r%60;
+    document.getElementById('timerDisplay').textContent=m+':'+String(s).padStart(2,'0');
+    if(r<=0){clearInterval(timerInt);document.getElementById('timerDisplay').textContent='GO!';if(navigator.vibrate)navigator.vibrate([200,100,200,100,200]);}
+    r--;
+  }
+  tick();timerInt=setInterval(tick,1000);
+}
+function closeTimer(){clearInterval(timerInt);document.getElementById('timerModal').classList.remove('show');}
+
+// PHOTOS
+let curSlot=null;
+function triggerPhoto(slot){curSlot=slot;document.getElementById('photo-input').click();}
+function handlePhoto(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const img=document.getElementById('photo-'+curSlot);
+    if(img){img.src=ev.target.result;img.style.display='block';}
+    img.parentElement.querySelectorAll('.photo-slot-plus,.photo-slot-label').forEach(el=>el.style.display='none');
+    if(!D.photos)D.photos={};if(!D.photos.s1)D.photos.s1={};
+    D.photos.s1[curSlot]=ev.target.result;save(D);
+  };
+  reader.readAsDataURL(file);e.target.value='';
+}
+
+// RESTORE AU CHARGEMENT
+function restore(){
+  updateStatus();renderHistory();updateHomeStats();renderCheckinBars();
+  if(D.checkins&&D.checkins.length){
+    const last=D.checkins[D.checkins.length-1];
+    if(last.poids)document.getElementById('ci-poids').value=last.poids;
+    ['energie','sommeil','stress'].forEach(k=>{document.getElementById('ci-'+k).value=last[k];document.getElementById('ci-'+k+'-val').textContent=last[k];});
+  }
+  if(D.photos&&D.photos.s1){
+    ['face','profil','dos'].forEach(slot=>{
+      if(D.photos.s1[slot]){const img=document.getElementById('photo-'+slot);if(img){img.src=D.photos.s1[slot];img.style.display='block';img.parentElement.querySelectorAll('.photo-slot-plus,.photo-slot-label').forEach(el=>el.style.display='none');}}
+    });
+  }
+  setTimeout(renderCharts,400);
+}
+window.addEventListener('load',restore);
+</script>
+</body>
+</html>
