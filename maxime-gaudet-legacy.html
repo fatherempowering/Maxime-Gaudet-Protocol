@@ -2372,7 +2372,7 @@ function getCheckinFormEntry() {
   const sommeil = parseInt(document.getElementById('ci-sommeil').value);
   const stress = parseInt(document.getElementById('ci-stress').value);
   const note = document.getElementById('ci-note').value;
-  return { date: localDateString(), poids, energie, sommeil, stress, note };
+  return { week: getActiveWeek(), date: localDateString(), poids, energie, sommeil, stress, note };
 }
 
 function hasCheckinDraft() {
@@ -2395,33 +2395,8 @@ function saveCheckin(options = {}) {
     alert('Les 12 semaines du programme sont complètes.');
     return false;
   }
-  // FIX: Un check-in par SEMAINE ACTIVE — pas seulement par date.
-  // Si le dernier check-in date de moins de 7 jours, c'est la même semaine active.
-  // On propose de remplacer au lieu d'ajouter (ce qui éviterait de sauter une semaine).
-  if(D.checkins.length > 0) {
-    const last = D.checkins[D.checkins.length - 1];
-    const daysSince = daysBetweenDates(entry.date, last.date);
-    if(daysSince < 7) {
-      let replace = true;
-      if(!options.silent) {
-        replace = confirm(
-          'Un check-in existe déjà pour cette semaine (soumis le ' + last.date + ').\n' +
-          'Remplacer sans avancer la semaine suivante?'
-        );
-      }
-      if(!replace) return false;
-      // Remplacer — sans push, donc sans changer getActiveWeek()
-      const previous = D.checkins[D.checkins.length - 1];
-      D.checkins[D.checkins.length - 1] = entry;
-      if(!save()) {
-        D.checkins[D.checkins.length - 1] = previous;
-        return false;
-      }
-      currentWeek = getActiveWeek();
-      _resetCheckinForm(poidsEl);
-      return true;
-    }
-  }
+  // Chaque soumission valide complete la semaine active et debloque la suivante.
+  // On ne remplace plus selon la date, sinon un test le meme jour renvoie S1 au lieu de S2.
   // Nouveau check-in : déverrouille la semaine suivante
   D.checkins.push(entry);
   if(!save()) {
@@ -3001,7 +2976,10 @@ async function copyReportToClipboard(text) {
 
 function getReportWeek() {
   const cis = D.checkins || [];
-  if(cis.length) return Math.min(cis.length, 12);
+  if(cis.length) {
+    const last = cis[cis.length - 1];
+    return Math.min(Number(last.week) || cis.length, 12);
+  }
   return currentWeek || getActiveWeek();
 }
 
@@ -3157,15 +3135,24 @@ async function buildWeeklyReportPayload() {
 }
 
 async function sendWeeklyReport() {
-  if(hasCheckinDraft()) {
-    const saved = saveCheckin({ silent: true });
-    if(!saved) return;
-  }
-
-  if(!(D.checkins || []).length) {
-    alert('Enregistre d’abord le check-in avec ton poids. Le rapport Telegram sera ensuite envoyé et la semaine suivante sera déverrouillée.');
+  if(!hasCheckinDraft()) {
+    alert('Remplis ton check-in hebdomadaire avant de l’envoyer.');
     return;
   }
+
+  if(!getCheckinFormEntry()) {
+    alert('Entre ton poids en lbs (ex: 198.6) avant d’envoyer ton check-in.');
+    return;
+  }
+
+  const confirmed = confirm(
+    '⚠️ Voulez-vous vraiment envoyer votre check-in hebdomadaire?\n\n' +
+    'Une fois envoyé, ce check-in sera sauvegardé et la semaine suivante sera déverrouillée.'
+  );
+  if(!confirmed) return;
+
+  const saved = saveCheckin({ silent: true });
+  if(!saved) return;
 
   const payload = await buildWeeklyReportPayload();
   const text = payload.message;
