@@ -2377,56 +2377,74 @@ function updateSlider(key, val) {
   el.style.color = colors;
 }
 
-// ═══ SAVE CHECK-IN (FIX: reset form + show ref) ════════════
-function saveCheckin() {
+function getCheckinFormEntry() {
   const poidsEl = document.getElementById('ci-poids');
   const poids = parseFloat(poidsEl ? poidsEl.value : 0);
-  if(!poids || poids < 100 || poids > 400) { alert('Entre ton poids en lbs (ex: 198.6)'); return; }
+  if(!poids || poids < 100 || poids > 400) return null;
   const energie = parseInt(document.getElementById('ci-energie').value);
   const sommeil = parseInt(document.getElementById('ci-sommeil').value);
   const stress = parseInt(document.getElementById('ci-stress').value);
   const note = document.getElementById('ci-note').value;
+  return { date: localDateString(), poids, energie, sommeil, stress, note };
+}
+
+function hasCheckinDraft() {
+  const poidsEl = document.getElementById('ci-poids');
+  const noteEl = document.getElementById('ci-note');
+  return !!(
+    (poidsEl && String(poidsEl.value || '').trim()) ||
+    (noteEl && String(noteEl.value || '').trim())
+  );
+}
+
+// ═══ SAVE CHECK-IN (FIX: reset form + show ref) ════════════
+function saveCheckin(options = {}) {
+  const poidsEl = document.getElementById('ci-poids');
+  const entry = getCheckinFormEntry();
+  if(!entry) { alert('Entre ton poids en lbs (ex: 198.6)'); return false; }
   if(!D.checkins) D.checkins = [];
   // Bloquer au-delà de 12 semaines
   if(D.checkins.length >= 12) {
     alert('Les 12 semaines du programme sont complètes.');
-    return;
+    return false;
   }
-  const today = localDateString();
-  const entry = { date: today, poids, energie, sommeil, stress, note };
   // FIX: Un check-in par SEMAINE ACTIVE — pas seulement par date.
   // Si le dernier check-in date de moins de 7 jours, c'est la même semaine active.
   // On propose de remplacer au lieu d'ajouter (ce qui éviterait de sauter une semaine).
   if(D.checkins.length > 0) {
     const last = D.checkins[D.checkins.length - 1];
-    const daysSince = daysBetweenDates(today, last.date);
+    const daysSince = daysBetweenDates(entry.date, last.date);
     if(daysSince < 7) {
-      const replace = confirm(
-        'Un check-in existe déjà pour cette semaine (soumis le ' + last.date + ').\n' +
-        'Remplacer sans avancer la semaine suivante?'
-      );
-      if(!replace) return;
+      let replace = true;
+      if(!options.silent) {
+        replace = confirm(
+          'Un check-in existe déjà pour cette semaine (soumis le ' + last.date + ').\n' +
+          'Remplacer sans avancer la semaine suivante?'
+        );
+      }
+      if(!replace) return false;
       // Remplacer — sans push, donc sans changer getActiveWeek()
       const previous = D.checkins[D.checkins.length - 1];
       D.checkins[D.checkins.length - 1] = entry;
       if(!save()) {
         D.checkins[D.checkins.length - 1] = previous;
-        return;
+        return false;
       }
       currentWeek = getActiveWeek();
       _resetCheckinForm(poidsEl);
-      return;
+      return true;
     }
   }
   // Nouveau check-in : déverrouille la semaine suivante
   D.checkins.push(entry);
   if(!save()) {
     D.checkins.pop();
-    return;
+    return false;
   }
   currentWeek = getActiveWeek();
   _resetCheckinForm(poidsEl);
-  alert('Check-in enregistré! Semaine ' + getActiveWeek() + ' active.');
+  if(!options.silent) alert('Check-in enregistré! Semaine ' + getActiveWeek() + ' active.');
+  return true;
 }
 
 function _resetCheckinForm(poidsEl) {
@@ -3152,6 +3170,16 @@ async function buildWeeklyReportPayload() {
 }
 
 async function sendWeeklyReport() {
+  if(hasCheckinDraft()) {
+    const saved = saveCheckin({ silent: true });
+    if(!saved) return;
+  }
+
+  if(!(D.checkins || []).length) {
+    alert('Enregistre d’abord le check-in avec ton poids. Le rapport Telegram sera ensuite envoyé et la semaine suivante sera déverrouillée.');
+    return;
+  }
+
   const payload = await buildWeeklyReportPayload();
   const text = payload.message;
   if(!isReportEndpointConfigured()) {
@@ -3175,7 +3203,7 @@ async function sendWeeklyReport() {
       const photoStatus = payload.photos.length
         ? '\nPhotos envoyées: ' + (typeof data.sentPhotos === 'number' ? data.sentPhotos : payload.photos.length) + '/' + payload.photos.length
         : '\nAucune photo détectée pour ce rapport.';
-      alert('Rapport envoyé à Max!' + photoStatus);
+      alert('Rapport envoyé à Max!\nSemaine active: S' + getActiveWeek() + photoStatus);
     } else {
       alert('Erreur d\'envoi (' + r.status + '): ' + (data.error || 'Vérifiez la configuration du endpoint.'));
     }
