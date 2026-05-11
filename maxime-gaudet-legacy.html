@@ -746,9 +746,6 @@ canvas{display:block;width:100%!important}
       <textarea class="notes-area" id="ci-note" placeholder="Ex: Semaine difficile au travail, mais les s&eacute;ances sont solides. Le RDL &agrave; 190 lbs commence &agrave; se sentir stable..." style="height:90px"></textarea>
     </div>
   </div>
-  <button class="save-btn" onclick="saveCheckin()">
-    <div class="save-btn-label">ENREGISTRER LE CHECK-IN</div>
-  </button>
   <div class="photo-grid">
     <div class="photo-slot" onclick="triggerPhoto(0)">
       <img id="photo-0" alt="">
@@ -769,8 +766,8 @@ canvas{display:block;width:100%!important}
   <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="handlePhoto(event)">
   <div class="photo-hint">Photos de progression &mdash; stock&eacute;es localement sur cet appareil</div>
   <button class="report-btn" onclick="sendWeeklyReport()" style="margin-bottom:0">
-    <div class="report-btn-label">&#128229; ENVOYER RAPPORT TELEGRAM</div>
-    <div class="report-btn-sub">Envoie un r&eacute;sum&eacute; de la semaine active &agrave; Max</div>
+    <div class="report-btn-label">&#128229; ENVOYER LE CHECK-IN</div>
+    <div class="report-btn-sub">Sauvegarde, d&eacute;verrouille la semaine suivante et envoie &agrave; Max</div>
   </button>
   <input type="file" id="import-input" accept="application/json,.json" style="display:none" onchange="handleImport(event)">
   <div class="spacer"></div>
