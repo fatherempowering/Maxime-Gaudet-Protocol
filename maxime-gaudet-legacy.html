@@ -766,22 +766,12 @@ canvas{display:block;width:100%!important}
       <div class="photo-slot-label">DOS</div>
     </div>
   </div>
-  <input type="file" id="photo-input" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(event)">
+  <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="handlePhoto(event)">
   <div class="photo-hint">Photos de progression &mdash; stock&eacute;es localement sur cet appareil</div>
   <button class="report-btn" onclick="sendWeeklyReport()" style="margin-bottom:0">
     <div class="report-btn-label">&#128229; ENVOYER RAPPORT TELEGRAM</div>
     <div class="report-btn-sub">Envoie un r&eacute;sum&eacute; de la semaine active &agrave; Max</div>
   </button>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 14px 0">
-    <button class="report-btn" onclick="exportData()" style="margin:0;border-color:rgba(255,255,255,0.15)">
-      <div class="report-btn-label" style="font-size:12px">&#8659; EXPORTER</div>
-      <div class="report-btn-sub">JSON de tes données</div>
-    </button>
-    <button class="report-btn" onclick="importData()" style="margin:0;border-color:rgba(255,255,255,0.15)">
-      <div class="report-btn-label" style="font-size:12px">&#8657; IMPORTER</div>
-      <div class="report-btn-sub">Restaurer un JSON</div>
-    </button>
-  </div>
   <input type="file" id="import-input" accept="application/json,.json" style="display:none" onchange="handleImport(event)">
   <div class="spacer"></div>
 </div>
