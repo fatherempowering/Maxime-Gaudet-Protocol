@@ -1986,10 +1986,19 @@ let timerSeconds = 0;
 let curSlot = 0;
 let hwChart = null, wChart = null, cChart = null, bChart = null;
 
-// ═══ ACTIVE WEEK (basé sur check-ins) ══════════════════════
+// ═══ ACTIVE WEEK (basé sur check-ins + récupération coach) ═
+function getHighestCompletedWeek() {
+  const cis = D.checkins || [];
+  return cis.reduce((max, c, index) => {
+    const week = clampNumber(c && c.week, 1, 12, index + 1);
+    return Math.max(max, week);
+  }, 0);
+}
+
 function getActiveWeek() {
-  const n = (D.checkins || []).length;
-  return Math.min(n + 1, 12);
+  const nextFromCheckins = Math.min(getHighestCompletedWeek() + 1, 12);
+  const recovered = clampNumber(D.unlockedWeek, 1, 12, 1);
+  return Math.min(Math.max(nextFromCheckins, recovered), 12);
 }
 
 // ═══ CLOCK ═════════════════════════════════════════════════
@@ -2398,9 +2407,12 @@ function saveCheckin(options = {}) {
   // Chaque soumission valide complete la semaine active et debloque la suivante.
   // On ne remplace plus selon la date, sinon un test le meme jour renvoie S1 au lieu de S2.
   // Nouveau check-in : déverrouille la semaine suivante
+  const previousUnlockedWeek = D.unlockedWeek;
+  D.unlockedWeek = Math.min(entry.week + 1, 12);
   D.checkins.push(entry);
   if(!save()) {
     D.checkins.pop();
+    D.unlockedWeek = previousUnlockedWeek;
     return false;
   }
   currentWeek = getActiveWeek();
@@ -2978,9 +2990,14 @@ function getReportWeek() {
   const cis = D.checkins || [];
   if(cis.length) {
     const last = cis[cis.length - 1];
-    return Math.min(Number(last.week) || cis.length, 12);
+    return Math.min(clampNumber(last && last.week, 1, 12, cis.length), 12);
   }
   return currentWeek || getActiveWeek();
+}
+
+function getCheckinForWeek(weekNum) {
+  const cis = D.checkins || [];
+  return cis.find(c => Number(c && c.week) === weekNum) || cis[weekNum - 1] || null;
 }
 
 function getSeanceExercises(weekNum, seanceId) {
@@ -3065,7 +3082,7 @@ function getMostRecentSeance(id) {
 function buildReportLines(photos, photoWeek) {
   const reportWeek = getReportWeek();
   const wk = WEEKS[reportWeek] ? WEEKS[reportWeek].seancesKey : 's1';
-  const checkin = (D.checkins || [])[reportWeek - 1] || null;
+  const checkin = getCheckinForWeek(reportWeek);
   const photoWeekLabel = photoWeek && photoWeek !== reportWeek ? ' (photos trouvées dans S' + photoWeek + ')' : '';
   const lines = [];
   lines.push('📊 CHECK-IN HEBDOMADAIRE — MAXIME GAUDET');
@@ -3080,7 +3097,7 @@ function buildReportLines(photos, photoWeek) {
     lines.push('Date: ' + checkin.date);
     lines.push('Poids: ' + checkin.poids + ' lbs');
     if(cis.length >= 2) {
-      const prev = cis[reportWeek - 2];
+      const prev = getCheckinForWeek(reportWeek - 1);
       if(prev) lines.push('Variation depuis dernier check-in: ' + (checkin.poids - prev.poids).toFixed(1) + ' lbs');
       lines.push('Variation totale: ' + (checkin.poids - cis[0].poids).toFixed(1) + ' lbs');
     }
@@ -3186,8 +3203,36 @@ async function sendWeeklyReport() {
   }
 }
 
+function applyCoachRecoveryFromUrl() {
+  try {
+    const params = new URLSearchParams(window.location.search || '');
+    const code = params.get('coach');
+    const unlockWeek = clampNumber(params.get('unlockWeek'), 1, 12, null);
+    if(code !== 'FE2026' || !unlockWeek) return;
+
+    const ok = confirm(
+      'Récupération coach détectée.\n\n' +
+      'Déverrouiller le portail jusqu’à la semaine ' + unlockWeek + ' sur cet appareil?'
+    );
+    if(!ok) return;
+
+    D.unlockedWeek = unlockWeek;
+    if(save()) {
+      currentWeek = getActiveWeek();
+      alert('Portail récupéré. Semaine active: S' + currentWeek + '.');
+    }
+
+    if(window.history && window.history.replaceState) {
+      window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+    }
+  } catch(e) {
+    console.warn('Coach recovery failed:', e);
+  }
+}
+
 // ═══ RESTORE (INIT) ════════════════════════════════════════
 async function restore() {
+  applyCoachRecoveryFromUrl();
   // Init state
   currentWeek = getActiveWeek();
   await migrateLegacyPhotosToIDB();
