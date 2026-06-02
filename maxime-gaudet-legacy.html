@@ -233,6 +233,22 @@ canvas{display:block;width:100%!important}
 .report-btn:active{opacity:0.85}
 .report-btn-label{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--orange)}
 .report-btn-sub{font-size:10px;color:var(--txt3);margin-top:3px}
+.coach-banner{display:none;background:var(--orange);color:#fff;padding:8px 14px;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:113px;z-index:180;box-shadow:0 2px 10px rgba(0,0,0,0.18)}
+.coach-banner.show{display:flex}
+.coach-banner-label{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px}
+.coach-banner-btn{background:rgba(0,0,0,0.22);border:1px solid rgba(255,255,255,0.35);border-radius:7px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;padding:7px 10px;cursor:pointer}
+.coach-editor{display:none;background:var(--card);border:2px solid var(--orange);border-radius:12px;margin:14px 14px 0;overflow:hidden;box-shadow:var(--shadow)}
+.coach-editor.show{display:block}
+.coach-editor-hdr{background:var(--black);padding:12px 16px}
+.coach-editor-title{font-family:'Bebas Neue',sans-serif;color:var(--orange);font-size:15px;letter-spacing:2px}
+.coach-editor-sub{font-size:10px;color:rgba(255,255,255,0.55);margin-top:3px}
+.coach-editor-body{padding:14px 16px}
+.coach-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.coach-field label{display:block;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:1.2px;color:var(--txt3);margin-bottom:4px}
+.coach-field input,.coach-field select,.coach-field textarea{width:100%;border:1px solid var(--br);border-radius:8px;background:var(--card2);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:13px;padding:9px;outline:none}
+.coach-field textarea{height:64px;resize:vertical}
+.coach-field-full{grid-column:1/-1}
+.coach-save{margin-top:12px;background:var(--orange);border:none;border-radius:8px;color:#fff;width:100%;padding:12px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;cursor:pointer}
 
 </style>
 </head>
@@ -257,6 +273,10 @@ canvas{display:block;width:100%!important}
   <button class="nav-btn" onclick="showPanel('checkin',this)">CHECK-IN</button>
   <button class="nav-btn" onclick="showPanel('progression',this)">PROGRESSION</button>
   <button class="nav-btn" onclick="showPanel('historique',this)">HISTORIQUE</button>
+</div>
+<div class="coach-banner" id="coach-banner">
+  <div class="coach-banner-label">APERÇU COACH — S1 À S12</div>
+  <button class="coach-banner-btn" onclick="exitCoachMode()">QUITTER</button>
 </div>
 
 <!-- ═══ ACCUEIL ═══ -->
@@ -782,6 +802,45 @@ canvas{display:block;width:100%!important}
     </div>
     <div class="seance-desc">VOS DONN&Eacute;ES ENREGISTR&Eacute;ES &bull; MISE &Agrave; JOUR AUX CHECK-INS</div>
   </div>
+  <div class="coach-editor" id="coach-editor">
+    <div class="coach-editor-hdr">
+      <div class="coach-editor-title">SAISIE MANUELLE COACH</div>
+      <div class="coach-editor-sub">Données locales sur cet appareil — aucun envoi Telegram</div>
+    </div>
+    <div class="coach-editor-body">
+      <div class="coach-grid">
+        <div class="coach-field">
+          <label for="coach-week">SEMAINE</label>
+          <select id="coach-week"></select>
+        </div>
+        <div class="coach-field">
+          <label for="coach-date">DATE</label>
+          <input id="coach-date" type="date">
+        </div>
+        <div class="coach-field">
+          <label for="coach-poids">POIDS (LBS)</label>
+          <input id="coach-poids" type="number" min="100" max="400" step="0.1">
+        </div>
+        <div class="coach-field">
+          <label for="coach-energie">ÉNERGIE /10</label>
+          <input id="coach-energie" type="number" min="1" max="10" value="5">
+        </div>
+        <div class="coach-field">
+          <label for="coach-sommeil">SOMMEIL /10</label>
+          <input id="coach-sommeil" type="number" min="1" max="10" value="5">
+        </div>
+        <div class="coach-field">
+          <label for="coach-stress">STRESS /10</label>
+          <input id="coach-stress" type="number" min="1" max="10" value="5">
+        </div>
+        <div class="coach-field coach-field-full">
+          <label for="coach-note">NOTE</label>
+          <textarea id="coach-note" placeholder="Observation coach ou résumé du check-in"></textarea>
+        </div>
+      </div>
+      <button class="coach-save" onclick="saveCoachCheckin()">SAUVEGARDER LA MESURE</button>
+    </div>
+  </div>
   <div class="stats-row" style="margin:14px 14px 0">
     <div class="stat-cell">
       <div class="stat-n" id="prog-debut">--</div>
@@ -865,15 +924,6 @@ canvas{display:block;width:100%!important}
     <button class="reset-confirm-btn" id="reset-confirm-btn" disabled onclick="confirmReset()">CONFIRMER LA SUPPRESSION</button>
     <button class="reset-cancel-btn" onclick="closeResetModal()">ANNULER</button>
     <div class="reset-countdown" id="reset-countdown">Attendre 3 secondes...</div>
-  </div>
-</div>
-<div class="unlock-modal" id="unlock-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:600;align-items:center;justify-content:center;flex-direction:column;padding:28px">
-  <div style="background:var(--black);border-radius:20px;padding:28px 24px;text-align:center;border:2px solid var(--orange);max-width:320px;width:100%">
-    <div style="font-size:28px;margin-bottom:12px">🔓</div>
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--orange);margin-bottom:8px">MODE DEV</div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:22px">Déverrouille toutes les semaines S1-S12 instantanément.<br>Pour tester le portail avant livraison.</div>
-    <button onclick="confirmUnlockAll()" style="background:var(--orange);border:none;border-radius:12px;padding:15px;width:100%;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:#fff;cursor:pointer;margin-bottom:10px">DÉVERROUILLER TOUTES LES SEMAINES</button>
-    <button onclick="document.getElementById('unlock-modal').style.display='none'" style="background:transparent;border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:13px;width:100%;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1.5px;color:rgba(255,255,255,0.5);cursor:pointer">ANNULER</button>
   </div>
 </div>
 <div class="timer-modal" id="timer-modal">
@@ -1090,7 +1140,7 @@ const WEEKS = {
           ]},
           { label: 'BLOC 2 — ADDUCTEURS + STABILITE', exs: [
             _e('Copenhagen Plank','Genou plie sur banc · 20 sec par cote · repos 1 min',3,'20 sec','b_copenhague','20 sec','sec'),
-            _e('Banded Lateral Walk','Elastique aux genoux · 20 pas/cote · tension constante',3,20,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           { label: 'BLOC 3 — HAUT DU CORPS', exs: [
             _e('Neutral Grip Lat Pulldown','Omoplates actives · repos 1:45',3,10,'b_pulldown','70 lbs'),
@@ -1167,7 +1217,7 @@ const WEEKS = {
           ]},
           { label:'BLOC 2 — ADDUCTEURS + STABILITE', exs: [
             _e('Copenhagen Plank','35 sec par cote · repos 1 min',3,'35 sec','b_copenhague','35 sec','sec'),
-            _e('Banded Lateral Walk','20 pas/cote · tension constante',3,20,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           { label:'BLOC 3 — HAUT DU CORPS', exs: [
             _e('Neutral Grip Lat Pulldown','Omoplates actives · repos 1:45',3,10,'b_pulldown','85 lbs'),
@@ -1244,7 +1294,7 @@ const WEEKS = {
           ]},
           {label:'BLOC 2 — ADDUCTEURS + STABILITE', exs:[
             _e('Copenhagen Plank','50 sec par cote',3,'50 sec','b_copenhague','50 sec','sec'),
-            _e('Banded Lateral Walk','20 pas/cote',3,20,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           {label:'BLOC 3 — HAUT DU CORPS', exs:[
             _e('Neutral Grip Lat Pulldown','Omoplates actives',3,10,'b_pulldown','90 lbs'),
@@ -1321,7 +1371,7 @@ const WEEKS = {
           ]},
           {label:'BLOC 2 — ADDUCTEURS + STABILITE', exs:[
             _e('Copenhagen Plank','65 sec par cote',3,'65 sec','b_copenhague','65 sec','sec'),
-            _e('Banded Lateral Walk','20 pas/cote',3,20,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           {label:'BLOC 3 — HAUT DU CORPS', exs:[
             _e('Neutral Grip Lat Pulldown','Omoplates actives',3,10,'b_pulldown','100 lbs'),
@@ -1398,7 +1448,7 @@ const WEEKS = {
           ]},
           {label:'BLOC 2 — STABILITE GENOU', exs:[
             _e('Copenhagen Plank','20 sec par cote · deload',2,'20 sec','b_copenhague','20 sec','sec'),
-            _e('Banded Lateral Walk','15 pas/cote · leger',2,15,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           {label:'BLOC 3 — HAUT DU CORPS', exs:[
             _e('Chest Supported DB Row','Leger · technique · repos 90 sec',2,10,'b_cs_row','Leger'),
@@ -1473,7 +1523,7 @@ const WEEKS = {
           ]},
           {label:'BLOC 2 — STABILITE GENOU', exs:[
             _e('Copenhagen Plank','25 sec par cote',3,'25 sec','b_copenhague','25 sec','sec'),
-            _e('Banded Lateral Walk','20 pas/cote',3,20,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           {label:'BLOC 3 — HAUT DU CORPS', exs:[
             _e('Single Arm Cable Row','Etablir charge · 10/bras · repos 1:30',3,'10/bras','b_sa_row','Etablir'),
@@ -1550,7 +1600,7 @@ const WEEKS = {
           ]},
           {label:'BLOC 2 — STABILITE GENOU', exs:[
             _e('Copenhagen Plank','25 sec par cote',3,'25 sec','b_copenhague','25 sec','sec'),
-            _e('Banded Lateral Walk','20 pas/cote',3,20,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           {label:'BLOC 3 — HAUT DU CORPS', exs:[
             _e('Single Arm Cable Row','Pause en contraction · 10/bras',3,'10/bras','b_sa_row','Modere'),
@@ -1627,7 +1677,7 @@ const WEEKS = {
           ]},
           {label:'BLOC 2 — STABILITE GENOU', exs:[
             _e('Copenhagen Plank','25 sec par cote',3,'25 sec','b_copenhague','25 sec','sec'),
-            _e('Banded Lateral Walk','20 pas/cote',3,20,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           {label:'BLOC 3 — HAUT DU CORPS', exs:[
             _e('Single Arm Cable Row','Explosif · 10/bras',3,'10/bras','b_sa_row','Charge moderee'),
@@ -1705,7 +1755,7 @@ const WEEKS = {
           ]},
           {label:'BLOC 2 — STABILITE GENOU', exs:[
             _e('Copenhagen Plank','25 sec par cote',3,'25 sec','b_copenhague','25 sec','sec'),
-            _e('Banded Lateral Walk','20 pas/cote',3,20,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           {label:'BLOC 3 — HAUT DU CORPS LOURD', exs:[
             _e('Single Arm Cable Row','Lourd · 10/bras',3,'10/bras','b_sa_row','Charge lourde'),
@@ -1783,7 +1833,7 @@ const WEEKS = {
           ]},
           {label:'BLOC 2 — STABILITE', exs:[
             _e('Copenhagen Plank','20 sec par cote',2,'20 sec','b_copenhague','20 sec','sec'),
-            _e('Banded Lateral Walk','15 pas/cote · leger',2,15,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           {label:'BLOC 3 — HAUT DU CORPS', exs:[
             _e('Chest Supported DB Row','Leger · recuperation',2,10,'b_cs_row','Leger'),
@@ -1859,7 +1909,7 @@ const WEEKS = {
           ]},
           {label:'BLOC 2 — STABILITE GENOU', exs:[
             _e('Copenhagen Plank','25 sec par cote',3,'25 sec','b_copenhague','25 sec','sec'),
-            _e('Banded Lateral Walk','20 pas/cote',3,20,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           {label:'BLOC 3 — HAUT DU CORPS', exs:[
             _e('Single Arm Cable Row','Explosif · 10/bras',3,'10/bras','b_sa_row','Charge moderee'),
@@ -1936,7 +1986,7 @@ const WEEKS = {
           ]},
           {label:'BLOC 2 — STABILITE GENOU', exs:[
             _e('Copenhagen Plank','25 sec par cote',3,'25 sec','b_copenhague','25 sec','sec'),
-            _e('Banded Lateral Walk','20 pas/cote',3,20,null,null),
+            _e('Hip Abduction','Machine · poids à déterminer',3,12,'b_hipabduction','À déterminer'),
           ]},
           {label:'BLOC 3 — HAUT DU CORPS', exs:[
             _e('Single Arm Cable Row','10/bras · propre',3,'10/bras','b_sa_row','Modere'),
@@ -1999,6 +2049,13 @@ function getActiveWeek() {
   const nextFromCheckins = Math.min(getHighestCompletedWeek() + 1, 12);
   const recovered = clampNumber(D.unlockedWeek, 1, 12, 1);
   return Math.min(Math.max(nextFromCheckins, recovered), 12);
+}
+
+function getOrderedCheckins() {
+  return (D.checkins || []).map((checkin, index) => ({
+    ...checkin,
+    week: clampNumber(checkin && checkin.week, 1, 12, index + 1)
+  })).sort((a, b) => a.week - b.week);
 }
 
 // ═══ CLOCK ═════════════════════════════════════════════════
@@ -2086,7 +2143,7 @@ function buildWeekNav() {
   const activeW = getActiveWeek();
   nav.innerHTML = '';
   for(let w = 1; w <= 12; w++) {
-    const isUnlocked = w <= activeW;
+    const isUnlocked = isCoachMode() || w <= activeW;
     const btn = document.createElement('button');
     btn.className = 'week-nav-btn' + (w === currentWeek ? ' active' : '');
     const lockIcon = isUnlocked ? '' : '<span class="lock-icon">🔒</span>';
@@ -2450,8 +2507,9 @@ function escapeHTML(str) {
 
 // ═══ SHOW LAST CHECK-IN REF ════════════════════════════════
 function showLastCheckinRef() {
-  if(!D.checkins || !D.checkins.length) return;
-  const last = D.checkins[D.checkins.length - 1];
+  const cis = getOrderedCheckins();
+  if(!cis.length) return;
+  const last = cis[cis.length - 1];
   const el = document.getElementById('ci-last-ref');
   const content = document.getElementById('ci-last-ref-content');
   if(!el || !content) return;
@@ -2489,7 +2547,7 @@ function updateHomeStats() {
   if(scEl) scEl.textContent = seanceCount;
   const ciEl = document.getElementById('stat-checkins');
   if(ciEl) ciEl.textContent = (D.checkins || []).length;
-  const cis = D.checkins || [];
+  const cis = getOrderedCheckins();
   if(cis.length >= 1) {
     const first = cis[0].poids;
     const last = cis[cis.length-1].poids;
@@ -2540,7 +2598,7 @@ function hideChartOverlay(container) {
 
 // ═══ HOME CHART ════════════════════════════════════════════
 function renderHomeChart() {
-  const cis = D.checkins || [];
+  const cis = getOrderedCheckins();
   const container = document.querySelector('.chart-wrap .chart-container');
   // FIX: Never destroy the canvas element — toggle empty state instead
   let canvas = document.getElementById('homeWeightChart');
@@ -2565,7 +2623,7 @@ function renderHomeChart() {
   }
   if(!canvas) return;
   if(hwChart) { hwChart.destroy(); hwChart = null; }
-  const labels = cis.map((c,i) => 'S' + (i+1));
+  const labels = cis.map(c => 'S' + c.week);
   const data = cis.map(c => c.poids);
   hwChart = new Chart(canvas, {
     type: 'line',
@@ -2586,11 +2644,11 @@ function renderHomeChart() {
 
 // ═══ CHARTS ════════════════════════════════════════════════
 function renderCharts() {
-  const cis = D.checkins || [];
+  const cis = getOrderedCheckins();
   if(wChart) wChart.destroy();
   if(cChart) cChart.destroy();
   if(bChart) bChart.destroy();
-  const labels = cis.map((c,i) => 'S' + (i+1));
+  const labels = cis.map(c => 'S' + c.week);
   const wCanvas = document.getElementById('weightChart');
   const cCanvas = document.getElementById('chargesChart');
   const bCanvas = document.getElementById('bilanChart');
@@ -2661,7 +2719,7 @@ function renderHistorique() {
     if(!WEEKS[w]) continue;
     const wk = WEEKS[w].seancesKey;
     const seances = ['a','b','c'].map(id => ({ id, s: D.seances && D.seances[wk+'_'+id] })).filter(x => x.s && x.s.done);
-    const cis = (D.checkins || []).filter((c,i) => i+1 === w || (i+1 >= w && i+1 < w+1));
+    const cis = getOrderedCheckins().filter(c => c.week === w);
     if(!seances.length && !cis.length) continue;
     hasData = true;
     html += `<div class="hist-week-divider"><div class="hist-week-divider-line"></div><div class="hist-week-divider-txt">SEMAINE ${w}</div><div class="hist-week-divider-line"></div></div>`;
@@ -2810,34 +2868,147 @@ function endPress() {
   if(window._pressTimer) clearTimeout(window._pressTimer);
 }
 
-// ═══ LOGO LONG-PRESS — DÉSACTIVÉ EN PRODUCTION ═════════════
-// Mode dev désactivé avant livraison client.
-// Pour réactiver: remplacer les fonctions par la version dev ci-dessous.
+// ═══ LOGO LONG-PRESS — MODE APERÇU COACH ═══════════════════
 let _logoPressTimer = null;
-function startLogoPress() { /* dev mode désactivé */ }
-function endLogoPress() { if(_logoPressTimer) { clearTimeout(_logoPressTimer); _logoPressTimer = null; } }
-function openUnlockModal() { /* dev mode désactivé */ }
-function confirmUnlockAll() {
-  // Inject 12 synthetic check-ins — one per week
-  const baseDate = new Date('2026-04-19');
-  D.checkins = [];
-  for(let i = 0; i < 12; i++) {
-    const d = new Date(baseDate);
-    d.setDate(d.getDate() + i * 7);
-    D.checkins.push({
-      date: localDateString(d),
-      poids: 203.2 - (i * 0.5),
-      energie: 7, sommeil: 7, stress: 4,
-      note: '[DEV] Semaine ' + (i+1) + ' déverrouillée manuellement'
-    });
-  }
-  save();
-  document.getElementById('unlock-modal').style.display = 'none';
-  // Refresh display
-  updateHomeStats();
-  buildWeekNav();
-  alert('✓ Toutes les semaines déverrouillées — S1 à S12 accessibles.');
+function isCoachMode() {
+  try { return sessionStorage.getItem('faem_coach_preview') === '1'; }
+  catch(e) { return false; }
 }
+
+function startLogoPress() {
+  endLogoPress();
+  _logoPressTimer = setTimeout(() => { enterCoachMode(); }, 2500);
+}
+
+function endLogoPress() { if(_logoPressTimer) { clearTimeout(_logoPressTimer); _logoPressTimer = null; } }
+
+async function enterCoachMode() {
+  endLogoPress();
+  if(isCoachMode()) {
+    updateCoachUI();
+    alert('Mode aperçu coach déjà actif.');
+    return;
+  }
+
+  const pin = prompt('NIP coach');
+  if(!pin) return;
+
+  try {
+    const response = await fetch(COACH_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pin })
+    });
+    if(!response.ok) {
+      alert('Accès coach refusé.');
+      return;
+    }
+
+    sessionStorage.setItem('faem_coach_preview', '1');
+    currentWeek = getActiveWeek();
+    updateCoachUI();
+    renderEntrainementWeek();
+    alert('Mode aperçu coach activé. Les 12 semaines sont consultables sur cet appareil.');
+  } catch(e) {
+    alert('Impossible de valider le NIP coach. Vérifie la configuration Vercel.');
+  }
+}
+
+function exitCoachMode() {
+  try { sessionStorage.removeItem('faem_coach_preview'); } catch(e) {}
+  currentWeek = getActiveWeek();
+  updateCoachUI();
+  renderEntrainementWeek();
+}
+
+function updateCoachUI() {
+  const enabled = isCoachMode();
+  const banner = document.getElementById('coach-banner');
+  const editor = document.getElementById('coach-editor');
+  if(banner) banner.classList.toggle('show', enabled);
+  if(editor) editor.classList.toggle('show', enabled);
+  if(enabled) {
+    populateCoachWeekSelect();
+    loadCoachWeekEntry();
+  }
+  buildWeekNav();
+}
+
+function populateCoachWeekSelect() {
+  const select = document.getElementById('coach-week');
+  if(!select) return;
+  if(!select.options.length) {
+    for(let week = 1; week <= 12; week++) {
+      const option = document.createElement('option');
+      option.value = week;
+      option.textContent = 'Semaine ' + week;
+      select.appendChild(option);
+    }
+    select.addEventListener('change', loadCoachWeekEntry);
+  }
+}
+
+function loadCoachWeekEntry() {
+  const select = document.getElementById('coach-week');
+  if(!select) return;
+  const week = clampNumber(select.value, 1, 12, 1);
+  const entry = getCheckinForWeek(week);
+  const setValue = (id, value) => {
+    const el = document.getElementById(id);
+    if(el) el.value = value == null ? '' : value;
+  };
+  setValue('coach-date', entry && entry.date ? entry.date : localDateString());
+  setValue('coach-poids', entry && entry.poids);
+  setValue('coach-energie', entry && entry.energie != null ? entry.energie : 5);
+  setValue('coach-sommeil', entry && entry.sommeil != null ? entry.sommeil : 5);
+  setValue('coach-stress', entry && entry.stress != null ? entry.stress : 5);
+  setValue('coach-note', entry && entry.note);
+}
+
+function saveCoachCheckin() {
+  if(!isCoachMode()) return;
+  const getValue = id => {
+    const el = document.getElementById(id);
+    return el ? el.value : '';
+  };
+  const week = clampNumber(getValue('coach-week'), 1, 12, null);
+  const poids = clampNumber(getValue('coach-poids'), 100, 400, NaN);
+  if(!week || !Number.isFinite(poids)) {
+    alert('Entre une semaine et un poids valide.');
+    return;
+  }
+
+  const entry = {
+    week,
+    date: getValue('coach-date') || localDateString(),
+    poids,
+    energie: Math.round(clampNumber(getValue('coach-energie'), 1, 10, 5)),
+    sommeil: Math.round(clampNumber(getValue('coach-sommeil'), 1, 10, 5)),
+    stress: Math.round(clampNumber(getValue('coach-stress'), 1, 10, 5)),
+    note: String(getValue('coach-note') || '').slice(0, 2000),
+    source: 'coach'
+  };
+
+  if(!D.checkins) D.checkins = [];
+  const previousCheckins = D.checkins.slice();
+  const existingIndex = D.checkins.findIndex((checkin, index) => {
+    return clampNumber(checkin && checkin.week, 1, 12, index + 1) === week;
+  });
+  if(existingIndex >= 0) D.checkins[existingIndex] = entry;
+  else D.checkins.push(entry);
+  D.checkins = getOrderedCheckins();
+  if(!save()) {
+    D.checkins = previousCheckins;
+    return;
+  }
+
+  updateHomeStats();
+  renderCharts();
+  renderHistorique();
+  showLastCheckinRef();
+  alert('Mesure S' + week + ' sauvegardée localement. Aucun rapport Telegram envoyé.');
+}
+
 function openResetModalFull() {
   document.getElementById('reset-modal').classList.add('show');
   const btn = document.getElementById('reset-confirm-btn');
@@ -2892,11 +3063,12 @@ function normalizeImportedData(imported) {
   if(!imported || typeof imported !== 'object') return null;
   if(!Array.isArray(imported.checkins)) return null;
 
-  const cleanCheckins = imported.checkins.slice(0, 12).map(c => {
+  const cleanCheckins = imported.checkins.slice(0, 12).map((c, index) => {
     if(!c || typeof c !== 'object') return null;
     const poids = clampNumber(c.poids, 100, 400, NaN);
     if(!Number.isFinite(poids)) return null;
     return {
+      week: clampNumber(c.week, 1, 12, index + 1),
       date: typeof c.date === 'string' ? c.date : localDateString(),
       poids,
       energie: Math.round(clampNumber(c.energie, 1, 10, 5)),
@@ -2957,6 +3129,7 @@ function handleImport(event) {
 // Exemple Vercel:   /api/send-report
 // BOT_TOKEN et CHAT_ID restent côté serveur, jamais dans ce fichier.
 const REPORT_ENDPOINT = 'https://legacy-telegram-backend.vercel.app/api/send-report';
+const COACH_ENDPOINT = 'https://legacy-telegram-backend.vercel.app/api/coach-access';
 
 function isReportEndpointConfigured() {
   return REPORT_ENDPOINT && REPORT_ENDPOINT !== '/api/send-report';
@@ -2987,7 +3160,7 @@ async function copyReportToClipboard(text) {
 }
 
 function getReportWeek() {
-  const cis = D.checkins || [];
+  const cis = getOrderedCheckins();
   if(cis.length) {
     const last = cis[cis.length - 1];
     return Math.min(clampNumber(last && last.week, 1, 12, cis.length), 12);
@@ -2996,8 +3169,8 @@ function getReportWeek() {
 }
 
 function getCheckinForWeek(weekNum) {
-  const cis = D.checkins || [];
-  return cis.find(c => Number(c && c.week) === weekNum) || cis[weekNum - 1] || null;
+  const cis = getOrderedCheckins();
+  return cis.find(c => c.week === weekNum) || null;
 }
 
 function getSeanceExercises(weekNum, seanceId) {
@@ -3092,7 +3265,7 @@ function buildReportLines(photos, photoWeek) {
   lines.push('');
 
   lines.push('CHECK-IN CLIENT');
-  const cis = D.checkins || [];
+  const cis = getOrderedCheckins();
   if(checkin) {
     lines.push('Date: ' + checkin.date);
     lines.push('Poids: ' + checkin.poids + ' lbs');
@@ -3203,39 +3376,12 @@ async function sendWeeklyReport() {
   }
 }
 
-function applyCoachRecoveryFromUrl() {
-  try {
-    const params = new URLSearchParams(window.location.search || '');
-    const code = params.get('coach');
-    const unlockWeek = clampNumber(params.get('unlockWeek'), 1, 12, null);
-    if(code !== 'FE2026' || !unlockWeek) return;
-
-    const ok = confirm(
-      'Récupération coach détectée.\n\n' +
-      'Déverrouiller le portail jusqu’à la semaine ' + unlockWeek + ' sur cet appareil?'
-    );
-    if(!ok) return;
-
-    D.unlockedWeek = unlockWeek;
-    if(save()) {
-      currentWeek = getActiveWeek();
-      alert('Portail récupéré. Semaine active: S' + currentWeek + '.');
-    }
-
-    if(window.history && window.history.replaceState) {
-      window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
-    }
-  } catch(e) {
-    console.warn('Coach recovery failed:', e);
-  }
-}
-
 // ═══ RESTORE (INIT) ════════════════════════════════════════
 async function restore() {
-  applyCoachRecoveryFromUrl();
   // Init state
   currentWeek = getActiveWeek();
   await migrateLegacyPhotosToIDB();
+  updateCoachUI();
   // Home
   updateHomeStats();
   // Check-in: show last ref if exists
