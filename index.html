@@ -1322,13 +1322,13 @@ const TEMPLATE_CONFIG={
     appTitle:'Legacy Protocol',
     documentTitle:'Legacy Protocol — Maxime Gaudet — Phase 2',
     protocolLabel:'FATHER EMPOWERING — MAXIME GAUDET',
-    homeKicker:'MAXIME GAUDET · PHASE 2',
+    homeKicker:'PROTOCOL PHASE: BLOCK 2',
     sidebarTitleHtml:'FE<br>PROTOCOL',
-    sidebarSubtitle:'MAXIME GAUDET · PHASE 2',
+    sidebarSubtitle:'MAXIME GAUDET · BLOCK 2',
     messageSignature:'— Coach Max',
-    totalWeeks:12,
+    totalWeeks:14,
     portalVersion:'2.0',
-    protocolVersion:'Phase 2',
+    protocolVersion:'Block 2',
     lastUpdated:'July 11, 2026'
   },
   branding:{
@@ -1841,7 +1841,12 @@ function defaultWeekZeroData(){
     }
   };
 }
-function defaultData(){return {seances:{},checkins:[],drafts:{},unlockedWeek:1,weekZero:defaultWeekZeroData()};}
+const ACTIVE_PHASE_ID='block2';
+const PHASE1_ARCHIVE_ID='phase1';
+function defaultActivePhaseData(){
+  return {id:ACTIVE_PHASE_ID,label:'BLOCK 2',activeWeek:1,totalWeeks:TOTAL_WEEKS};
+}
+function defaultData(){return {seances:{},checkins:[],drafts:{},unlockedWeek:1,weekZero:defaultWeekZeroData(),activePhase:defaultActivePhaseData(),archivedPhases:{}};}
 let D=defaultData();
 
 const MAXIME_LEGACY_DATA_KEY='faem_mg_v9d';
@@ -1869,6 +1874,85 @@ function cleanLegacyObject(value){
 function maxWeekFromLegacyCheckins(checkins){
   const weeks=(checkins||[]).map(c=>parseInt(c&&c.week)).filter(Boolean);
   return weeks.length?Math.max(...weeks):0;
+}
+function maxWeekFromSeanceKeys(seances){
+  const weeks=Object.keys(seances||{}).map(legacyWeekSlotNumber).filter(Boolean);
+  return weeks.length?Math.max(...weeks):0;
+}
+function normalizeActivePhase(phase){
+  const raw=phase&&typeof phase==='object'?cleanLegacyObject(phase):{};
+  return Object.assign(defaultActivePhaseData(),raw,{id:ACTIVE_PHASE_ID,label:'BLOCK 2',totalWeeks:TOTAL_WEEKS});
+}
+function activePhaseLabel(){
+  return (D&&D.activePhase&&D.activePhase.label)||'BLOCK 2';
+}
+function normalizeArchivedPhases(phases){
+  return phases&&typeof phases==='object'&&!Array.isArray(phases)?cleanLegacyObject(phases):{};
+}
+function buildMaximePhase1ArchiveFromParts(seances,checkins,photos,meta){
+  const cleanSeances=seances&&typeof seances==='object'&&!Array.isArray(seances)?cleanLegacyObject(seances):{};
+  const cleanCheckins=Array.isArray(checkins)?checkins.map(normalizeMaximeLegacyCheckin).filter(Boolean):[];
+  const cleanPhotos=photos&&typeof photos==='object'&&!Array.isArray(photos)?cleanLegacyObject(photos):{};
+  const completedWeeks=Math.max(
+    12,
+    parseInt(meta&&meta.completedWeeks)||0,
+    maxWeekFromSeanceKeys(cleanSeances),
+    maxWeekFromLegacyCheckins(cleanCheckins)
+  );
+  return {
+    id:PHASE1_ARCHIVE_ID,
+    label:'LEGACY PROTOCOL PHASE 1',
+    source:'Maxime Gaudet Legacy V10',
+    archivedAt:(meta&&meta.archivedAt)||new Date().toISOString(),
+    completedWeeks:completedWeeks,
+    seances:cleanSeances,
+    checkins:cleanCheckins,
+    photos:cleanPhotos,
+    stats:cleanLegacyObject((meta&&meta.stats)||{})
+  };
+}
+function buildMaximePhase1ArchiveFromLegacy(oldData,migrationIso){
+  const seances={};
+  const oldSeances=oldData&&oldData.seances&&typeof oldData.seances==='object'&&!Array.isArray(oldData.seances)?oldData.seances:{};
+  Object.entries(oldSeances).forEach(([key,value])=>{seances[key]=normalizeMaximeLegacySeance(key,value);});
+  const checkins=Array.isArray(oldData&&oldData.checkins)?oldData.checkins:[];
+  const photos=oldData&&oldData.photos&&typeof oldData.photos==='object'?oldData.photos:{};
+  const sorted=checkins.map(normalizeMaximeLegacyCheckin).filter(Boolean).sort((a,b)=>(parseInt(a.week)||0)-(parseInt(b.week)||0));
+  const first=sorted[0]||null,last=sorted[sorted.length-1]||null;
+  return buildMaximePhase1ArchiveFromParts(seances,sorted,photos,{
+    archivedAt:migrationIso,
+    completedWeeks:Math.max(parseInt(oldData&&oldData.unlockedWeek)||0,maxWeekFromLegacyCheckins(sorted),maxWeekFromSeanceKeys(seances)),
+    stats:{
+      startWeight:first&&first.poids!=null?String(first.poids):'',
+      finalWeight:last&&last.poids!=null?String(last.poids):'',
+      checkins:sorted.length,
+      sessions:Object.values(seances).filter(s=>s&&s.done).length
+    }
+  });
+}
+function buildMaximePhase1ArchiveFromActiveData(data,migrationIso){
+  return buildMaximePhase1ArchiveFromParts(data&&data.seances,data&&data.checkins,data&&data.photos,{
+    archivedAt:migrationIso,
+    completedWeeks:Math.max(parseInt(data&&data.unlockedWeek)||0,maxWeekFromLegacyCheckins(data&&data.checkins),maxWeekFromSeanceKeys(data&&data.seances))
+  });
+}
+function resetActiveBlock2State(data,migrationIso,reason){
+  data.seances={};
+  data.checkins=[];
+  data.drafts={};
+  data.unlockedWeek=1;
+  data.activePhase=Object.assign(defaultActivePhaseData(),{startedAt:(data.activePhase&&data.activePhase.startedAt)||migrationIso,resetAt:migrationIso,resetReason:reason||'phase1_archive'});
+  data.legacyMigration=Object.assign({},data.legacyMigration||{},{
+    source:'Maxime Gaudet Legacy V10',
+    version:MAXIME_MIGRATION_VERSION,
+    sourceDataKey:MAXIME_LEGACY_DATA_KEY,
+    sourcePhotoDb:MAXIME_LEGACY_PHOTO_DB,
+    phase1Archived:true,
+    activePhase:ACTIVE_PHASE_ID,
+    activeStateResetAt:migrationIso,
+    activeStateResetReason:reason||'phase1_archive'
+  });
+  return data;
 }
 function firstLegacyCheckin(oldData){
   const list=(oldData&&Array.isArray(oldData.checkins)?oldData.checkins:[]).slice().sort((a,b)=>(parseInt(a&&a.week)||0)-(parseInt(b&&b.week)||0));
@@ -1971,21 +2055,48 @@ function buildMaximeMigratedWeekZero(oldData,currentWeekZero,migrationIso){
 }
 function buildMaximeMigratedData(oldData,currentData,migrationIso){
   const current=normalizeImportedData(currentData||defaultData());
-  const migrated=defaultData();
-  const oldSeances=oldData&&oldData.seances&&typeof oldData.seances==='object'&&!Array.isArray(oldData.seances)?oldData.seances:{};
-  Object.entries(oldSeances).forEach(([key,value])=>{migrated.seances[key]=normalizeMaximeLegacySeance(key,value);});
-  const oldCheckins=Array.isArray(oldData&&oldData.checkins)?oldData.checkins:[];
-  migrated.checkins=oldCheckins.map(normalizeMaximeLegacyCheckin).filter(Boolean);
-  const byWeek={};
-  migrated.checkins.forEach(c=>{byWeek[parseInt(c.week)||0]=c;});
-  (current.checkins||[]).forEach(c=>{byWeek[parseInt(c.week)||0]=c;});
-  current.checkins=Object.values(byWeek).filter(c=>parseInt(c.week)>0).sort((a,b)=>(parseInt(a.week)||0)-(parseInt(b.week)||0));
-  current.seances=Object.assign({},migrated.seances,current.seances||{});
-  current.drafts=current.drafts&&typeof current.drafts==='object'?current.drafts:{};
-  current.unlockedWeek=clampWeek(Math.max(parseInt(current.unlockedWeek)||1,parseInt(oldData&&oldData.unlockedWeek)||1,maxWeekFromLegacyCheckins(oldCheckins)+1));
+  current.archivedPhases=normalizeArchivedPhases(current.archivedPhases);
+  current.archivedPhases[PHASE1_ARCHIVE_ID]=buildMaximePhase1ArchiveFromLegacy(oldData,migrationIso);
+  resetActiveBlock2State(current,migrationIso,'initial_legacy_migration');
   current.weekZero=buildMaximeMigratedWeekZero(oldData,current.weekZero,migrationIso);
-  current.legacyMigration={source:'Maxime Gaudet Legacy V10',version:MAXIME_MIGRATION_VERSION,migratedAt:migrationIso,sourceDataKey:MAXIME_LEGACY_DATA_KEY,sourcePhotoDb:MAXIME_LEGACY_PHOTO_DB};
+  current.legacyMigration=Object.assign({},current.legacyMigration,{migratedAt:migrationIso});
   return normalizeImportedData(current);
+}
+function repairMaximePhase2ActiveState(data,rawData){
+  if(!isMaximeMigrationPortal()||!data||typeof data!=='object')return false;
+  const migrationIso=new Date().toISOString();
+  data.archivedPhases=normalizeArchivedPhases(data.archivedPhases);
+  const rawHadBlock2=!!(rawData&&rawData.activePhase&&rawData.activePhase.id===ACTIVE_PHASE_ID);
+  const oldRaw=safeStorageGet(MAXIME_LEGACY_DATA_KEY);
+  const oldData=parseJSONSafe(oldRaw);
+  let changed=false;
+  if(!data.archivedPhases[PHASE1_ARCHIVE_ID]){
+    if(oldData&&typeof oldData==='object'){
+      data.archivedPhases[PHASE1_ARCHIVE_ID]=buildMaximePhase1ArchiveFromLegacy(oldData,migrationIso);
+      changed=true;
+    }else if(data.legacyMigration||Object.keys(data.seances||{}).length||(data.checkins||[]).length){
+      data.archivedPhases[PHASE1_ARCHIVE_ID]=buildMaximePhase1ArchiveFromActiveData(data,migrationIso);
+      changed=true;
+    }
+  }
+  const activeHasLegacyBleed=!!(
+    Object.keys(data.seances||{}).length ||
+    (data.checkins||[]).length ||
+    Object.keys(data.drafts||{}).length ||
+    (parseInt(data.unlockedWeek)||1)>1
+  );
+  const activeLooksLikeLegacy=!!(
+    data.archivedPhases[PHASE1_ARCHIVE_ID] &&
+    !rawHadBlock2 &&
+    activeHasLegacyBleed
+  );
+  if(activeLooksLikeLegacy){
+    resetActiveBlock2State(data,migrationIso,'repair_legacy_state_bleed');
+    changed=true;
+  }else{
+    data.activePhase=normalizeActivePhase(data.activePhase);
+  }
+  return changed;
 }
 function runMaximeLegacyDataMigrationOnce(){
   if(!isMaximeMigrationPortal())return false;
@@ -2004,17 +2115,21 @@ function runMaximeLegacyDataMigrationOnce(){
   const migrated=buildMaximeMigratedData(oldData,currentData,migrationIso);
   safeStorageSet(SK,JSON.stringify(migrated));
   safeStorageSet(MAXIME_MIGRATION_DONE_KEY,'1');
-  safeStorageSet(MAXIME_MIGRATION_REPORT_KEY,JSON.stringify({version:MAXIME_MIGRATION_VERSION,status:'data_migrated',migratedAt:migrationIso,sourceKey:MAXIME_LEGACY_DATA_KEY,targetKey:SK,seances:Object.keys(migrated.seances||{}).length,checkins:(migrated.checkins||[]).length,unlockedWeek:migrated.unlockedWeek,weekZeroSubmitted:!!(migrated.weekZero&&migrated.weekZero.submitted)}));
+  const phase1=migrated.archivedPhases&&migrated.archivedPhases[PHASE1_ARCHIVE_ID];
+  safeStorageSet(MAXIME_MIGRATION_REPORT_KEY,JSON.stringify({version:MAXIME_MIGRATION_VERSION,status:'phase1_archived_block2_ready',migratedAt:migrationIso,sourceKey:MAXIME_LEGACY_DATA_KEY,targetKey:SK,archivedSeances:Object.keys((phase1&&phase1.seances)||{}).length,archivedCheckins:((phase1&&phase1.checkins)||[]).length,activeSeances:Object.keys(migrated.seances||{}).length,activeCheckins:(migrated.checkins||[]).length,unlockedWeek:migrated.unlockedWeek,activePhase:ACTIVE_PHASE_ID,weekZeroSubmitted:!!(migrated.weekZero&&migrated.weekZero.submitted)}));
   return true;
 }
 function load(){
   runMaximeLegacyDataMigrationOnce();
   migrateStorageKeys();
   let raw=null;
-  try{raw=localStorage.getItem(SK); if(raw){const p=JSON.parse(raw); D=normalizeImportedData(Object.assign(defaultData(),p));}}catch(e){preserveCorruptStorage(raw,e);D=defaultData();}
+  let parsed=null;
+  try{raw=localStorage.getItem(SK); if(raw){parsed=JSON.parse(raw); D=normalizeImportedData(Object.assign(defaultData(),parsed));}}catch(e){preserveCorruptStorage(raw,e);D=defaultData();}
   if(!D.seances)D.seances={}; if(!D.checkins)D.checkins=[]; if(!D.drafts)D.drafts={}; if(!D.unlockedWeek)D.unlockedWeek=1;
+  const repaired=repairMaximePhase2ActiveState(D,parsed);
   D.unlockedWeek=normalizeUnlockedWeek(D);
   D.weekZero=normalizeWeekZero(D.weekZero);
+  if(repaired)save();
 }
 function save(){
   markSaveStatus('saving','SAVING');
@@ -2107,7 +2222,7 @@ function maximeLegacyPhotoRefs(oldData){
     if(!slots||typeof slots!=='object')continue;
     [0,1,2].forEach(slot=>{
       const source=slots[slot];
-      if(source!=null)refs.push({week,slot,source,weekSlot,target:photoKey(week,slot)});
+      if(source!=null)refs.push({week,slot,source,weekSlot,target:archivedPhasePhotoKey(PHASE1_ARCHIVE_ID,week,slot)});
     });
   }
   return refs;
@@ -2157,6 +2272,35 @@ async function runMaximeLegacyPhotoMigrationOnce(){
   const prior=parseJSONSafe(safeStorageGet(MAXIME_MIGRATION_REPORT_KEY))||{version:MAXIME_MIGRATION_VERSION};
   safeStorageSet(MAXIME_MIGRATION_REPORT_KEY,JSON.stringify(Object.assign(prior,{photoStatus:complete?'photos_migrated':'photos_partial',photoMigratedAt:migrationIso,photoRefs:refs.length,photosCopied:copied,photosMissing:missing,photosFailed:failed,sourcePhotoDb:MAXIME_LEGACY_PHOTO_DB,targetPhotoDb:PHOTO_DB})));
   return complete;
+}
+async function ensureMaximePhase1PhotoArchive(){
+  if(!isMaximeMigrationPortal())return false;
+  const oldRaw=safeStorageGet(MAXIME_LEGACY_DATA_KEY);
+  const oldData=parseJSONSafe(oldRaw);
+  if(!oldData||typeof oldData!=='object')return false;
+  const refs=maximeLegacyPhotoRefs(oldData);
+  if(!refs.length)return false;
+  const sourceDb=await openPhotoDbByName(MAXIME_LEGACY_PHOTO_DB);
+  let archived=0,activeCleared=0;
+  for(const ref of refs){
+    let data=null;
+    if(typeof ref.source==='string'&&ref.source.indexOf('data:image/')===0)data=ref.source;
+    else data=await legacyPhotoDbGet(sourceDb,ref.source);
+    if(!data)continue;
+    if(await setPhotoIfMissing(ref.target,data))archived++;
+    const activeKey=photoKey(ref.week,ref.slot);
+    const active=await idbGet(activeKey);
+    if(active&&active===data){
+      const deleted=await idbDel(activeKey);
+      if(deleted)activeCleared++;
+    }
+  }
+  try{if(sourceDb)sourceDb.close();}catch(e){}
+  if(archived||activeCleared){
+    const prior=parseJSONSafe(safeStorageGet(MAXIME_MIGRATION_REPORT_KEY))||{version:MAXIME_MIGRATION_VERSION};
+    safeStorageSet(MAXIME_MIGRATION_REPORT_KEY,JSON.stringify(Object.assign(prior,{phase1PhotoArchiveEnsuredAt:new Date().toISOString(),phase1PhotosArchived:archived,activePhasePhotoCollisionsCleared:activeCleared})));
+  }
+  return !!(archived||activeCleared);
 }
 
 /* ═════════ BLANK PROGRAM ENGINE ═════════ */
@@ -3154,9 +3298,9 @@ function renderEntrainementWeek(){
   const panel=el('panel-entrainement');
   if(panel)panel.classList.remove('week-zero-mode');
   const W=WEEKS[currentWeek];
-  el('ent-protocol').textContent=CLIENT_PROFILE.homeKicker+' — '+W.phase;
+  el('ent-protocol').textContent='PROTOCOL PHASE: '+activePhaseLabel()+' — '+W.phase;
   el('ent-title').textContent='WEEK '+currentWeek;
-  el('ent-phase').textContent=W.phase;
+  el('ent-phase').textContent='ACTIVE WEEK '+currentWeek+' / '+TOTAL_WEEKS;
   el('ent-desc').textContent=W.desc;
   if(!SEANCE_IDS.includes(currentSeance))currentSeance=recommendedSessionIdForToday(currentWeek)||SEANCE_IDS[0]||'a';
   SEANCE_IDS.forEach(sid=>{ const panel=ensureSessionPanel(sid); if(panel){panel.innerHTML=buildSeanceHTML(currentWeek,sid); restoreSeanceFields(sid); wireSeanceInputs(sid); updateStatus(sid);} });
@@ -3269,8 +3413,29 @@ function selectTrainingDayForToday(){
   const btn=document.querySelectorAll('#panel-entrainement .sub-nav .sub-btn')[idx];
   showSeance(sid,btn);
 }
+function centerWeekNavOnWeek(week){
+  const nav=el('week-nav-entrainement');
+  if(!nav)return;
+  const btn=nav.querySelector('[data-week="'+String(week)+'"]');
+  if(!btn)return;
+  const left=Math.max(0,btn.offsetLeft-(nav.clientWidth-btn.offsetWidth)/2);
+  if(typeof nav.scrollTo==='function')nav.scrollTo({left:left,behavior:'smooth'});
+  else nav.scrollLeft=left;
+}
 function startTodaysSession(){
-  showPanel('entrainement',document.querySelectorAll('.nav-btn')[1]);
+  currentWeek=getPortalActiveWeek();
+  buildWeekNav();
+  renderEntrainementWeek();
+  if(currentWeek!==0){
+    const sid=recommendedSessionIdForToday(currentWeek);
+    if(sid){
+      const idx=SEANCE_IDS.indexOf(sid);
+      const btn=document.querySelectorAll('#panel-entrainement .sub-nav .sub-btn')[idx];
+      showSeance(sid,btn);
+    }
+  }
+  showPanel('entrainement',getMainNavButton('training')||document.querySelectorAll('.nav-btn')[1],{keepSelectedWeek:true,preserveScroll:true});
+  setTimeout(()=>centerWeekNavOnWeek(currentWeek),0);
 }
 function selectNutritionDayForToday(){
   const day=todayNutritionDay();
@@ -3311,7 +3476,7 @@ function showPanel(name,btn,opts){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   const activeBtn=getPanelNavButton(name,btn);
   if(activeBtn)activeBtn.classList.add('active');
-  window.scrollTo({top:0});
+  if(!(opts&&opts.preserveScroll))window.scrollTo({top:0});
   if(name==='entrainement'&&!(opts&&opts.keepSelectedWeek)){selectTrainingDayForToday();}
   if(name==='nutrition'&&!(opts&&opts.keepSelectedDay)){selectNutritionDayForToday();}
   if(name==='checkin'){
@@ -3372,6 +3537,7 @@ function buildWeekNav(){
   const wzStatus=weekZeroOverallStatus();
   const wzBtn=document.createElement('button');
   wzBtn.className='week-nav-btn'+(currentWeek===0?' active':'');
+  wzBtn.setAttribute('data-week','0');
   wzBtn.innerHTML='<span class="week-card-top"><span>W0</span><span class="week-card-count">'+(D.weekZero&&D.weekZero.submitted?'SENT':(wzDone+'/'+wzTotal))+'</span></span>'
     +'<span class="week-card-phase">'+escapeHTML(wzStatus)+'</span>'
     +'<span class="week-card-bar"><span class="week-card-fill" style="width:'+wzPct+'%"></span></span>';
@@ -3390,6 +3556,7 @@ function buildWeekNav(){
     const countLabel=totalCount?doneCount+'/'+totalCount:'BUILD';
     const b=document.createElement('button');
     b.className='week-nav-btn'+(w===currentWeek?' active':'')+(unlocked?'':' locked');
+    b.setAttribute('data-week',String(w));
     b.innerHTML='<span class="week-card-top"><span>'+(unlocked?'':'<span class="lock-icon">🔒</span> ')+'WEEK '+w+'</span><span class="week-card-count">'+countLabel+'</span></span>'
       +'<span class="week-card-phase">'+escapeHTML(WEEKS[w].phase)+'</span>'
       +'<span class="week-card-bar"><span class="week-card-fill" style="width:'+pct+'%"></span></span>';
@@ -3448,7 +3615,7 @@ function updateHomeStats(){
   if(startLabel)startLabel.textContent='START TRAINING';
   if(startSub)startSub.textContent='Open your recommended session';
   el('home-week-label').textContent='WEEK '+act;
-  el('home-phase-label').textContent=WEEKS[act].phase;
+  el('home-phase-label').textContent=activePhaseLabel()+' · '+WEEKS[act].phase;
   el('week-msg-body').textContent=WEEKS[act].msg;
   SEANCE_IDS.forEach(sid=>{
     const ws=el('ws-'+sid);
@@ -3495,7 +3662,7 @@ function updateHomeFocus(){
   if(weekPill)weekPill.textContent=pct+'%';
   if(weekTitle)weekTitle.textContent=doneCount+' / '+planned.length+' DONE';
   if(fill)fill.style.width=pct+'%';
-  if(weekSub)weekSub.textContent=planned.length?'Week '+act+' execution':'Week '+act+' protocol build pending';
+  if(weekSub)weekSub.textContent=planned.length?'Active Week '+act+' / '+TOTAL_WEEKS+' · '+activePhaseLabel():'Week '+act+' protocol build pending';
 }
 function orangeChartGradient(context,topAlpha){
   const chart=context.chart;
@@ -4098,6 +4265,7 @@ function closeTimer(){clearInterval(_timerInt);el('timer-modal').classList.remov
 /* ═════════ PHOTOS ═════════ */
 let _photoSlot=0;
 function photoKey(week,slot){return 'max_personal_photo_s'+week+'_'+slot;}
+function archivedPhasePhotoKey(phaseId,week,slot){return 'archived_'+phaseId+'_photo_s'+week+'_'+slot;}
 function triggerPhoto(slot){_photoSlot=slot;el('photo-input').click();}
 function handlePhoto(ev){
   const f=ev.target.files&&ev.target.files[0]; ev.target.value=''; if(!f)return;
@@ -4289,6 +4457,8 @@ function normalizeImportedData(p){
     return e;
   });
   if(typeof out.drafts!=='object'||!out.drafts)out.drafts={};
+  out.archivedPhases=normalizeArchivedPhases(out.archivedPhases);
+  out.activePhase=normalizeActivePhase(out.activePhase);
   out.unlockedWeek=normalizeUnlockedWeek(out);
   out.weekZero=normalizeWeekZero(out.weekZero);
   return out;
@@ -4640,6 +4810,7 @@ function restore(){
   initWeekZero();
   runMaximeLegacyPhotoMigrationOnce()
     .catch(e=>{console.warn('Maxime legacy photo migration failed',e);})
+    .then(()=>ensureMaximePhase1PhotoArchive())
     .then(()=>migrateLegacyPhotoDbs())
     .then(()=>{loadPhotos();renderWeekZero();});
   resetCheckinSlidersToOne();
