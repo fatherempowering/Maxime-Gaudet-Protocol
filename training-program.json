@@ -1,0 +1,4219 @@
+{
+  "schemaVersion": 1,
+  "programVersion": "maxime-gaudet-block-2-v1",
+  "updatedAt": "2026-07-11T00:00:00-04:00",
+  "training": {
+    "client": "Maxime Gaudet",
+    "protocol": "Legacy Protocol — Bloc 2",
+    "durationWeeks": 14,
+    "sessionIds": [
+      "a",
+      "b",
+      "c"
+    ],
+    "sessionCatalog": [
+      {
+        "id": "a",
+        "label": "SESSION A",
+        "title": "Upper + Hinge Strength",
+        "suggestedDay": "MON",
+        "order": 1
+      },
+      {
+        "id": "b",
+        "label": "SESSION B",
+        "title": "Lower + Push + Unilateral",
+        "suggestedDay": "WED",
+        "order": 2
+      },
+      {
+        "id": "c",
+        "label": "SESSION C",
+        "title": "Conditioning maison athlétique",
+        "suggestedDay": "FRI",
+        "order": 3
+      }
+    ],
+    "defaultPhase": "LEGACY PROTOCOL — BLOC 2",
+    "defaultDesc": "14-week strength, endurance and recomposition block with flexible sessions A, B and C.",
+    "defaultMessage": "Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session.",
+    "keyLifts": [
+      "trap_bar_deadlift",
+      "leg_press_hack",
+      "db_bench_neutral",
+      "hip_thrust",
+      "tacx_anaerobic"
+    ],
+    "weeks": [
+      {
+        "week": 1,
+        "phase": "REBUILD / ACCUMULATION PROPRE",
+        "desc": "Rebuild volume, clean execution, controlled RPE and measurable consistency without excessive fatigue.",
+        "msg": "REBUILD / ACCUMULATION PROPRE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift",
+                    "note": "RPE 7. Rest: 2-3 min. Speed clean, no grind. Substitution: light RDL if trap bar unavailable. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "trap_bar_deadlift",
+                    "target": "205 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "4",
+                    "reps": "8",
+                    "key": "chest_supported_row",
+                    "target": "90 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "4",
+                    "reps": "8",
+                    "key": "db_bench_neutral",
+                    "target": "50 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "neutral_lat_pulldown",
+                    "target": "110 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "2",
+                    "reps": "8",
+                    "key": "romanian_deadlift",
+                    "target": "155 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "24-25 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "30 m/side",
+                    "key": "suitcase_carry",
+                    "target": "45-50 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1-2 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat.",
+                    "sets": "4",
+                    "reps": "10",
+                    "key": "leg_press_hack",
+                    "target": "360 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "3",
+                    "reps": "8/side",
+                    "key": "ffe_split_squat",
+                    "target": "25 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust",
+                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "hip_thrust",
+                    "target": "170 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "3",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "40 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "120 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "hip_abduction",
+                    "target": "70 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "40 m",
+                    "key": "farmer_carry",
+                    "target": "45 lb/hand",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "30 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 2,
+        "phase": "REBUILD / ACCUMULATION PROPRE",
+        "desc": "Rebuild volume, clean execution, controlled RPE and measurable consistency without excessive fatigue.",
+        "msg": "REBUILD / ACCUMULATION PROPRE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift",
+                    "note": "RPE 7. Rest: 2-3 min. Repeat clean speed before loading. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "trap_bar_deadlift",
+                    "target": "205 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "4",
+                    "reps": "8",
+                    "key": "chest_supported_row",
+                    "target": "95 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "4",
+                    "reps": "9",
+                    "key": "db_bench_neutral",
+                    "target": "50 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "3",
+                    "reps": "10-11",
+                    "key": "neutral_lat_pulldown",
+                    "target": "110 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "2",
+                    "reps": "9",
+                    "key": "romanian_deadlift",
+                    "target": "155 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "24-25 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "30 m/side",
+                    "key": "suitcase_carry",
+                    "target": "45-50 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1-2 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat.",
+                    "sets": "4",
+                    "reps": "10-11",
+                    "key": "leg_press_hack",
+                    "target": "360 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "3",
+                    "reps": "9/side",
+                    "key": "ffe_split_squat",
+                    "target": "25 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust",
+                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
+                    "sets": "3",
+                    "reps": "9",
+                    "key": "hip_thrust",
+                    "target": "170 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "3",
+                    "reps": "9/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "40 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "3",
+                    "reps": "11",
+                    "key": "seated_cable_row",
+                    "target": "120 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "3",
+                    "reps": "15",
+                    "key": "hip_abduction",
+                    "target": "70 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "40 m",
+                    "key": "farmer_carry",
+                    "target": "45 lb/hand",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "30 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 3,
+        "phase": "REBUILD / ACCUMULATION PROPRE",
+        "desc": "Rebuild volume, clean execution, controlled RPE and measurable consistency without excessive fatigue.",
+        "msg": "REBUILD / ACCUMULATION PROPRE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift",
+                    "note": "RPE cap 7.5. Rest: 2-3 min. Stay at 205 lb if speed or bracing is not clean. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "trap_bar_deadlift",
+                    "target": "215 lb if RPE <= 7.5",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "4",
+                    "reps": "8",
+                    "key": "chest_supported_row",
+                    "target": "100 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "4",
+                    "reps": "8",
+                    "key": "db_bench_neutral",
+                    "target": "55 lb/hand if easy",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "neutral_lat_pulldown",
+                    "target": "115 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "2",
+                    "reps": "8",
+                    "key": "romanian_deadlift",
+                    "target": "175 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "24-25 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "35 m/side",
+                    "key": "suitcase_carry",
+                    "target": "45-50 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1-2 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat.",
+                    "sets": "4",
+                    "reps": "10",
+                    "key": "leg_press_hack",
+                    "target": "405 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "3",
+                    "reps": "8/side",
+                    "key": "ffe_split_squat",
+                    "target": "30 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust",
+                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "hip_thrust",
+                    "target": "180 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "3",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "45 lb if clean",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "125 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "3",
+                    "reps": "12-15",
+                    "key": "hip_abduction",
+                    "target": "75 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "40 m",
+                    "key": "farmer_carry",
+                    "target": "45 lb/hand",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down. Better explosiveness than Weeks 1-2.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss. Better fluidity than Weeks 1-2.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "35 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 4,
+        "phase": "REBUILD / ACCUMULATION PROPRE",
+        "desc": "Rebuild volume, clean execution, controlled RPE and measurable consistency without excessive fatigue.",
+        "msg": "REBUILD / ACCUMULATION PROPRE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift",
+                    "note": "RPE 7-8 max. Rest: 2-3 min. Repeat Week 3 load if any grind appeared. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "trap_bar_deadlift",
+                    "target": "215 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "4",
+                    "reps": "8",
+                    "key": "chest_supported_row",
+                    "target": "105 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "4",
+                    "reps": "8-9",
+                    "key": "db_bench_neutral",
+                    "target": "55 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "neutral_lat_pulldown",
+                    "target": "115-120 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "2",
+                    "reps": "8",
+                    "key": "romanian_deadlift",
+                    "target": "175 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "24-25 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "35 m/side",
+                    "key": "suitcase_carry",
+                    "target": "45-50 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1-2 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat.",
+                    "sets": "4",
+                    "reps": "10",
+                    "key": "leg_press_hack",
+                    "target": "405 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "3",
+                    "reps": "8-9/side",
+                    "key": "ffe_split_squat",
+                    "target": "30 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust",
+                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
+                    "sets": "3",
+                    "reps": "8-9",
+                    "key": "hip_thrust",
+                    "target": "180 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "3",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "45 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "3",
+                    "reps": "10-11",
+                    "key": "seated_cable_row",
+                    "target": "125 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "3",
+                    "reps": "15",
+                    "key": "hip_abduction",
+                    "target": "75 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "40 m",
+                    "key": "farmer_carry",
+                    "target": "55 lb/hand",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "35 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 5,
+        "phase": "DELOAD 1",
+        "desc": "Reduce accumulated fatigue, keep movement quality, no HIIT and no explosive work.",
+        "msg": "DELOAD 1. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session. Deload week: reduce volume 30-50%, stay around RPE 6, no HIIT, no explosive work, no failure.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift",
+                    "note": "Deload. RPE 6. Rest: 2 min. Keep movement easy. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "2",
+                    "reps": "5",
+                    "key": "trap_bar_deadlift",
+                    "target": "145-155 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "2-3",
+                    "reps": "8",
+                    "key": "chest_supported_row",
+                    "target": "95 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "2-3",
+                    "reps": "8",
+                    "key": "db_bench_neutral",
+                    "target": "35-40 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "2",
+                    "reps": "10",
+                    "key": "neutral_lat_pulldown",
+                    "target": "75-85 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "2",
+                    "reps": "8",
+                    "key": "romanian_deadlift",
+                    "target": "125-135 lb or remove",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2",
+                    "reps": "12-15",
+                    "key": "face_pull",
+                    "target": "light",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "2",
+                    "reps": "20 m/side",
+                    "key": "suitcase_carry",
+                    "target": "light",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat.",
+                    "sets": "2-3",
+                    "reps": "8",
+                    "key": "leg_press_hack",
+                    "target": "285-315 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "2",
+                    "reps": "8/side",
+                    "key": "ffe_split_squat",
+                    "target": "15-20 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust",
+                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
+                    "sets": "2",
+                    "reps": "8",
+                    "key": "hip_thrust",
+                    "target": "115-125 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "2",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "25-30 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "2",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "85-95 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "2",
+                    "reps": "12",
+                    "key": "hip_abduction",
+                    "target": "45-50 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "bodyweight or light",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "2",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "2",
+                    "reps": "30 m",
+                    "key": "farmer_carry",
+                    "target": "light",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "DELOAD CONDITIONING / RECOVERY",
+                "exercises": [
+                  {
+                    "name": "Tacx Easy or Zone 2",
+                    "note": "Deload conditioning only. No intervals, no maximal sprint, no HIIT. Bike, incline walk or brisk walk are all acceptable.",
+                    "sets": "1",
+                    "reps": "35-45 min",
+                    "key": "tacx_easy_zone2",
+                    "target": "RPE 5-6",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Controlled",
+                    "note": "Controlled, non-explosive. Keep it easy.",
+                    "sets": "2",
+                    "reps": "10",
+                    "key": "trx_row_controlled",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift - Light",
+                    "note": "Only if low back and hamstrings are fresh. Remove if fatigue is present.",
+                    "sets": "2 optional",
+                    "reps": "10",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "light or remove",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Clean brace only.",
+                    "sets": "2",
+                    "reps": "30 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Hip / Ankle Mobility",
+                    "note": "Deload movement quality and recovery.",
+                    "sets": "1",
+                    "reps": "5-8 min",
+                    "key": "mobility_hips_ankles",
+                    "target": "easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "Breathing Reset",
+                    "note": "Downshift recovery. No intensity.",
+                    "sets": "1",
+                    "reps": "3-5 min",
+                    "key": "breathing_reset",
+                    "target": "easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "Dead Hang TRX Optional",
+                    "note": "Optional light only. Remove if grip is tired.",
+                    "sets": "1 optional",
+                    "reps": "easy clean hold",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB Light",
+                    "note": "Control, no pain.",
+                    "sets": "2",
+                    "reps": "15",
+                    "key": "wrist_curl_db",
+                    "target": "light",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 6,
+        "phase": "INTENSIFICATION CONTRÔLÉE",
+        "desc": "Build strength and recomposition while staying under the recovery ceiling.",
+        "msg": "INTENSIFICATION CONTRÔLÉE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift",
+                    "note": "RPE 7.5-8. Rest: 2-3 min. Controlled intensification. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "5",
+                    "reps": "4",
+                    "key": "trap_bar_deadlift",
+                    "target": "215 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "4",
+                    "reps": "6-8",
+                    "key": "chest_supported_row",
+                    "target": "110 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "db_bench_neutral",
+                    "target": "55 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "neutral_lat_pulldown",
+                    "target": "120 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "3",
+                    "reps": "6",
+                    "key": "romanian_deadlift",
+                    "target": "175 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "24-25 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "30 m/side",
+                    "key": "suitcase_carry",
+                    "target": "moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1-2 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat.",
+                    "sets": "4",
+                    "reps": "8",
+                    "key": "leg_press_hack",
+                    "target": "405 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "3",
+                    "reps": "6/side",
+                    "key": "ffe_split_squat",
+                    "target": "30 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust",
+                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "hip_thrust",
+                    "target": "185 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "3",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "45 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "125 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "hip_abduction",
+                    "target": "75 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "40 m",
+                    "key": "farmer_carry",
+                    "target": "55 lb/hand",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "35 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 7,
+        "phase": "INTENSIFICATION CONTRÔLÉE",
+        "desc": "Build strength and recomposition while staying under the recovery ceiling.",
+        "msg": "INTENSIFICATION CONTRÔLÉE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift",
+                    "note": "RPE cap 8. Rest: 2-3 min. Reduce if bar speed slows. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "5",
+                    "reps": "4",
+                    "key": "trap_bar_deadlift",
+                    "target": "225 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "4",
+                    "reps": "6-8",
+                    "key": "chest_supported_row",
+                    "target": "115 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "db_bench_neutral",
+                    "target": "55-60 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "neutral_lat_pulldown",
+                    "target": "125 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "3",
+                    "reps": "6",
+                    "key": "romanian_deadlift",
+                    "target": "185 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "24-25 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "30 m/side",
+                    "key": "suitcase_carry",
+                    "target": "moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1-2 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat.",
+                    "sets": "4",
+                    "reps": "8",
+                    "key": "leg_press_hack",
+                    "target": "450 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "3",
+                    "reps": "6/side",
+                    "key": "ffe_split_squat",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust",
+                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "hip_thrust",
+                    "target": "190 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "3",
+                    "reps": "8-9/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "45 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "130 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "hip_abduction",
+                    "target": "75-80 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "40 m or more distance",
+                    "key": "farmer_carry",
+                    "target": "55 lb/hand",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "40 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 8,
+        "phase": "INTENSIFICATION CONTRÔLÉE",
+        "desc": "Build strength and recomposition while staying under the recovery ceiling.",
+        "msg": "INTENSIFICATION CONTRÔLÉE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift",
+                    "note": "RPE cap 8.5. Rest: 2-3 min. No grind. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "5",
+                    "reps": "4",
+                    "key": "trap_bar_deadlift",
+                    "target": "230 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "chest_supported_row",
+                    "target": "120 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "db_bench_neutral",
+                    "target": "60 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "neutral_lat_pulldown",
+                    "target": "130 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "3",
+                    "reps": "6",
+                    "key": "romanian_deadlift",
+                    "target": "185 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "24-25 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "30 m/side",
+                    "key": "suitcase_carry",
+                    "target": "moderate-heavy",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1-2 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat.",
+                    "sets": "4",
+                    "reps": "8",
+                    "key": "leg_press_hack",
+                    "target": "450 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "3-4",
+                    "reps": "6/side",
+                    "key": "ffe_split_squat",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust",
+                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "hip_thrust",
+                    "target": "195 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "3",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "50 lb if clean",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "135 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "hip_abduction",
+                    "target": "80 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "40 m",
+                    "key": "farmer_carry",
+                    "target": "55-60 lb/hand if grip fresh",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "40 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 9,
+        "phase": "INTENSIFICATION CONTRÔLÉE",
+        "desc": "Build strength and recomposition while staying under the recovery ceiling.",
+        "msg": "INTENSIFICATION CONTRÔLÉE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift",
+                    "note": "RPE cap 8.5. Use 4 sets if work fatigue is high. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "4-5",
+                    "reps": "4",
+                    "key": "trap_bar_deadlift",
+                    "target": "235 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "chest_supported_row",
+                    "target": "125 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "4",
+                    "reps": "6-7",
+                    "key": "db_bench_neutral",
+                    "target": "60 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "neutral_lat_pulldown",
+                    "target": "130-135 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "3",
+                    "reps": "6",
+                    "key": "romanian_deadlift",
+                    "target": "195 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "24-25 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "30 m/side",
+                    "key": "suitcase_carry",
+                    "target": "moderate-heavy",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1-2 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat.",
+                    "sets": "4",
+                    "reps": "8",
+                    "key": "leg_press_hack",
+                    "target": "460 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "3",
+                    "reps": "6/side",
+                    "key": "ffe_split_squat",
+                    "target": "35-40 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust",
+                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "hip_thrust",
+                    "target": "195-200 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "3",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "50 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "135-140 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "3",
+                    "reps": "12-15",
+                    "key": "hip_abduction",
+                    "target": "80 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "40 m",
+                    "key": "farmer_carry",
+                    "target": "60 lb/hand if grip fresh",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "40 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 10,
+        "phase": "DELOAD 2",
+        "desc": "Absorb weeks 6-9 and protect recovery before the final performance block.",
+        "msg": "DELOAD 2. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session. Deload week: reduce volume 30-50%, stay around RPE 6, no HIIT, no explosive work, no failure.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift",
+                    "note": "Deload. RPE 6. Rest: 2 min. No grinding. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "2",
+                    "reps": "4",
+                    "key": "trap_bar_deadlift",
+                    "target": "155-165 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "2-3",
+                    "reps": "8",
+                    "key": "chest_supported_row",
+                    "target": "105 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "2-3",
+                    "reps": "8",
+                    "key": "db_bench_neutral",
+                    "target": "40 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "2",
+                    "reps": "10",
+                    "key": "neutral_lat_pulldown",
+                    "target": "85-95 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "2",
+                    "reps": "8",
+                    "key": "romanian_deadlift",
+                    "target": "135 lb or remove",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2",
+                    "reps": "12-15",
+                    "key": "face_pull",
+                    "target": "light",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "2",
+                    "reps": "20 m/side",
+                    "key": "suitcase_carry",
+                    "target": "light",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat.",
+                    "sets": "2-3",
+                    "reps": "8",
+                    "key": "leg_press_hack",
+                    "target": "305-335 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "2",
+                    "reps": "8/side",
+                    "key": "ffe_split_squat",
+                    "target": "20 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust",
+                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
+                    "sets": "2",
+                    "reps": "8",
+                    "key": "hip_thrust",
+                    "target": "125-135 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "2",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "30 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "2",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "90-100 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "2",
+                    "reps": "12",
+                    "key": "hip_abduction",
+                    "target": "50 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "bodyweight or light",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "2",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "2",
+                    "reps": "30 m",
+                    "key": "farmer_carry",
+                    "target": "light",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "DELOAD CONDITIONING / RECOVERY",
+                "exercises": [
+                  {
+                    "name": "Tacx Easy or Zone 2",
+                    "note": "Deload conditioning only. No intervals, no maximal sprint, no HIIT. Bike, incline walk or brisk walk are all acceptable.",
+                    "sets": "1",
+                    "reps": "35-45 min",
+                    "key": "tacx_easy_zone2",
+                    "target": "RPE 5-6",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Controlled",
+                    "note": "Controlled, non-explosive. Keep it easy.",
+                    "sets": "2",
+                    "reps": "10",
+                    "key": "trx_row_controlled",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift - Light",
+                    "note": "Only if low back and hamstrings are fresh. Remove if fatigue is present.",
+                    "sets": "2 optional",
+                    "reps": "10",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "light or remove",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Clean brace only.",
+                    "sets": "2",
+                    "reps": "30 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Hip / Ankle Mobility",
+                    "note": "Deload movement quality and recovery.",
+                    "sets": "1",
+                    "reps": "5-8 min",
+                    "key": "mobility_hips_ankles",
+                    "target": "easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "Breathing Reset",
+                    "note": "Downshift recovery. No intensity.",
+                    "sets": "1",
+                    "reps": "3-5 min",
+                    "key": "breathing_reset",
+                    "target": "easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "Dead Hang TRX Optional",
+                    "note": "Optional light only. Remove if grip is tired.",
+                    "sets": "1 optional",
+                    "reps": "easy clean hold",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB Light",
+                    "note": "Control, no pain.",
+                    "sets": "2",
+                    "reps": "15",
+                    "key": "wrist_curl_db",
+                    "target": "light",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 11,
+        "phase": "PERFORMANCE DURABLE",
+        "desc": "Controlled top sets, density and endurance without max attempts or grinders.",
+        "msg": "PERFORMANCE DURABLE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session. Top sets are capped at RPE 8 with back-off work based on the day.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift - Top Set",
+                    "note": "Top set at RPE 8. No grind. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "1",
+                    "reps": "4",
+                    "key": "trap_bar_deadlift_top_set",
+                    "target": "235 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Trap Bar Deadlift - Back-Off",
+                    "note": "Back-off work. Rest: 2-3 min. Reduce if top set was too heavy. Rest: 2-3 min. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "2",
+                    "reps": "5",
+                    "key": "trap_bar_deadlift_backoff",
+                    "target": "210 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "chest_supported_row",
+                    "target": "130 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "db_bench_neutral",
+                    "target": "60 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "neutral_lat_pulldown",
+                    "target": "135 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "2",
+                    "reps": "6",
+                    "key": "romanian_deadlift",
+                    "target": "185 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "24-25 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "30 m/side",
+                    "key": "suitcase_carry",
+                    "target": "moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1-2 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat - Top Set",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat. Top set only.",
+                    "sets": "1",
+                    "reps": "8",
+                    "key": "leg_press_hack_top_set",
+                    "target": "450 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Leg Press or Hack Squat - Back-Off",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat. Back-off based on the top set. If knee, sleep, speed or effort is off, replace with 3x8 at RPE 7.",
+                    "sets": "2-3",
+                    "reps": "8",
+                    "key": "leg_press_hack_backoff",
+                    "target": "back-off according to RPE",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "3",
+                    "reps": "6/side",
+                    "key": "ffe_split_squat",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust - Top Set",
+                    "note": "Top set at RPE 8 max. Pause 1 sec at top. Rest: 90 sec. Substitution: Glute Bridge.",
+                    "sets": "1",
+                    "reps": "6",
+                    "key": "hip_thrust_top_set",
+                    "target": "200 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust - Back-Off",
+                    "note": "Back-off work, clean lockout only. Rest: 90 sec. Substitution: Glute Bridge.",
+                    "sets": "2",
+                    "reps": "8",
+                    "key": "hip_thrust_backoff",
+                    "target": "180 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "3",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "50 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "135 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "2",
+                    "reps": "15",
+                    "key": "hip_abduction",
+                    "target": "80 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "40 m",
+                    "key": "farmer_carry",
+                    "target": "55-60 lb/hand",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "40 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 12,
+        "phase": "PERFORMANCE DURABLE",
+        "desc": "Controlled top sets, density and endurance without max attempts or grinders.",
+        "msg": "PERFORMANCE DURABLE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session. Top sets are capped at RPE 8 with back-off work based on the day.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift - Top Set",
+                    "note": "Top set at RPE 8. No grind. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "1",
+                    "reps": "4",
+                    "key": "trap_bar_deadlift_top_set",
+                    "target": "240 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Trap Bar Deadlift - Back-Off",
+                    "note": "Back-off work based on the top set. Rest: 2-3 min. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "2",
+                    "reps": "5",
+                    "key": "trap_bar_deadlift_backoff",
+                    "target": "215 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "chest_supported_row",
+                    "target": "135 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "db_bench_neutral",
+                    "target": "60-65 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "neutral_lat_pulldown",
+                    "target": "135-140 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "2",
+                    "reps": "6",
+                    "key": "romanian_deadlift",
+                    "target": "185 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "24-25 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "30 m/side",
+                    "key": "suitcase_carry",
+                    "target": "moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1-2 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat - Top Set",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat. Top set only.",
+                    "sets": "1",
+                    "reps": "8",
+                    "key": "leg_press_hack_top_set",
+                    "target": "460 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Leg Press or Hack Squat - Back-Off",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat. Back-off based on the top set. If knee, sleep, speed or effort is off, replace with 3x8 at RPE 7.",
+                    "sets": "2-3",
+                    "reps": "8",
+                    "key": "leg_press_hack_backoff",
+                    "target": "back-off according to RPE",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "3",
+                    "reps": "6/side",
+                    "key": "ffe_split_squat",
+                    "target": "35-40 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust - Top Set",
+                    "note": "Top set at RPE 8 max. Pause 1 sec at top. Rest: 90 sec. Substitution: Glute Bridge.",
+                    "sets": "1",
+                    "reps": "6",
+                    "key": "hip_thrust_top_set",
+                    "target": "200-205 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust - Back-Off",
+                    "note": "Back-off work, clean lockout only. Rest: 90 sec. Substitution: Glute Bridge.",
+                    "sets": "2",
+                    "reps": "8",
+                    "key": "hip_thrust_backoff",
+                    "target": "180-185 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "3",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "50 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "140 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "2",
+                    "reps": "15",
+                    "key": "hip_abduction",
+                    "target": "80 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "40 m",
+                    "key": "farmer_carry",
+                    "target": "60 lb/hand if grip fresh",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "40 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 13,
+        "phase": "PERFORMANCE DURABLE",
+        "desc": "Controlled top sets, density and endurance without max attempts or grinders.",
+        "msg": "PERFORMANCE DURABLE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session. Top sets are capped at RPE 8 with back-off work based on the day.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift - Top Set",
+                    "note": "Top set max RPE 8. No grind. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "1",
+                    "reps": "4",
+                    "key": "trap_bar_deadlift_top_set",
+                    "target": "245 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Trap Bar Deadlift - Back-Off",
+                    "note": "Back-off work. Reduce if speed is not clean. Rest: 2-3 min. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "2",
+                    "reps": "5",
+                    "key": "trap_bar_deadlift_backoff",
+                    "target": "220 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "chest_supported_row",
+                    "target": "140 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "4",
+                    "reps": "6",
+                    "key": "db_bench_neutral",
+                    "target": "65 lb/hand if clean",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "neutral_lat_pulldown",
+                    "target": "140 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "2",
+                    "reps": "6",
+                    "key": "romanian_deadlift",
+                    "target": "195 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Face Pull",
+                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
+                    "sets": "2-3",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "24-25 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "30 m/side",
+                    "key": "suitcase_carry",
+                    "target": "moderate-heavy",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang",
+                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
+                    "sets": "1-2 optional",
+                    "reps": "max clean",
+                    "key": "dead_hang",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat - Top Set",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat. Top set only.",
+                    "sets": "1",
+                    "reps": "8",
+                    "key": "leg_press_hack_top_set",
+                    "target": "460 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Leg Press or Hack Squat - Back-Off",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat. Back-off based on the top set. If knee, sleep, speed or effort is off, replace with 3x8 at RPE 7.",
+                    "sets": "2-3",
+                    "reps": "8",
+                    "key": "leg_press_hack_backoff",
+                    "target": "back-off according to RPE",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "3",
+                    "reps": "6/side",
+                    "key": "ffe_split_squat",
+                    "target": "40 lb/hand if clean",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust - Top Set",
+                    "note": "Top set at RPE 8 max. Pause 1 sec at top. Rest: 90 sec. Substitution: Glute Bridge.",
+                    "sets": "1",
+                    "reps": "6",
+                    "key": "hip_thrust_top_set",
+                    "target": "205 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust - Back-Off",
+                    "note": "Back-off work, clean lockout only. Rest: 90 sec. Substitution: Glute Bridge.",
+                    "sets": "2",
+                    "reps": "8",
+                    "key": "hip_thrust_backoff",
+                    "target": "185 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "3",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "50 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "140 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "2",
+                    "reps": "15",
+                    "key": "hip_abduction",
+                    "target": "80 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "3",
+                    "reps": "40 m",
+                    "key": "farmer_carry",
+                    "target": "60 lb/hand maximum",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "40 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "week": 14,
+        "phase": "CONSOLIDATION / TEST QUALITÉ",
+        "desc": "Quality test week: technique, breathing, recovery, control and comparison with Week 1.",
+        "msg": "CONSOLIDATION / TEST QUALITÉ. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session. This is not a PR week. No max, no mandatory load PR, no set above RPE 8.",
+        "sessions": {
+          "a": {
+            "title": "Upper + Hinge Strength",
+            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "blocks": [
+              {
+                "label": "STRENGTH / HINGE",
+                "exercises": [
+                  {
+                    "name": "Trap Bar Deadlift",
+                    "note": "Consolidation technique set. RPE cap 8. This is not a PR. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
+                    "sets": "1",
+                    "reps": "4",
+                    "key": "trap_bar_deadlift",
+                    "target": "225 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Chest Supported Row",
+                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
+                    "sets": "3",
+                    "reps": "6",
+                    "key": "chest_supported_row",
+                    "target": "145 lb technique",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "DB Bench Press - Neutral Grip",
+                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
+                    "sets": "3",
+                    "reps": "6",
+                    "key": "db_bench_neutral",
+                    "target": "55 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Neutral Grip Lat Pulldown",
+                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "sets": "2-3",
+                    "reps": "8",
+                    "key": "neutral_lat_pulldown",
+                    "target": "120 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Romanian Deadlift",
+                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "sets": "2",
+                    "reps": "6",
+                    "key": "romanian_deadlift",
+                    "target": "205 lb technique",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "CORE / CARRY / SHOULDER HEALTH",
+                "exercises": [
+                  {
+                    "name": "Pallof Press",
+                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "sets": "2",
+                    "reps": "10/side",
+                    "key": "pallof_press",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Suitcase Carry",
+                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "sets": "2",
+                    "reps": "30 m/side",
+                    "key": "suitcase_carry",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "b": {
+            "title": "Lower + Push + Unilateral",
+            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "blocks": [
+              {
+                "label": "LOWER STRENGTH / UNILATERAL",
+                "exercises": [
+                  {
+                    "name": "Leg Press or Hack Squat",
+                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat. Week 14 is a technique test, not a PR.",
+                    "sets": "2-3",
+                    "reps": "8",
+                    "key": "leg_press_hack",
+                    "target": "480 lb only if knee stable",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Front Foot Elevated Split Squat",
+                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
+                    "sets": "2",
+                    "reps": "8/side",
+                    "key": "ffe_split_squat",
+                    "target": "30 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Thrust",
+                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
+                    "sets": "2",
+                    "reps": "8",
+                    "key": "hip_thrust",
+                    "target": "180 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "PUSH / PULL / CORE / CARRY",
+                "exercises": [
+                  {
+                    "name": "Half Kneeling DB Press",
+                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "sets": "2-3",
+                    "reps": "8/side",
+                    "key": "half_kneeling_db_press",
+                    "target": "40-45 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Seated Cable Row",
+                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "sets": "2-3",
+                    "reps": "10",
+                    "key": "seated_cable_row",
+                    "target": "125-130 lb technique",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Hip Abduction",
+                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "sets": "2",
+                    "reps": "12",
+                    "key": "hip_abduction",
+                    "target": "70 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Bug Loaded",
+                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
+                    "sets": "2-3",
+                    "reps": "10/side",
+                    "key": "dead_bug_loaded",
+                    "target": "10-15 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Side Plank",
+                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
+                    "sets": "2-3",
+                    "reps": "30 sec/side",
+                    "key": "side_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Farmer Carry",
+                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
+                    "sets": "2",
+                    "reps": "30-40 m",
+                    "key": "farmer_carry",
+                    "target": "light-moderate",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          },
+          "c": {
+            "title": "Conditioning maison athlétique",
+            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "blocks": [
+              {
+                "label": "HOME ATHLETIC CONDITIONING",
+                "exercises": [
+                  {
+                    "name": "Tacx Anaerobic Intervals",
+                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
+                    "sets": "1",
+                    "reps": "6 min",
+                    "key": "tacx_anaerobic",
+                    "target": "10 sec strong / 20 sec easy",
+                    "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Explosive up, controlled down. Same format as Week 1; compare quality, not records.",
+                    "sets": "3",
+                    "reps": "10",
+                    "key": "trx_row_explosive",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Romanian Deadlift",
+                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_romanian_deadlift_home",
+                    "target": "35 lb/hand",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Sprawl",
+                    "note": "Athletic rhythm, no technique loss.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "sprawl",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Stable pelvis, clean brace.",
+                    "sets": "3",
+                    "reps": "30 sec",
+                    "key": "trx_plank",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Broad Jump",
+                    "note": "Controlled landing, stable knees, no pain.",
+                    "sets": "3",
+                    "reps": "5",
+                    "key": "broad_jump",
+                    "target": "bodyweight",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Swing",
+                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
+                    "sets": "3",
+                    "reps": "12",
+                    "key": "db_swing",
+                    "target": "35 lb",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Dead Hang TRX",
+                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
+                    "sets": "3",
+                    "reps": "max clean, max 60 sec",
+                    "key": "dead_hang_trx",
+                    "target": "bodyweight",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Wrist Curl DB",
+                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
+                    "sets": "3",
+                    "reps": "20",
+                    "key": "wrist_curl_db",
+                    "target": "15 lb",
+                    "unit": "lbs"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "updateTitle": "CoachMax has prepared your next training block.",
+  "updateMessage": "Block 2 is ready. This phase builds durable strength, endurance and continued fat loss while protecting recovery.",
+  "releaseNotes": [
+    "New 14-week training block",
+    "Three flexible sessions: A, B and C",
+    "Two planned deload weeks",
+    "Zone 2 and fatigue-management options added"
+  ]
+}

@@ -1,12 +1,14 @@
 {
-  "name": "Legacy Protocol - Maxime Gaudet",
-  "short_name": "Legacy",
-  "description": "Portail Legacy Protocol pour le suivi entrainement, nutrition et check-in.",
-  "start_url": "./",
+  "name": "Legacy Protocol",
+  "short_name": "Legacy Protocol",
+  "description": "Father Empowering Legacy Protocol Phase 2 portal for Maxime Gaudet.",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#F4F3EF",
-  "theme_color": "#1C1C1C",
+  "orientation": "portrait",
+  "background_color": "#0B0B0A",
+  "theme_color": "#0B0B0A",
+  "categories": ["fitness", "health", "productivity"],
   "icons": [
     {
       "src": "icon-192.png",
