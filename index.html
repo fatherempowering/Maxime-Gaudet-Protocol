@@ -336,6 +336,36 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-
 .nutrition-plan-title-main{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:#fff;line-height:1;margin-top:6px}
 .nutrition-plan-title-sub{font-size:12px;color:rgba(255,255,255,.68);line-height:1.55;margin-top:7px}
 @media(max-width:520px){.nutrition-plan-nav{padding-left:calc(50% - 59px);padding-right:calc(50% - 59px)}}
+.nutrition-section-body{padding:14px;display:grid;gap:10px}
+.nutrition-meal-card{background:var(--card2);border:1px solid var(--br);border-radius:14px;padding:14px;box-shadow:0 1px 8px rgba(0,0,0,.035)}
+.nutrition-meal-card.is-total{background:var(--black);border-color:rgba(232,118,26,.35)}
+.nutrition-meal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.nutrition-meal-time{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1.6px;color:var(--orange);line-height:1;white-space:nowrap}
+.nutrition-meal-name{font-size:16px;font-weight:700;color:var(--txt);line-height:1.25;margin-top:5px}
+.nutrition-meal-card.is-total .nutrition-meal-name{color:#fff}
+.nutrition-food{font-size:13px;color:var(--txt2);line-height:1.55;margin-top:10px}
+.nutrition-meal-card.is-total .nutrition-food{color:rgba(255,255,255,.68)}
+.nutrition-cal-badge{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:var(--orange);border:1px solid rgba(232,118,26,.24);border-radius:999px;padding:6px 10px;line-height:1;background:var(--tint);white-space:nowrap}
+.nutrition-macros{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.nutrition-macro{font-size:10px;font-weight:700;color:var(--txt);background:var(--card);border:1px solid var(--br);border-radius:999px;padding:4px 8px;letter-spacing:.4px}
+.nutrition-batch-card{background:var(--card2);border:1px solid var(--br);border-radius:14px;padding:14px}
+.nutrition-batch-title{font-size:16px;font-weight:800;color:var(--txt);line-height:1.25}
+.nutrition-checklist{display:grid;gap:8px;margin-top:12px}
+.nutrition-checkline{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--txt2);line-height:1.5}
+.nutrition-checkmark{width:16px;height:16px;border:1.5px solid var(--orange);border-radius:5px;flex-shrink:0;margin-top:1px;background:var(--tint)}
+.nutrition-grocery-toolbar{max-width:900px;margin:14px auto 0;display:flex;justify-content:flex-end;padding:0 14px}
+.nutrition-reset-btn{border:1px solid rgba(232,118,26,.35);background:var(--tint);color:var(--orange);border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1.6px;padding:9px 12px;cursor:pointer}
+.nutrition-grocery-plan{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--txt);padding:14px 16px 4px}
+.nutrition-grocery-cat{padding:10px 16px 12px;border-top:1px solid var(--br)}
+.nutrition-grocery-cat:first-of-type{border-top:none}
+.nutrition-grocery-cat-title{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:var(--orange);margin-bottom:9px}
+.nutrition-grocery-list{display:grid;gap:8px}
+.nutrition-grocery-item{position:relative;display:flex;align-items:flex-start;gap:10px;background:var(--card2);border:1px solid var(--br);border-radius:12px;padding:11px 12px;cursor:pointer}
+.nutrition-grocery-item input{position:absolute;opacity:0;pointer-events:none}
+.nutrition-grocery-box{width:18px;height:18px;border:1.5px solid var(--orange);border-radius:6px;flex-shrink:0;margin-top:1px;background:var(--card)}
+.nutrition-grocery-item input:checked+.nutrition-grocery-box{background:var(--orange);box-shadow:inset 0 0 0 4px var(--card)}
+.nutrition-grocery-name{font-size:13px;line-height:1.45;color:var(--txt2)}
+.nutrition-grocery-item.checked .nutrition-grocery-name{text-decoration:line-through;color:var(--txt3)}
 .day-totals{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--br)}
 .day-total-cell{background:var(--black);padding:10px 6px;text-align:center}
 .day-total-n{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--orange);line-height:1}
@@ -1507,6 +1537,7 @@ const TRAINING_PLAN_URL=(STORAGE_CONFIG.trainingProgramUrl||'training-program.js
 const NUTRITION_PLAN_URL=(STORAGE_CONFIG.nutritionProgramUrl||'nutrition-program.json');
 const TRAINING_PLAN_CACHE_KEY='faem_'+STORAGE_NAMESPACE+'_training_plan_v1';
 const NUTRITION_PLAN_CACHE_KEY='faem_'+STORAGE_NAMESPACE+'_nutrition_plan_v1';
+const NUTRITION_GROCERY_CHECK_KEY='faem_'+STORAGE_NAMESPACE+'_nutrition_grocery_checks_v1';
 const PLAN_META_KEY='faem_'+STORAGE_NAMESPACE+'_plan_meta_v1';
 const PLAN_NOTICE_KEY='faem_'+STORAGE_NAMESPACE+'_last_update_notice_v1';
 const CORRUPT_STORAGE_BACKUP_KEY=SK+'_corrupt_backup_v1';
@@ -5024,8 +5055,78 @@ function nutritionSafeId(value,index){
   const id=String(value||('plan-'+(index+1))).toLowerCase().replace(/[^a-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'');
   return id||('plan-'+(index+1));
 }
+function nutritionHash(value){
+  let h=0,s=String(value||'');
+  for(let i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;
+  return Math.abs(h).toString(36);
+}
+function nutritionTitleCase(value){
+  const s=String(value||'').trim();
+  return s?s.charAt(0).toUpperCase()+s.slice(1):'';
+}
+function cleanNutritionName(row){
+  const time=String(row&&row.time||'');
+  let name=String(row&&row.name||'').trim();
+  name=name.replace(/^PLAN\s+\d+\s*[—-]\s*/i,'');
+  name=name.replace(/^Plan\s+\d+\s+/i,'');
+  name=name.replace(/^Plan\s+\d+\s+grocery\s*[—-]\s*/i,'');
+  name=name.replace(/^grocery\s*[—-]\s*/i,'');
+  if(/\bTOTAL\b/i.test(time))return 'Daily target';
+  name=name.replace(/^(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\s+[—-]\s+Session\s+[A-Z]\s+/i,'');
+  name=name.replace(/^(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\s+[—-]\s+/i,'');
+  name=name.replace(/^(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)\s+/i,'');
+  return nutritionTitleCase(name);
+}
+function nutritionDetailParts(detail){
+  let text=String(detail||'').trim();
+  const match=text.match(/(\d+\s*P\s*\/\s*\d+\s*G\s*\/\s*\d+\s*L)\.?/i);
+  const macros=match?match[1].split('/').map(v=>v.trim().toUpperCase()):[];
+  if(match)text=text.replace(match[0],'').replace(/\s+\./g,'.').replace(/\s+$/,'').trim();
+  return {food:text,macros:macros};
+}
+function splitNutritionSentences(detail){
+  const parts=String(detail||'').split(/\.\s+/).map(v=>v.trim()).filter(Boolean);
+  return parts.map((part,i)=>part+(part.endsWith('.')||i===parts.length-1?'':'.'));
+}
+function splitGroceryItems(detail){
+  return String(detail||'').split(',').map(v=>v.trim().replace(/\.$/,'')).filter(Boolean);
+}
+function nutritionSectionKind(section){
+  const title=String(section&&section.title||'').toLowerCase();
+  const rows=Array.isArray(section&&section.rows)?section.rows:[];
+  if(title.includes('grocery')||rows.some(r=>String(r.time||'').toUpperCase()==='GROCERY'))return 'grocery';
+  if(title.includes('batch')||rows.some(r=>String(r.time||'').toUpperCase()==='BATCH'))return 'batch';
+  if(title.includes('rules')||rows.some(r=>String(r.time||'').toUpperCase()==='RULES'))return 'rules';
+  return 'meal';
+}
+function nutritionMealCardHTML(row){
+  const parts=nutritionDetailParts(row.detail);
+  const isTotal=/\bTOTAL\b/i.test(row.time||'');
+  const macros=parts.macros.map(m=>'<span class="nutrition-macro">'+escapeHTML(m)+'</span>').join('');
+  return `<div class="nutrition-meal-card ${isTotal?'is-total':''}">
+    <div class="nutrition-meal-head">
+      <div>
+        <div class="nutrition-meal-time">${escapeHTML(row.time||'')}</div>
+        <div class="nutrition-meal-name">${escapeHTML(cleanNutritionName(row))}</div>
+      </div>
+      ${row.cal?'<div class="nutrition-cal-badge">'+escapeHTML(row.cal)+'</div>':''}
+    </div>
+    ${parts.food?'<div class="nutrition-food">'+escapeHTML(parts.food)+'</div>':''}
+    ${macros?'<div class="nutrition-macros">'+macros+'</div>':''}
+  </div>`;
+}
+function nutritionBatchCardHTML(row){
+  const items=splitNutritionSentences(row.detail);
+  return `<div class="nutrition-batch-card">
+    <div class="nutrition-meal-time">${escapeHTML(row.time||'BATCH')}</div>
+    <div class="nutrition-batch-title">${escapeHTML(cleanNutritionName(row))}</div>
+    <div class="nutrition-checklist">
+      ${items.map(item=>'<div class="nutrition-checkline"><span class="nutrition-checkmark"></span><span>'+escapeHTML(item)+'</span></div>').join('')}
+    </div>
+  </div>`;
+}
 function nutritionRowsHTML(rows){
-  return (rows||[]).map(m=>'<div class="meal-row"><div class="meal-time">'+escapeHTML(m.time||'')+'</div><div class="meal-body"><div class="meal-name">'+escapeHTML(m.name||'')+'</div><div class="meal-detail">'+escapeHTML(m.detail||'')+'</div></div><div class="meal-cal">'+escapeHTML(m.cal||'')+'</div></div>').join('');
+  return (rows||[]).map(m=>nutritionMealCardHTML(m)).join('');
 }
 function nutritionPlanSections(plan){
   if(Array.isArray(plan.sections)&&plan.sections.length)return plan.sections;
@@ -5059,21 +5160,82 @@ function nutritionSummaryHTML(cfg){
   if(!summary.length)return '';
   return `<div class="card" style="max-width:900px;margin-left:auto;margin-right:auto">
     <div class="card-hdr"><div class="cdot" style="background:var(--ol)"></div><div class="ctitle">NUTRITION OVERVIEW</div></div>
-    ${nutritionRowsHTML(summary)}
+    <div class="nutrition-section-body">${nutritionRowsHTML(summary)}</div>
+  </div>`;
+}
+function nutritionSectionHTML(section){
+  const kind=nutritionSectionKind(section);
+  if(kind==='grocery')return '';
+  const rows=Array.isArray(section.rows)?section.rows:[];
+  const body=kind==='batch'
+    ?rows.map(r=>nutritionBatchCardHTML(r)).join('')
+    :rows.map(r=>nutritionMealCardHTML(r)).join('');
+  const detail=section.detail?'<div style="padding:0 16px 14px;color:var(--txt2);font-size:13px;line-height:1.7">'+escapeHTML(section.detail)+'</div>':'';
+  return `<div class="card" style="max-width:900px;margin-left:auto;margin-right:auto">
+    <div class="card-hdr"><div class="cdot" style="background:var(--ol)"></div><div class="ctitle">${escapeHTML(section.title||'SECTION')}</div></div>
+    ${detail}
+    <div class="nutrition-section-body">${body}</div>
+  </div>`;
+}
+function nutritionGroceryChecks(){
+  const data=readJSONStorage(NUTRITION_GROCERY_CHECK_KEY);
+  return data&&typeof data==='object'?data:{};
+}
+function nutritionGroceryKey(plan,section,row,item,index){
+  return nutritionSafeId(plan.id,0)+'-'+nutritionHash([plan.id,section.title,row.name,item,index].join('|'));
+}
+function nutritionGroceryGroups(plans){
+  return (plans||[]).map(plan=>({
+    plan:plan,
+    sections:nutritionPlanSections(plan).filter(section=>nutritionSectionKind(section)==='grocery')
+  })).filter(group=>group.sections.length);
+}
+function nutritionGroceryPanelHTML(plans){
+  const groups=nutritionGroceryGroups(plans);
+  if(!groups.length)return '';
+  const checks=nutritionGroceryChecks();
+  const content=groups.map(group=>{
+    const plan=group.plan;
+    const sections=group.sections.map(section=>{
+      const rows=(section.rows||[]).map(row=>{
+        const cat=cleanNutritionName(row)||'Category';
+        const items=splitGroceryItems(row.detail);
+        return `<div class="nutrition-grocery-cat">
+          <div class="nutrition-grocery-cat-title">${escapeHTML(cat)}</div>
+          <div class="nutrition-grocery-list">
+            ${items.map((item,i)=>{
+              const key=nutritionGroceryKey(plan,section,row,item,i);
+              const checked=!!checks[key];
+              return `<label class="nutrition-grocery-item ${checked?'checked':''}">
+                <input type="checkbox" data-grocery-key="${escapeHTML(key)}" onchange="toggleNutritionGroceryItem(this)" ${checked?'checked':''}>
+                <span class="nutrition-grocery-box"></span>
+                <span class="nutrition-grocery-name">${escapeHTML(item)}</span>
+              </label>`;
+            }).join('')}
+          </div>
+        </div>`;
+      }).join('');
+      return rows;
+    }).join('');
+    return `<div class="card" style="max-width:900px;margin-left:auto;margin-right:auto">
+      <div class="nutrition-grocery-plan">${escapeHTML(plan.label||'PLAN')} ${plan.title?escapeHTML('— '+plan.title):''}</div>
+      ${sections}
+    </div>`;
+  }).join('');
+  return `<div class="nutrition-plan-panel" id="nutrition-panel-grocery" data-plan-id="grocery">
+    <div class="nutrition-plan-title-card">
+      <div class="nutrition-plan-title-k">GROCERY</div>
+      <div class="nutrition-plan-title-main">SHOPPING LIST</div>
+      <div class="nutrition-plan-title-sub">Check items as you shop. This checklist is saved locally on this device.</div>
+    </div>
+    <div class="nutrition-grocery-toolbar"><button class="nutrition-reset-btn" type="button" onclick="resetNutritionGroceryChecks()">RESET LIST</button></div>
+    ${content}
   </div>`;
 }
 function nutritionPlanPanelHTML(plan,index){
   const id=nutritionSafeId(plan.id,index);
   const sections=nutritionPlanSections(plan);
-  const cards=sections.map(section=>{
-    const rows=nutritionRowsHTML(section.rows||[]);
-    const detail=section.detail?'<div style="padding:0 16px 14px;color:var(--txt2);font-size:13px;line-height:1.7">'+escapeHTML(section.detail)+'</div>':'';
-    return `<div class="card" style="max-width:900px;margin-left:auto;margin-right:auto">
-      <div class="card-hdr"><div class="cdot" style="background:var(--ol)"></div><div class="ctitle">${escapeHTML(section.title||'SECTION')}</div></div>
-      ${detail}
-      ${rows}
-    </div>`;
-  }).join('');
+  const cards=sections.map(section=>nutritionSectionHTML(section)).join('');
   return `<div class="nutrition-plan-panel" id="nutrition-panel-${escapeHTML(id)}" data-plan-id="${escapeHTML(id)}">
     <div class="nutrition-plan-title-card">
       <div class="nutrition-plan-title-k">${escapeHTML(plan.label||('PLAN '+(index+1)))}</div>
@@ -5108,16 +5270,36 @@ function wireNutritionPlanTabs(panel,plans){
   const first=[...panel.querySelectorAll('.nutrition-plan-btn')].find(b=>b.dataset.planId===plans[0].id)||panel.querySelector('.nutrition-plan-btn');
   if(first)showNutritionPlan(first.dataset.planId,first,{instant:true});
 }
+function toggleNutritionGroceryItem(input){
+  const key=input&&input.dataset?input.dataset.groceryKey:'';
+  if(!key)return;
+  const checks=nutritionGroceryChecks();
+  if(input.checked)checks[key]=true;else delete checks[key];
+  writeJSONStorage(NUTRITION_GROCERY_CHECK_KEY,checks);
+  const row=input.closest('.nutrition-grocery-item');
+  if(row)row.classList.toggle('checked',!!input.checked);
+}
+function resetNutritionGroceryChecks(){
+  appConfirm('RESET GROCERY','Clear all checked grocery items on this device?',{kicker:'NUTRITION',confirmText:'RESET',confirmClass:'app-btn-danger'}).then(ok=>{
+    if(!ok)return;
+    try{localStorage.removeItem(NUTRITION_GROCERY_CHECK_KEY);}catch(e){writeJSONStorage(NUTRITION_GROCERY_CHECK_KEY,{});}
+    renderPersonalNutritionPanel();
+    const btn=[...document.querySelectorAll('.nutrition-plan-btn')].find(b=>b.dataset.planId==='grocery');
+    if(btn)showNutritionPlan('grocery',btn,{instant:true});
+  });
+}
 function renderPersonalNutritionPanel(){
   const panel=el('panel-nutrition'); if(!panel)return;
   const cfg=NUTRITION_CONFIG;
   const targets=cfg.targets||[];
   const rulesList=cfg.rules||[];
   const plans=getNutritionPlans(cfg);
+  const hasGrocery=nutritionGroceryGroups(plans).length>0;
+  const tabsList=hasGrocery?plans.concat([{id:'grocery',label:'GROCERY',title:'LIST'}]):plans;
   const stats=targets.map(t=>'<div class="stat-cell"><div class="stat-n '+(t.tone||'')+'">'+escapeHTML(t.value)+'</div><div class="stat-l">'+escapeHTML(t.label)+'</div></div>').join('');
   const rules=rulesList.map((r,i)=>'<div class="rule-row"><div class="rule-num">'+(i+1)+'</div><div><div class="rule-title">'+escapeHTML(r.title)+'</div><div class="rule-detail">'+escapeHTML(r.detail)+'</div></div></div>').join('');
-  const tabs=plans.map((p,i)=>'<button class="nutrition-plan-btn" type="button" data-plan-id="'+escapeHTML(p.id)+'"><span class="nutrition-plan-btn-label">'+escapeHTML(p.label||('PLAN '+(i+1)))+'</span><span class="nutrition-plan-btn-title">'+escapeHTML(p.title||'')+'</span></button>').join('');
-  const planPanels=plans.map((p,i)=>nutritionPlanPanelHTML(p,i)).join('');
+  const tabs=tabsList.map((p,i)=>'<button class="nutrition-plan-btn" type="button" data-plan-id="'+escapeHTML(p.id)+'"><span class="nutrition-plan-btn-label">'+escapeHTML(p.label||('PLAN '+(i+1)))+'</span><span class="nutrition-plan-btn-title">'+escapeHTML(p.title||'')+'</span></button>').join('');
+  const planPanels=plans.map((p,i)=>nutritionPlanPanelHTML(p,i)).join('')+nutritionGroceryPanelHTML(plans);
   const hasNutrition=targets.length||rulesList.length||plans.length||cfg.summary&&cfg.summary.length||cfg.futureNote;
   panel.innerHTML=`
   <div class="seance-hdr">
