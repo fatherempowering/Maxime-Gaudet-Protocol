@@ -5128,6 +5128,7 @@ function renderPersonalNutritionPanel(){
     </div>
     <div class="seance-desc">${escapeHTML(cfg.desc)}</div>
   </div>
+  ${tabs?'<div class="nutrition-plan-nav" aria-label="Nutrition plans">'+tabs+'</div>':''}
   ${stats?'<div class="stats-row" style="margin-top:14px">'+stats+'</div>':''}
   ${hasNutrition?'':`<div class="card" style="max-width:900px;margin:14px auto"><div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">NUTRITION BUILD IN PROGRESS</div></div><div style="padding:18px;color:var(--txt2);font-size:13px;line-height:1.8">Nutrition targets and meal structure will appear here after Coach Max reviews the intake data.</div></div>`}
   ${nutritionSummaryHTML(cfg)}
@@ -5135,7 +5136,6 @@ function renderPersonalNutritionPanel(){
     <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">BASE RULES</div></div>
     <div style="padding:16px;display:grid;gap:10px">${rules}</div>
   </div>`:''}
-  ${tabs?'<div class="nutrition-plan-nav" aria-label="Nutrition plans">'+tabs+'</div>':''}
   ${planPanels}
   ${cfg.futureNote?`<div class="card" style="max-width:900px;margin-left:auto;margin-right:auto">
     <div class="card-hdr"><div class="cdot" style="background:var(--green)"></div><div class="ctitle">NOTES FOR FUTURE UPDATES</div></div>
