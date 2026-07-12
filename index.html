@@ -2385,6 +2385,80 @@ const WEEK_ZERO_LIFTS=[
 const WEEK_ZERO_DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
 function checkinCount(){return new Set(D.checkins.map(c=>parseInt(c.week)).filter(Boolean)).size;}
+function getArchivedPhase1(){
+  return D&&D.archivedPhases&&D.archivedPhases[PHASE1_ARCHIVE_ID]?D.archivedPhases[PHASE1_ARCHIVE_ID]:null;
+}
+function checkinSortValue(c,index,phaseOrder){
+  const t=c&&c.date?Date.parse(c.date):NaN;
+  if(!isNaN(t))return t;
+  const w=parseInt(c&&c.week)||0;
+  return (phaseOrder||0)*1000000000+w*100000+(index||0);
+}
+function tagCheckinForView(c,phaseId,phaseLabel,index){
+  return Object.assign({},c||{},{_phaseId:phaseId,_phaseLabel:phaseLabel,_viewIndex:index||0});
+}
+function getArchivedCheckins(){
+  const phase=getArchivedPhase1();
+  const list=Array.isArray(phase&&phase.checkins)?phase.checkins:[];
+  return list.map((c,i)=>tagCheckinForView(c,PHASE1_ARCHIVE_ID,'PHASE 1',i))
+    .sort((a,b)=>checkinSortValue(a,a._viewIndex,1)-checkinSortValue(b,b._viewIndex,1));
+}
+function getActiveCheckins(){
+  return (Array.isArray(D&&D.checkins)?D.checkins:[])
+    .map((c,i)=>tagCheckinForView(c,ACTIVE_PHASE_ID,activePhaseLabel(),i))
+    .sort((a,b)=>checkinSortValue(a,a._viewIndex,2)-checkinSortValue(b,b._viewIndex,2));
+}
+function getCombinedCheckins(){
+  return getArchivedCheckins().concat(getActiveCheckins())
+    .sort((a,b)=>{
+      const phaseA=a._phaseId===PHASE1_ARCHIVE_ID?1:2;
+      const phaseB=b._phaseId===PHASE1_ARCHIVE_ID?1:2;
+      return checkinSortValue(a,a._viewIndex,phaseA)-checkinSortValue(b,b._viewIndex,phaseB);
+    });
+}
+function getLastKnownCheckin(){
+  const active=getActiveCheckins();
+  if(active.length)return active[active.length-1];
+  const archived=getArchivedCheckins();
+  return archived.length?archived[archived.length-1]:null;
+}
+function getPreviousKnownCheckin(ref){
+  const list=getCombinedCheckins();
+  if(!list.length)return null;
+  const idx=ref?list.findIndex(c=>c._phaseId===ref._phaseId&&parseInt(c.week)===parseInt(ref.week)&&c.date===ref.date&&c._viewIndex===ref._viewIndex):-1;
+  if(idx>0)return list[idx-1];
+  if(idx<0&&list.length>1)return list[list.length-2];
+  return null;
+}
+function checkinViewLabel(c){
+  const phase=c&&c._phaseId===PHASE1_ARCHIVE_ID?'P1':(activePhaseLabel()==='BLOCK 2'?'B2':activePhaseLabel());
+  return phase+' W'+(c&&c.week!=null?c.week:'--');
+}
+function getArchivedSessions(){
+  const phase=getArchivedPhase1();
+  const seances=phase&&phase.seances&&typeof phase.seances==='object'?phase.seances:{};
+  return Object.entries(seances).map(([key,rec])=>({
+    key,
+    week:legacyWeekSlotNumber(key),
+    sid:legacySessionId(key),
+    rec,
+    phaseId:PHASE1_ARCHIVE_ID,
+    phaseLabel:'PHASE 1'
+  })).filter(item=>item.week&&item.sid&&item.rec&&item.rec.done)
+    .sort((a,b)=>a.week-b.week||a.sid.localeCompare(b.sid));
+}
+function getActiveSessions(){
+  const seances=D&&D.seances&&typeof D.seances==='object'?D.seances:{};
+  return Object.entries(seances).map(([key,rec])=>({
+    key,
+    week:legacyWeekSlotNumber(key),
+    sid:legacySessionId(key),
+    rec,
+    phaseId:ACTIVE_PHASE_ID,
+    phaseLabel:activePhaseLabel()
+  })).filter(item=>item.week&&item.sid&&item.rec&&item.rec.done)
+    .sort((a,b)=>a.week-b.week||a.sid.localeCompare(b.sid));
+}
 function clampWeek(w){
   return Math.max(parseInt(w)||1,1);
 }
@@ -3677,10 +3751,10 @@ let _homeChart=null;
 function renderHomeChart(){
   const cv=el('homeWeightChart'); if(!cv)return;
   if(!window.Chart)return;
-  const data=D.checkins.filter(c=>c.poids).map(c=>({w:c.week,p:parseFloat(c.poids)}));
+  const data=getCombinedCheckins().filter(c=>c.poids).map(c=>({label:checkinViewLabel(c),p:parseFloat(c.poids)}));
   if(_homeChart){_homeChart.destroy();_homeChart=null;}
   if(!data.length){return;}
-  _homeChart=new Chart(cv,{type:'line',data:{labels:data.map(d=>'W'+d.w),datasets:[{data:data.map(d=>d.p),borderColor:'#E8761A',backgroundColor:(context)=>orangeChartGradient(context,0.34),fill:true,tension:0.35,pointBackgroundColor:'#E8761A',pointBorderColor:'#FFFFFF',pointBorderWidth:1.5,pointRadius:3,pointHoverRadius:5}]},
+  _homeChart=new Chart(cv,{type:'line',data:{labels:data.map(d=>d.label),datasets:[{data:data.map(d=>d.p),borderColor:'#E8761A',backgroundColor:(context)=>orangeChartGradient(context,0.34),fill:true,tension:0.35,pointBackgroundColor:'#E8761A',pointBorderColor:'#FFFFFF',pointBorderWidth:1.5,pointRadius:3,pointHoverRadius:5}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:gridColor()},ticks:{color:tickColor(),font:{size:10}}},y:{grid:{color:gridColor()},ticks:{color:tickColor(),font:{size:10}}}}}});
 }
 
@@ -3817,14 +3891,14 @@ function renderDash(){
 }
 
 /* ═════════ SIDE KPIs + MENSURATIONS ═════════ */
-function lastCheckin(){return D.checkins.length?D.checkins[D.checkins.length-1]:null;}
-function prevCheckin(){return D.checkins.length>1?D.checkins[D.checkins.length-2]:null;}
+function lastCheckin(){return getLastKnownCheckin();}
+function prevCheckin(){return getPreviousKnownCheckin(lastCheckin());}
 function renderSideKpis(){
   const c=lastCheckin(),p=prevCheckin();
   const set=(id,val,sub,cls)=>{const e1=el(id);if(e1)e1.innerHTML=val;const e2=el(id+'-sub');if(e2){e2.textContent=sub||'\u00a0';e2.className='kpi-sub'+(cls?' '+cls:'');}};
   if(!c){set('kpi-poids','--<small> lbs</small>','No check-in yet');return;}
   const dW=(p&&c.poids&&p.poids)?(parseFloat(c.poids)-parseFloat(p.poids)):null;
-  set('kpi-poids',escapeHTML(c.poids||'--')+'<small> lbs</small>', dW!=null?((dW<=0?'▼ ':'▲ +')+Math.abs(dW).toFixed(1)+' lbs vs W'+escapeHTML(p.week)):'Week '+escapeHTML(c.week), dW!=null?(dW<=0?'up':'down'):'');
+  set('kpi-poids',escapeHTML(c.poids||'--')+'<small> lbs</small>', dW!=null?((dW<=0?'▼ ':'▲ +')+Math.abs(dW).toFixed(1)+' lbs vs '+escapeHTML(checkinViewLabel(p))):escapeHTML(checkinViewLabel(c)), dW!=null?(dW<=0?'up':'down'):'');
   const sh=c.sommeilH!=null?escapeHTML(formatDurationValue(c.sommeilH,'h')):(c.sommeil!=null?escapeHTML(c.sommeil)+'<small> /10</small>':'--');
   set('kpi-sommeil',sh, c.sommeilH!=null&&c.sommeil!=null?'Quality '+escapeHTML(c.sommeil)+'/10':'');
   set('kpi-energie',escapeHTML(c.energie!=null?c.energie:'--')+'<small> /10</small>','');
@@ -3832,12 +3906,12 @@ function renderSideKpis(){
   set('kpi-douleurs',escapeHTML(c.douleurs!=null?c.douleurs:'--')+'<small> /10</small>', c.douleurs>=7?'Monitor — note where':'', c.douleurs>=7?'down':'');
   set('kpi-cardio',c.cardioMin!=null?escapeHTML(formatDurationValue(c.cardioMin,'min')):'--', c.cardioZone||'');
 }
-function lastMens(){ for(let i=D.checkins.length-1;i>=0;i--){if(D.checkins[i].mens)return D.checkins[i];} return null; }
-function prevMens(ref){ let found=false; for(let i=D.checkins.length-1;i>=0;i--){const c=D.checkins[i]; if(c===ref){found=true;continue;} if(found&&c.mens)return c;} return null; }
+function lastMens(){ const list=getCombinedCheckins(); for(let i=list.length-1;i>=0;i--){if(list[i].mens)return list[i];} return null; }
+function prevMens(ref){ const list=getCombinedCheckins(); let found=false; for(let i=list.length-1;i>=0;i--){const c=list[i]; if(ref&&c._phaseId===ref._phaseId&&parseInt(c.week)===parseInt(ref.week)&&c.date===ref.date&&c._viewIndex===ref._viewIndex){found=true;continue;} if(found&&c.mens)return c;} return null; }
 function renderMens(){
   const ref=lastMens(); const prev=ref?prevMens(ref):null;
   const fields=['taille','poitrine','bras','cuisse','mollet'];
-  el('mens-badge').textContent=ref?('S'+ref.week+' · IN'):'IN';
+  el('mens-badge').textContent=ref?(checkinViewLabel(ref)+' · IN'):'IN';
   fields.forEach(f=>{
     const e1=el('mv-'+f); if(!e1)return;
     if(ref&&ref.mens[f]!=null){
@@ -4080,7 +4154,7 @@ function buildLastCheckinRefHTML(c){
     .join(''):'';
   return '<div class="ci-last-ref-head">'
     +'<div><div class="ci-last-ref-label">PREVIOUS WEEK REFERENCE</div><div class="ci-last-ref-sub">Use this snapshot to compare how this week feels before archiving.</div></div>'
-    +'<div class="ci-last-ref-badge">WEEK '+escapeHTML(c.week||'--')+'</div>'
+    +'<div class="ci-last-ref-badge">'+escapeHTML(checkinViewLabel(c))+'</div>'
   +'</div>'
   +'<div class="ci-last-ref-body">'
     +'<div class="ci-last-ref-grid">'+metrics.join('')+'</div>'
@@ -4103,9 +4177,9 @@ function showShapeScoreInfo(){
   alert('Shape Score rewards waist reduction and muscle measurement increases. Changes under 0.25 in are treated as stable. Bodyweight is tracked separately and does not affect the score.');
 }
 function measurementCheckins(){
-  return D.checkins
+  return getCombinedCheckins()
     .filter(c=>c.mens&&typeof c.mens==='object')
-    .map(c=>({week:c.week,mens:c.mens}))
+    .map(c=>({week:c.week,mens:c.mens,label:checkinViewLabel(c),_phaseId:c._phaseId,_viewIndex:c._viewIndex,date:c.date}))
     .filter(c=>MEASURE_FIELDS.some(f=>parseFloat(c.mens[f.key])||parseFloat(c.mens[f.key])===0));
 }
 function measureStatus(field,delta){
@@ -4118,7 +4192,7 @@ function renderMeasurementBlocks(){
   const ms=measurementCheckins();
   const start=ms.length?ms[0]:null;
   const latest=ms.length?ms[ms.length-1]:null;
-  const wData=D.checkins.filter(c=>c.poids);
+  const wData=getCombinedCheckins().filter(c=>c.poids);
   const startW=wData.length?wData[0]:null;
   const latestW=wData.length?wData[wData.length-1]:null;
   const startBox=el('measure-start-latest');
@@ -4133,13 +4207,13 @@ function renderMeasurementBlocks(){
     if(el('shape-score'))el('shape-score').textContent='--';
     return;
   }
-  const weightCard=(startW&&latestW)?'<div class="measure-cell"><div class="measure-label"><span class="measure-label-icon" '+measureIconAttr('poids')+'></span>BODYWEIGHT</div><div class="measure-val">'+parseFloat(startW.poids).toFixed(1)+' <small>→</small> '+parseFloat(latestW.poids).toFixed(1)+'<small> lbs</small></div><div class="measure-sub">W'+startW.week+' to W'+latestW.week+' · score separate</div></div>':'';
+  const weightCard=(startW&&latestW)?'<div class="measure-cell"><div class="measure-label"><span class="measure-label-icon" '+measureIconAttr('poids')+'></span>BODYWEIGHT</div><div class="measure-val">'+parseFloat(startW.poids).toFixed(1)+' <small>→</small> '+parseFloat(latestW.poids).toFixed(1)+'<small> lbs</small></div><div class="measure-sub">'+escapeHTML(checkinViewLabel(startW))+' to '+escapeHTML(checkinViewLabel(latestW))+' · score separate</div></div>':'';
   startBox.innerHTML=weightCard+MEASURE_FIELDS.map(f=>{
     const a=parseFloat(start.mens[f.key]);
     const b=parseFloat(latest.mens[f.key]);
     const startTxt=isNaN(a)?'--':a.toFixed(1);
     const latestTxt=isNaN(b)?'--':b.toFixed(1);
-    return '<div class="measure-cell"><div class="measure-label"><span class="measure-label-icon" '+measureIconAttr(f.key)+'></span>'+f.label.toUpperCase()+'</div><div class="measure-val">'+startTxt+' <small>→</small> '+latestTxt+'<small> in</small></div><div class="measure-sub">W'+start.week+' to W'+latest.week+'</div></div>';
+    return '<div class="measure-cell"><div class="measure-label"><span class="measure-label-icon" '+measureIconAttr(f.key)+'></span>'+f.label.toUpperCase()+'</div><div class="measure-val">'+startTxt+' <small>→</small> '+latestTxt+'<small> in</small></div><div class="measure-sub">'+escapeHTML(start.label||('W'+start.week))+' to '+escapeHTML(latest.label||('W'+latest.week))+'</div></div>';
   }).join('');
   let score=0;
   changeBox.innerHTML=MEASURE_FIELDS.map(f=>{
@@ -4158,7 +4232,7 @@ function renderCharts(){
   renderMeasurementBlocks();
   if(!window.Chart)return;
   // POIDS
-  const cs=D.checkins;
+  const cs=getCombinedCheckins();
   const wData=cs.filter(c=>c.poids);
   const first=wData.length?parseFloat(wData[0].poids):null;
   const last=wData.length?parseFloat(wData[wData.length-1].poids):null;
@@ -4171,7 +4245,7 @@ function renderCharts(){
   const progressTickColor='#666666';
   const baseOpts={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
     scales:{x:{grid:{color:progressGridColor},ticks:{color:progressTickColor,font:{size:10}}},y:{grid:{color:progressGridColor},ticks:{color:progressTickColor,font:{size:10}}}}};
-  _wChart=mk(_wChart,el('weightChart'),{type:'line',data:{labels:wData.map(c=>'S'+c.week),datasets:[{data:wData.map(c=>parseFloat(c.poids)),borderColor:'#E8761A',backgroundColor:'rgba(232,118,26,0.12)',fill:true,tension:0.35,pointBackgroundColor:'#E8761A',pointRadius:4}]},options:baseOpts});
+  _wChart=mk(_wChart,el('weightChart'),{type:'line',data:{labels:wData.map(c=>checkinViewLabel(c)),datasets:[{data:wData.map(c=>parseFloat(c.poids)),borderColor:'#E8761A',backgroundColor:'rgba(232,118,26,0.12)',fill:true,tension:0.35,pointBackgroundColor:'#E8761A',pointRadius:4}]},options:baseOpts});
   // CHARGES CLÉS
   const keyLiftConfig=TRAINING_CONFIG.keyLifts||[];
   const fallbackColors=['#C85A00','#E8751A','#1C1C1C','#888','#3FA456'];
@@ -4190,7 +4264,7 @@ function renderCharts(){
   });
   _cChart=mk(_cChart,el('chargesChart'),{type:'line',data:{labels,datasets},options:baseOpts});
   // BILAN
-  const bLabels=cs.map(c=>'S'+c.week);
+  const bLabels=cs.map(c=>checkinViewLabel(c));
   const mkSet=(key,color)=>({data:cs.map(c=>c[key]!=null?c[key]:null),borderColor:color,backgroundColor:'transparent',tension:0.3,pointRadius:3,pointBackgroundColor:color,spanGaps:true});
   _bChart=mk(_bChart,el('bilanChart'),{type:'line',data:{labels:bLabels,datasets:[mkSet('energie','#2a9d3b'),mkSet('sommeil','#E8751A'),mkSet('stress','#C0392B'),mkSet('douleurs','#8884d8')]},
     options:Object.assign({},baseOpts,{plugins:{legend:{display:true,labels:{color:progressTickColor,font:{size:10},boxWidth:10,generateLabels:c=>['Energy','Sleep','Stress','Soreness'].map((n,i)=>({text:n,strokeStyle:c.data.datasets[i].borderColor,fillStyle:c.data.datasets[i].borderColor,lineWidth:2,datasetIndex:i}))}}},scales:Object.assign({},baseOpts.scales,{y:{min:0,max:10,grid:{color:progressGridColor},ticks:{color:progressTickColor,font:{size:10}}}})})});
@@ -4200,53 +4274,94 @@ function renderCharts(){
   if(mEmpty)mEmpty.style.display=mData.length?'none':'flex';
   if(mContainer)mContainer.style.display=mData.length?'block':'none';
   if(!mData.length){if(_mChart){_mChart.destroy();_mChart=null;}return;}
-  const mLabels=mData.map(c=>'S'+c.week);
+  const mLabels=mData.map(c=>c.label||('W'+c.week));
   const mSet=(key,color)=>({data:mData.map(c=>{const n=parseFloat(c.mens[key]);return isNaN(n)?null:n;}),borderColor:color,backgroundColor:'transparent',tension:0.32,pointRadius:3,pointBackgroundColor:color,spanGaps:true});
   _mChart=mk(_mChart,el('measureChart'),{type:'line',data:{labels:mLabels,datasets:[mSet('taille','#E8751A'),mSet('poitrine','#C85A00'),mSet('bras','#3FA456')]},options:baseOpts});
 }
 
 /* ═════════ HISTORIQUE ═════════ */
 function formatSeanceLabel(w,sid){return sessionDisplayName(w,sid);}
+function formatArchiveRecordedFieldHTML(value){
+  if(value==null||value==='')return '--';
+  if(typeof value==='object'){
+    try{return escapeHTML(JSON.stringify(value));}catch(e){return escapeHTML(String(value));}
+  }
+  return escapeHTML(String(value));
+}
+function formatArchiveActualsHTML(actuals){
+  const entries=Object.entries(actuals||{});
+  if(!entries.length)return '';
+  return '<div style="padding:10px 16px;font-size:12px;color:var(--txt2);line-height:1.8;border-top:1px solid var(--br)"><strong>SETS / REPS ADJUSTED</strong><br>'
+    +entries.map(([k,v])=>{
+      const bits=[];
+      if(v&&v.sets!=null&&String(v.sets).trim())bits.push(String(v.sets).trim()+' sets');
+      if(v&&v.reps!=null&&String(v.reps).trim())bits.push(String(v.reps).trim()+' reps');
+      return escapeHTML(k)+' : '+escapeHTML(bits.join(' · ')||JSON.stringify(v));
+    }).join('<br>')
+    +'</div>';
+}
+function renderHistoryDivider(container,title){
+  const div=document.createElement('div');div.className='hist-week-divider';
+  div.innerHTML='<div class="hist-week-divider-line"></div><div class="hist-week-divider-txt">'+escapeHTML(title)+'</div><div class="hist-week-divider-line"></div>';
+  container.appendChild(div);
+}
+function renderHistoryCheckinEntry(container,x){
+  const e=document.createElement('div');e.className='hist-entry';
+  let rows='<div class="hist-date">CHECK-IN · '+escapeHTML(x.date||'')+' · '+escapeHTML(checkinViewLabel(x))+'</div>';
+  if(x.poids)rows+='<div class="hist-row"><div class="hist-label">Bodyweight</div><div class="hist-val">'+escapeHTML(x.poids)+' lbs</div></div>';
+  if(x.sommeilH!=null)rows+='<div class="hist-row"><div class="hist-label">Sleep hours</div><div class="hist-val">'+escapeHTML(formatDurationValue(x.sommeilH,'h'))+'</div></div>';
+  rows+='<div class="hist-row"><div class="hist-label">Energy / Sleep / Stress'+(x.douleurs!=null?' / Soreness':'')+'</div><div class="hist-val">'+escapeHTML(x.energie!=null?x.energie:'--')+' · '+escapeHTML(x.sommeil!=null?x.sommeil:'--')+' · '+escapeHTML(x.stress!=null?x.stress:'--')+(x.douleurs!=null?' · '+escapeHTML(x.douleurs):'')+'</div></div>';
+  if(x.cardioMin!=null)rows+='<div class="hist-row"><div class="hist-label">Cardio</div><div class="hist-val">'+escapeHTML(formatDurationValue(x.cardioMin,'min'))+(x.cardioZone?' · '+escapeHTML(x.cardioZone):'')+'</div></div>';
+  if(x.mens)rows+='<div class="hist-row"><div class="hist-label">Measurements</div><div class="hist-val">'+Object.entries(x.mens).map(([k,v])=>escapeHTML(checkinMeasureLabel(k))+' '+escapeHTML(v)+' in').join(' · ')+'</div></div>';
+  if(x.note)rows+='<div class="hist-note">'+escapeHTML(x.note)+'</div>';
+  e.innerHTML=rows;container.appendChild(e);
+}
+function renderHistorySessionEntry(container,item){
+  const w=item.week,sid=item.sid,rec=item.rec,isArchived=item.phaseId===PHASE1_ARCHIVE_ID;
+  const e=document.createElement('div');e.className='hist-seance-entry';
+  const nCharges=rec.charges?Object.keys(rec.charges).length:0;
+  let chargesHTML='';
+  if(nCharges){
+    chargesHTML='<div style="padding:10px 16px;font-size:12px;color:var(--txt2);line-height:1.8">'
+      +Object.entries(rec.charges).map(([k,v])=>'<strong>'+escapeHTML(k)+'</strong> : '+(isArchived?formatArchiveRecordedFieldHTML(v):formatRecordedFieldHTML(w,k,v))).join(' · ')
+      +'</div>';
+  }
+  const actualsHTML=isArchived?formatArchiveActualsHTML(rec.actuals):formatActualsHTML(w,rec.actuals);
+  const label=isArchived?('PHASE 1 · WEEK '+w+' · SESSION '+String(sid).toUpperCase()):formatSeanceLabel(w,sid);
+  const thirdValue=isArchived?'P1':seanceVolume(w,sid).toLocaleString('fr-CA');
+  const thirdLabel=isArchived?'ARCHIVE':'VOLUME LBS';
+  e.innerHTML='<div class="hist-seance-hdr"><div class="hist-seance-label">'+escapeHTML(label)+'</div><div class="hist-seance-date">'+escapeHTML(rec.date||'')+'</div></div>'
+    +'<div class="hist-seance-stats"><div class="hist-seance-stat"><div class="hist-seance-stat-n">✓</div><div class="hist-seance-stat-l">COMPLETED</div></div>'
+    +'<div class="hist-seance-stat"><div class="hist-seance-stat-n">'+nCharges+'</div><div class="hist-seance-stat-l">LOADS NOTED</div></div>'
+    +'<div class="hist-seance-stat"><div class="hist-seance-stat-n">'+thirdValue+'</div><div class="hist-seance-stat-l">'+thirdLabel+'</div></div></div>'
+    +chargesHTML
+    +actualsHTML
+    +(rec.notes?'<div style="padding:0 16px 12px;font-size:12px;color:var(--txt2);line-height:1.6">'+escapeHTML(rec.notes)+'</div>':'');
+  container.appendChild(e);
+}
+function renderHistoryPhaseSection(container,title,checkins,sessions,emptyText){
+  renderHistoryDivider(container,title);
+  const weeks=new Set();
+  checkins.forEach(c=>{const w=parseInt(c.week);if(w)weeks.add(w);});
+  sessions.forEach(s=>{const w=parseInt(s.week);if(w)weeks.add(w);});
+  const orderedWeeks=Array.from(weeks).sort((a,b)=>b-a);
+  if(!orderedWeeks.length){
+    const empty=document.createElement('div');empty.className='chart-empty';empty.style.margin='14px';
+    empty.innerHTML='<div class="chart-empty-txt">'+escapeHTML(emptyText)+'</div>';
+    container.appendChild(empty);
+    return;
+  }
+  orderedWeeks.forEach(w=>{
+    const phaseTitle=title.indexOf('PHASE 1')===0?'PHASE 1':(WEEKS[w]&&WEEKS[w].phase?WEEKS[w].phase:activePhaseLabel());
+    renderHistoryDivider(container,'WEEK '+w+' — '+phaseTitle);
+    checkins.filter(x=>parseInt(x.week)===w).forEach(x=>renderHistoryCheckinEntry(container,x));
+    sessions.filter(x=>parseInt(x.week)===w).forEach(item=>renderHistorySessionEntry(container,item));
+  });
+}
 function renderHistorique(){
   const c=el('historique-container'); c.innerHTML='';
-  let any=false;
-  for(let w=TOTAL_WEEKS;w>=1;w--){
-    const items=[];
-    SEANCE_IDS.forEach(sid=>{const rec=D.seances[seanceKey(w,sid)];if(rec&&rec.done)items.push({sid,rec});});
-    const ci=D.checkins.filter(x=>x.week===w);
-    if(!items.length&&!ci.length)continue;
-    any=true;
-    const div=document.createElement('div');div.className='hist-week-divider';
-    div.innerHTML='<div class="hist-week-divider-line"></div><div class="hist-week-divider-txt">WEEK '+w+' — '+escapeHTML(WEEKS[w].phase)+'</div><div class="hist-week-divider-line"></div>';
-    c.appendChild(div);
-    ci.forEach(x=>{
-      const e=document.createElement('div');e.className='hist-entry';
-      let rows='<div class="hist-date">CHECK-IN · '+escapeHTML(x.date||'')+'</div>';
-      if(x.poids)rows+='<div class="hist-row"><div class="hist-label">Bodyweight</div><div class="hist-val">'+escapeHTML(x.poids)+' lbs</div></div>';
-      if(x.sommeilH!=null)rows+='<div class="hist-row"><div class="hist-label">Sleep hours</div><div class="hist-val">'+escapeHTML(formatDurationValue(x.sommeilH,'h'))+'</div></div>';
-      rows+='<div class="hist-row"><div class="hist-label">Energy / Sleep / Stress'+(x.douleurs!=null?' / Soreness':'')+'</div><div class="hist-val">'+escapeHTML(x.energie!=null?x.energie:'--')+' · '+escapeHTML(x.sommeil!=null?x.sommeil:'--')+' · '+escapeHTML(x.stress!=null?x.stress:'--')+(x.douleurs!=null?' · '+escapeHTML(x.douleurs):'')+'</div></div>';
-      if(x.cardioMin!=null)rows+='<div class="hist-row"><div class="hist-label">Cardio</div><div class="hist-val">'+escapeHTML(formatDurationValue(x.cardioMin,'min'))+(x.cardioZone?' · '+escapeHTML(x.cardioZone):'')+'</div></div>';
-      if(x.mens)rows+='<div class="hist-row"><div class="hist-label">Measurements</div><div class="hist-val">'+Object.entries(x.mens).map(([k,v])=>escapeHTML(checkinMeasureLabel(k))+' '+escapeHTML(v)+' in').join(' · ')+'</div></div>';
-      if(x.note)rows+='<div class="hist-note">'+escapeHTML(x.note)+'</div>';
-      e.innerHTML=rows;c.appendChild(e);
-    });
-    items.forEach(({sid,rec})=>{
-      const e=document.createElement('div');e.className='hist-seance-entry';
-      const nCharges=rec.charges?Object.keys(rec.charges).length:0;
-      let chargesHTML='';
-      if(nCharges){chargesHTML='<div style="padding:10px 16px;font-size:12px;color:var(--txt2);line-height:1.8">'+Object.entries(rec.charges).map(([k,v])=>'<strong>'+escapeHTML(k)+'</strong> : '+formatRecordedFieldHTML(w,k,v)).join(' · ')+'</div>';}
-      const actualsHTML=formatActualsHTML(w,rec.actuals);
-      e.innerHTML='<div class="hist-seance-hdr"><div class="hist-seance-label">'+escapeHTML(formatSeanceLabel(w,sid))+'</div><div class="hist-seance-date">'+escapeHTML(rec.date||'')+'</div></div>'
-        +'<div class="hist-seance-stats"><div class="hist-seance-stat"><div class="hist-seance-stat-n">✓</div><div class="hist-seance-stat-l">COMPLETED</div></div>'
-        +'<div class="hist-seance-stat"><div class="hist-seance-stat-n">'+nCharges+'</div><div class="hist-seance-stat-l">LOADS NOTED</div></div>'
-        +'<div class="hist-seance-stat"><div class="hist-seance-stat-n">'+seanceVolume(w,sid).toLocaleString('fr-CA')+'</div><div class="hist-seance-stat-l">VOLUME LBS</div></div></div>'
-        +chargesHTML
-        +actualsHTML
-        +(rec.notes?'<div style="padding:0 16px 12px;font-size:12px;color:var(--txt2);line-height:1.6">'+escapeHTML(rec.notes)+'</div>':'');
-      c.appendChild(e);
-    });
-  }
-  if(!any)c.innerHTML='<div class="chart-empty" style="margin:14px"><div class="chart-empty-txt">Nothing yet — complete a session or archive a check-in.</div></div>';
+  renderHistoryPhaseSection(c,'PHASE 1 — COMPLETED',getArchivedCheckins(),getArchivedSessions(),'No Phase 1 archive found on this device.');
+  renderHistoryPhaseSection(c,activePhaseLabel()+' — ACTIVE',getActiveCheckins(),getActiveSessions(),'No Block 2 history yet — complete a session or archive a check-in.');
 }
 
 /* ═════════ TIMER REPOS ═════════ */
