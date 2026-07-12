@@ -1,20 +1,840 @@
 {
   "schemaVersion": 1,
-  "programVersion": "nutrition-template-v1",
-  "updatedAt": "2026-07-10T00:00:00Z",
+  "programVersion": "maxime-gaudet-nutrition-block-2-v1",
+  "updatedAt": "2026-07-12T00:00:00-04:00",
   "nutrition": {
     "kicker": "NUTRITION",
-    "title": "NUTRITION PLAN",
-    "phase": "NUTRITION BUILD",
-    "desc": "Nutrition content will be added after Coach Max reviews the intake data.",
-    "targets": [],
-    "rules": [],
+    "title": "MAXIME GAUDET — NUTRITION BLOCK 2",
+    "phase": "TWO PLAN OPTIONS",
+    "desc": "Complete nutrition structure with two distinct options: PLAN 1 — CLASSIC and PLAN 2 — VARIETY. Training days are nutrition recommendations only: Monday, Wednesday, Friday. Tuesday, Thursday and Saturday are rest/work or active recovery. Sunday is batch cooking plus one controlled free meal option.",
+    "targets": [
+      {
+        "value": "2550",
+        "label": "TRAINING DAYS"
+      },
+      {
+        "value": "2400",
+        "label": "REST / WORK DAYS"
+      },
+      {
+        "value": "190g",
+        "label": "PROTEIN / DAY"
+      },
+      {
+        "value": "3L+",
+        "label": "WATER / DAY"
+      }
+    ],
+    "rules": [
+      {
+        "title": "Training-day targets",
+        "detail": "Training days: 2550 cal. Rest/work days: 2400 cal. Protein: 190 g/day. Water: 3 L+/day."
+      },
+      {
+        "title": "Protein first",
+        "detail": "Protein comes first at every meal. Aim for the listed protein target before adjusting carbs or fats."
+      },
+      {
+        "title": "One free meal per week",
+        "detail": "One free meal per week, Saturday or Sunday, not both. Aim for 40 g+ protein and stay controlled."
+      },
+      {
+        "title": "Lactose-free protein",
+        "detail": "Use lactose-free protein. Plan 1 specifically requires lactose-free protein. Avoid unplanned dairy."
+      },
+      {
+        "title": "Hydration",
+        "detail": "Minimum 3 L water per day."
+      },
+      {
+        "title": "Supplements",
+        "detail": "Daily: greens, multi, omega-3, D3 and magnesium."
+      },
+      {
+        "title": "Creatine",
+        "detail": "Creatine is suspended during the active riding period."
+      },
+      {
+        "title": "Tracking",
+        "detail": "First 30 days: weigh and log food."
+      },
+      {
+        "title": "No recalculation",
+        "detail": "Calories and macros are transcribed from the coach plan as written. Some daily totals are approximate when the source says approximately."
+      }
+    ],
     "meals": [],
-    "futureNote": ""
+    "futureNote": "Choose either PLAN 1 — CLASSIC or PLAN 2 — VARIETY for the week; do not merge both plans on the same day unless Coach Max tells you to.",
+    "summary": [
+      {
+        "time": "HERO",
+        "name": "Nutrition overview",
+        "detail": "Two complete options are available. PLAN 1 — CLASSIC is the tighter classic structure. PLAN 2 — VARIETY adds alternate breakfasts, wraps, smoothies and more variety while keeping the same training/rest targets.",
+        "cal": "BLOCK 2"
+      },
+      {
+        "time": "TARGETS",
+        "name": "Common calorie and protein targets",
+        "detail": "Training days: 2550 cal. Rest/work days: 2400 cal. Protein: 190 g/day. Water: 3 L+/day. Monday, Wednesday and Friday are training-day recommendations; Tuesday, Thursday and Saturday are rest/work or active recovery recommendations.",
+        "cal": "COMMON"
+      }
+    ],
+    "plans": [
+      {
+        "id": "plan-1",
+        "label": "PLAN 1",
+        "title": "CLASSIC",
+        "description": "Classic structure with Sunday batch 1, Sunday meals, Monday through Saturday, Wednesday batch 2, grocery list and rules.",
+        "sections": [
+          {
+            "title": "Plan overview",
+            "rows": [
+              {
+                "time": "PLAN 1",
+                "name": "PLAN 1 — CLASSIC",
+                "detail": "Classic structure with Sunday batch 1, Sunday meals, Monday through Saturday, Wednesday batch 2, grocery list and rules.",
+                "cal": "OPTION 1"
+              }
+            ]
+          },
+          {
+            "title": "Sunday batch 1",
+            "rows": [
+              {
+                "time": "BATCH",
+                "name": "Sunday batch 1 — Monday, Tuesday, Wednesday prep",
+                "detail": "Cook in parallel. Chicken cubes: 1.5 kg chicken breast, cubes, olive oil, salt, pepper, garlic powder, oven 400 °F, 20-22 min, divide into 3 containers of 200 g. White rice: 600 g dry rice, yields about 1.8 kg cooked, divide into 3 portions of 200 g cooked. Roasted vegetables: broccoli, peppers, zucchini, olive oil, salt, divide into 3 portions. Hard-boiled eggs: 12 eggs, 10 min in boiling water. Sweet potatoes: 3 sweet potatoes, cubes, oven 400 °F, 25 min, divide into 3 portions.",
+                "cal": "PREP"
+              }
+            ]
+          },
+          {
+            "title": "Sunday meals",
+            "rows": [
+              {
+                "time": "SUN 9:00",
+                "name": "Plan 1 Sunday breakfast",
+                "detail": "4 whole eggs + 2 whites, 1 cup oats + fruit, black coffee. 40P / 60G / 15L.",
+                "cal": "530 cal"
+              },
+              {
+                "time": "SUN 12:00",
+                "name": "Plan 1 Sunday free lunch",
+                "detail": "Restaurant or home, aim for 40 g+ protein, avoid dairy. Free meal Saturday or Sunday, not both.",
+                "cal": "FREE"
+              },
+              {
+                "time": "SUN 15:30",
+                "name": "Plan 1 Sunday snack",
+                "detail": "2 hard-boiled eggs + 30 g nuts + 1 apple. 18P / 20G / 18L.",
+                "cal": "310 cal"
+              },
+              {
+                "time": "SUN 18:30",
+                "name": "Plan 1 Sunday dinner",
+                "detail": "200 g salmon, 1 sweet potato, broccoli, olive oil. 45P / 35G / 25L.",
+                "cal": "560 cal"
+              },
+              {
+                "time": "SUN 20:30",
+                "name": "Plan 1 Sunday optional snack",
+                "detail": "1 scoop lactose-free protein + unsweetened almond milk. 25P.",
+                "cal": "150 cal"
+              }
+            ]
+          },
+          {
+            "title": "Monday through Saturday — Monday",
+            "rows": [
+              {
+                "time": "MON 9:00",
+                "name": "Plan 1 Monday — Session A breakfast",
+                "detail": "3 hard-boiled eggs, 1 cup instant oats + banana, black coffee. 35P / 65G / 15L.",
+                "cal": "530 cal"
+              },
+              {
+                "time": "MON 12:00",
+                "name": "Plan 1 Monday lunch",
+                "detail": "200 g chicken + 200 g rice + roasted vegetables. 50P / 60G / 10L.",
+                "cal": "530 cal"
+              },
+              {
+                "time": "MON 15:30",
+                "name": "Plan 1 Monday snack",
+                "detail": "1 scoop lactose-free protein + 1 banana. 30P / 30G.",
+                "cal": "270 cal"
+              },
+              {
+                "time": "MON 18:30",
+                "name": "Plan 1 Monday dinner",
+                "detail": "200 g salmon + 150 g rice + spinach + olive oil. 45P / 40G / 22L.",
+                "cal": "540 cal"
+              },
+              {
+                "time": "MON 20:30",
+                "name": "Plan 1 Monday evening snack",
+                "detail": "1 scoop protein + almond milk + almond butter. 30P.",
+                "cal": "240 cal"
+              },
+              {
+                "time": "MON TOTAL",
+                "name": "Plan 1 Monday target",
+                "detail": "Total target: 2550 cal, 190P, 230G, 80L.",
+                "cal": "2550 cal"
+              }
+            ]
+          },
+          {
+            "title": "Monday through Saturday — Tuesday",
+            "rows": [
+              {
+                "time": "TUE 9:00",
+                "name": "Plan 1 Tuesday — Work breakfast",
+                "detail": "3 hard-boiled eggs, 1 cup instant oats + berries, black coffee. 35P / 65G / 15L.",
+                "cal": "530 cal"
+              },
+              {
+                "time": "TUE 12:00",
+                "name": "Plan 1 Tuesday lunch",
+                "detail": "200 g chicken + 200 g rice + roasted vegetables. 50P / 60G / 10L.",
+                "cal": "530 cal"
+              },
+              {
+                "time": "TUE 15:30",
+                "name": "Plan 1 Tuesday snack",
+                "detail": "2 hard-boiled eggs + 1 banana + 30 g cashews. 20P / 30G / 18L.",
+                "cal": "360 cal"
+              },
+              {
+                "time": "TUE 18:30",
+                "name": "Plan 1 Tuesday dinner",
+                "detail": "200 g 85% ground beef + sweet potato + spinach + olive oil. 45P / 35G / 28L.",
+                "cal": "560 cal"
+              },
+              {
+                "time": "TUE 20:30",
+                "name": "Plan 1 Tuesday evening snack",
+                "detail": "1 scoop lactose-free protein + almond butter + almond milk. 30P.",
+                "cal": "250 cal"
+              },
+              {
+                "time": "TUE TOTAL",
+                "name": "Plan 1 Tuesday target",
+                "detail": "Total target: 2400 cal, 190P, 210G, 75L.",
+                "cal": "2400 cal"
+              }
+            ]
+          },
+          {
+            "title": "Monday through Saturday — Wednesday",
+            "rows": [
+              {
+                "time": "WED 9:00",
+                "name": "Plan 1 Wednesday — Session B breakfast",
+                "detail": "3 hard-boiled eggs + oats + banana + coffee. 35P / 65G / 15L.",
+                "cal": "530 cal"
+              },
+              {
+                "time": "WED 12:00",
+                "name": "Plan 1 Wednesday lunch",
+                "detail": "200 g chicken + rice + vegetables. 50P / 60G / 10L.",
+                "cal": "530 cal"
+              },
+              {
+                "time": "WED 15:30",
+                "name": "Plan 1 Wednesday snack",
+                "detail": "1 scoop protein + 1 banana. 30P / 30G.",
+                "cal": "270 cal"
+              },
+              {
+                "time": "WED 18:30",
+                "name": "Plan 1 Wednesday dinner",
+                "detail": "2 cans tuna in water + 1 avocado + raw vegetables + olive oil. 50P / 15G / 22L.",
+                "cal": "470 cal"
+              },
+              {
+                "time": "WED TOTAL",
+                "name": "Plan 1 Wednesday target",
+                "detail": "Total target: 2550 cal, 190P, 230G, 80L.",
+                "cal": "2550 cal"
+              }
+            ]
+          },
+          {
+            "title": "Wednesday batch 2",
+            "rows": [
+              {
+                "time": "BATCH",
+                "name": "Wednesday batch 2 — Plan 1",
+                "detail": "85% ground beef: 1.2 kg, hot pan, salt, pepper, garlic, divide into 3 portions of 200 g. White rice: 600 g dry rice, divide into 3 portions of 200 g cooked. Sweet potatoes: 3 medium, microwave 5-7 min each or oven 400 °F for 35 min. Hard-boiled eggs: 12 new eggs. Evening snacks: 3 containers with 30 g nuts + 2 hard-boiled eggs each.",
+                "cal": "PREP"
+              }
+            ]
+          },
+          {
+            "title": "Monday through Saturday — Thursday",
+            "rows": [
+              {
+                "time": "THU 9:00",
+                "name": "Plan 1 Thursday — Work breakfast",
+                "detail": "3 hard-boiled eggs + oats + berries + black coffee. 35P / 65G / 15L.",
+                "cal": "530 cal"
+              },
+              {
+                "time": "THU 12:00",
+                "name": "Plan 1 Thursday lunch",
+                "detail": "200 g ground beef + 200 g rice + sweet potato. 48P / 65G / 18L.",
+                "cal": "620 cal"
+              },
+              {
+                "time": "THU 15:30",
+                "name": "Plan 1 Thursday snack",
+                "detail": "Bottled protein shake + 1 apple. 25P / 25G.",
+                "cal": "260 cal"
+              },
+              {
+                "time": "THU 18:30",
+                "name": "Plan 1 Thursday dinner",
+                "detail": "200 g salmon + raw vegetables + avocado + olive oil. 45P / 15G / 28L.",
+                "cal": "500 cal"
+              },
+              {
+                "time": "THU 20:30",
+                "name": "Plan 1 Thursday evening snack",
+                "detail": "2 hard-boiled eggs + 30 g nuts. 18P / 20L.",
+                "cal": "280 cal"
+              },
+              {
+                "time": "THU TOTAL",
+                "name": "Plan 1 Thursday target",
+                "detail": "Total target: 2400 cal, 190P, 210G, 75L.",
+                "cal": "2400 cal"
+              }
+            ]
+          },
+          {
+            "title": "Monday through Saturday — Friday",
+            "rows": [
+              {
+                "time": "FRI 9:00",
+                "name": "Plan 1 Friday — Session C breakfast",
+                "detail": "3 hard-boiled eggs + instant oats + banana + coffee. 35P / 65G / 15L.",
+                "cal": "530 cal"
+              },
+              {
+                "time": "FRI 12:00",
+                "name": "Plan 1 Friday lunch",
+                "detail": "200 g ground beef + rice + vegetables. 48P / 60G / 18L.",
+                "cal": "590 cal"
+              },
+              {
+                "time": "FRI 15:30",
+                "name": "Plan 1 Friday snack",
+                "detail": "1 scoop protein + 1 banana. 30P / 30G.",
+                "cal": "270 cal"
+              },
+              {
+                "time": "FRI 18:30",
+                "name": "Plan 1 Friday dinner",
+                "detail": "2 cans tuna + avocado + raw vegetables + olive oil. 50P / 15G / 22L.",
+                "cal": "470 cal"
+              },
+              {
+                "time": "FRI 20:30",
+                "name": "Plan 1 Friday evening snack",
+                "detail": "1 scoop protein + almond milk if truly hungry. 25P.",
+                "cal": "150 cal"
+              },
+              {
+                "time": "FRI TOTAL",
+                "name": "Plan 1 Friday target",
+                "detail": "Total target: 2550 cal, 190P, 230G, 80L.",
+                "cal": "2550 cal"
+              }
+            ]
+          },
+          {
+            "title": "Monday through Saturday — Saturday",
+            "rows": [
+              {
+                "time": "SAT 9:00",
+                "name": "Plan 1 Saturday — Active recovery breakfast",
+                "detail": "4 scrambled eggs + 2 whites, oats + berries + almond butter, coffee. 45P / 70G / 20L.",
+                "cal": "640 cal"
+              },
+              {
+                "time": "SAT 12:00",
+                "name": "Plan 1 Saturday free meal",
+                "detail": "Free meal within targets, aim for 40 g+ protein, Saturday or Sunday, not both.",
+                "cal": "FREE"
+              },
+              {
+                "time": "SAT 15:30",
+                "name": "Plan 1 Saturday snack",
+                "detail": "2 hard-boiled eggs + 30 g nuts. 18P / 20L.",
+                "cal": "280 cal"
+              },
+              {
+                "time": "SAT 18:30",
+                "name": "Plan 1 Saturday dinner",
+                "detail": "200 g ground beef + sweet potato + spinach + olive oil. 45P / 40G / 22L.",
+                "cal": "540 cal"
+              },
+              {
+                "time": "SAT 20:30",
+                "name": "Plan 1 Saturday evening snack",
+                "detail": "1 scoop protein + almond milk + almond butter. 30P.",
+                "cal": "240 cal"
+              },
+              {
+                "time": "SAT TOTAL",
+                "name": "Plan 1 Saturday target",
+                "detail": "Total target: 2400 cal, 190P, 210G, 75L.",
+                "cal": "2400 cal"
+              }
+            ]
+          },
+          {
+            "title": "Grocery list",
+            "rows": [
+              {
+                "time": "GROCERY",
+                "name": "Plan 1 grocery — Proteins",
+                "detail": "Chicken breast 1.5 kg, 85% ground beef 1.5 kg, salmon 600 g, 2 dozen eggs, 6 cans tuna, lactose-free protein about 10 scoops.",
+                "cal": "P1"
+              },
+              {
+                "time": "GROCERY",
+                "name": "Plan 1 grocery — Carbs",
+                "detail": "White rice 1.5 kg, 6 sweet potatoes, quick oats 1 kg, 8-10 bananas, frozen berries 600 g, 4-5 apples.",
+                "cal": "P1"
+              },
+              {
+                "time": "GROCERY",
+                "name": "Plan 1 grocery — Vegetables",
+                "detail": "Broccoli 2 heads, 4 peppers, 2 zucchini, spinach 300 g, raw carrots/celery.",
+                "cal": "P1"
+              },
+              {
+                "time": "GROCERY",
+                "name": "Plan 1 grocery — Fats and condiments",
+                "detail": "4-5 avocados, nuts 400 g, almond butter, olive oil, unsweetened almond milk 2 L, salt, pepper, garlic.",
+                "cal": "P1"
+              }
+            ]
+          },
+          {
+            "title": "Rules",
+            "rows": [
+              {
+                "time": "RULES",
+                "name": "Plan 1 rules",
+                "detail": "Protein first at every meal. Evening snack at 20:30 is planned. One free meal per week, Saturday or Sunday. First 30 days: weigh and log. Water: minimum 3 L/day. Avoid dairy. Lactose-free protein mandatory. Daily supplements: greens, multi, omega-3, D3, magnesium. Creatine suspended during active riding period.",
+                "cal": "P1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "plan-2",
+        "label": "PLAN 2",
+        "title": "VARIETY",
+        "description": "Variety structure with Sunday batch, breakfast options A and B, Sunday through Saturday, Wednesday batch, grocery list and rules.",
+        "sections": [
+          {
+            "title": "Plan overview",
+            "rows": [
+              {
+                "time": "PLAN 2",
+                "name": "PLAN 2 — VARIETY",
+                "detail": "Variety structure with Sunday batch, breakfast options A and B, Sunday through Saturday, Wednesday batch, grocery list and rules.",
+                "cal": "OPTION 2"
+              }
+            ]
+          },
+          {
+            "title": "Sunday batch",
+            "rows": [
+              {
+                "time": "BATCH",
+                "name": "Sunday batch — Plan 2",
+                "detail": "Boneless skinless chicken thighs: 1.5 kg, cubes, olive oil, salt, pepper, garlic, smoked paprika, oven 400 °F, 25-30 min, 3 containers of 200 g. Roasted vegetables: broccoli, peppers, carrots, hot peppers, olive oil, salt, 3 portions. White rice: 600 g dry, rinsed, 3 portions of 200 g cooked. Hard-boiled eggs: 12. Raw vegetables: 2 cucumbers, 3 carrots, 2 peppers, 4 containers. Smoothie bags: 150 g berries + 1/2 banana + handful spinach, 3 ziplock bags; add 1 scoop whey + 300 ml almond milk to blender. Worksite wraps: 3 whole wheat tortillas + 150 g thigh + roasted vegetables + 40 g Allegro + mustard.",
+                "cal": "PREP"
+              }
+            ]
+          },
+          {
+            "title": "Breakfast options A and B",
+            "rows": [
+              {
+                "time": "BREAKFAST",
+                "name": "Plan 2 option A — Overnight oats",
+                "detail": "80 g dry oats + 250 ml almond milk + 1 scoop vanilla whey + 150 g berries + 15 g peanut butter + cinnamon. 35P / 70G / 12L.",
+                "cal": "540 cal"
+              },
+              {
+                "time": "BREAKFAST",
+                "name": "Plan 2 option B — Hot oats",
+                "detail": "80 g oats + almond milk, 1 scoop whey, 1 scrambled egg, banana or 150 g berries, 15 g peanut butter + cinnamon. 35P / 72G / 12L.",
+                "cal": "545 cal"
+              }
+            ]
+          },
+          {
+            "title": "Sunday",
+            "rows": [
+              {
+                "time": "SUN 9:00",
+                "name": "Plan 2 Sunday breakfast",
+                "detail": "Breakfast option A or B. 35P / 70G / 12L.",
+                "cal": "540 cal"
+              },
+              {
+                "time": "SUN 12:00",
+                "name": "Plan 2 Sunday free meal",
+                "detail": "Free meal, aim for 40 g+ protein, Saturday or Sunday, not both.",
+                "cal": "FREE"
+              },
+              {
+                "time": "SUN 15:30",
+                "name": "Plan 2 Sunday snack",
+                "detail": "2 hard-boiled eggs + 30 g nuts + raw vegetables. 18P / 8G / 18L.",
+                "cal": "310 cal"
+              },
+              {
+                "time": "SUN 18:30",
+                "name": "Plan 2 Sunday dinner",
+                "detail": "200 g salmon + sweet potato + broccoli + olive oil. 45P / 35G / 25L.",
+                "cal": "560 cal"
+              },
+              {
+                "time": "SUN 20:30",
+                "name": "Plan 2 Sunday evening snack",
+                "detail": "Allegro 80 g + raw vegetables. 10P / 5G / 2L.",
+                "cal": "80 cal"
+              },
+              {
+                "time": "SUN TOTAL",
+                "name": "Plan 2 Sunday target",
+                "detail": "Total target: about 2380 cal, 175P, 200G, 72L.",
+                "cal": "≈2380"
+              }
+            ]
+          },
+          {
+            "title": "Monday",
+            "rows": [
+              {
+                "time": "MON 9:00",
+                "name": "Plan 2 Monday — Session A breakfast",
+                "detail": "Breakfast option A or B. 35P / 70G / 12L.",
+                "cal": "540 cal"
+              },
+              {
+                "time": "MON 12:00",
+                "name": "Plan 2 Monday lunch",
+                "detail": "Batch wrap, tortilla + thigh + vegetables + Allegro. 45P / 50G / 12L.",
+                "cal": "490 cal"
+              },
+              {
+                "time": "MON 15:30",
+                "name": "Plan 2 Monday snack",
+                "detail": "Edamame 150 g + raw vegetables. 12P / 20G / 4L.",
+                "cal": "170 cal"
+              },
+              {
+                "time": "MON 18:30",
+                "name": "Plan 2 Monday dinner",
+                "detail": "200 g thigh + 200 g rice + roasted vegetables. 46P / 50G / 10L.",
+                "cal": "470 cal"
+              },
+              {
+                "time": "MON 20:30",
+                "name": "Plan 2 Monday evening snack",
+                "detail": "Allegro 80 g + cucumber + carrots. 10P / 5G / 2L.",
+                "cal": "80 cal"
+              },
+              {
+                "time": "MON TOTAL",
+                "name": "Plan 2 Monday target",
+                "detail": "Total target: 2550 cal, 190P, 230G, 80L.",
+                "cal": "2550 cal"
+              }
+            ]
+          },
+          {
+            "title": "Tuesday",
+            "rows": [
+              {
+                "time": "TUE 9:00",
+                "name": "Plan 2 Tuesday — Work breakfast",
+                "detail": "Breakfast option A or B. 35P / 70G / 12L.",
+                "cal": "540 cal"
+              },
+              {
+                "time": "TUE 12:00",
+                "name": "Plan 2 Tuesday lunch",
+                "detail": "200 g thigh + 200 g rice + roasted vegetables. 46P / 60G / 10L.",
+                "cal": "510 cal"
+              },
+              {
+                "time": "TUE 15:30",
+                "name": "Plan 2 Tuesday snack",
+                "detail": "Smoothie: frozen bag + whey + almond milk. 32P / 45G / 5L.",
+                "cal": "360 cal"
+              },
+              {
+                "time": "TUE 18:30",
+                "name": "Plan 2 Tuesday dinner",
+                "detail": "200 g salmon + 150 g rice + spinach + olive oil. 45P / 40G / 22L.",
+                "cal": "540 cal"
+              },
+              {
+                "time": "TUE 20:30",
+                "name": "Plan 2 Tuesday evening snack",
+                "detail": "1 scoop whey + almond milk + peanut butter. 30P / 8G / 10L.",
+                "cal": "250 cal"
+              },
+              {
+                "time": "TUE TOTAL",
+                "name": "Plan 2 Tuesday target",
+                "detail": "Total target: about 2400 cal, 185P, 200G, 72L.",
+                "cal": "≈2400"
+              }
+            ]
+          },
+          {
+            "title": "Wednesday",
+            "rows": [
+              {
+                "time": "WED 9:00",
+                "name": "Plan 2 Wednesday — Session B breakfast",
+                "detail": "Breakfast option A or B. 35P / 70G / 12L.",
+                "cal": "540 cal"
+              },
+              {
+                "time": "WED 12:00",
+                "name": "Plan 2 Wednesday lunch",
+                "detail": "Batch wrap. 45P / 50G / 12L.",
+                "cal": "490 cal"
+              },
+              {
+                "time": "WED 15:30",
+                "name": "Plan 2 Wednesday snack",
+                "detail": "Edamame 150 g + raw vegetables. 12P / 20G / 4L.",
+                "cal": "170 cal"
+              },
+              {
+                "time": "WED 18:30",
+                "name": "Plan 2 Wednesday dinner",
+                "detail": "2 cans tuna + avocado + raw vegetables + olive oil. 50P / 10G / 20L.",
+                "cal": "420 cal"
+              },
+              {
+                "time": "WED 20:30",
+                "name": "Plan 2 Wednesday evening snack",
+                "detail": "Allegro 80 g + cucumber. 10P / 3G / 2L.",
+                "cal": "70 cal"
+              },
+              {
+                "time": "WED TOTAL",
+                "name": "Plan 2 Wednesday target",
+                "detail": "Total target: about 2550 cal, 190P, 230G, 80L.",
+                "cal": "≈2550"
+              }
+            ]
+          },
+          {
+            "title": "Wednesday batch",
+            "rows": [
+              {
+                "time": "BATCH",
+                "name": "Wednesday batch — Plan 2",
+                "detail": "Mexican bowl: 1.2 kg 85% ground beef, 2 peppers, 1 onion, 3 tbsp salsa, cumin, garlic, salt, 3 portions of 200 g. White rice: 600 g dry, 3 portions of 200 g cooked. Sweet potatoes: 3 medium, microwave 6-7 min, 3 portions. Hard-boiled eggs: 12. Raw vegetables: 2 cucumbers, 3 carrots, 2 peppers, 4 containers. Evening snacks: 3 containers with 2 hard-boiled eggs + 30 g nuts.",
+                "cal": "PREP"
+              }
+            ]
+          },
+          {
+            "title": "Thursday",
+            "rows": [
+              {
+                "time": "THU 9:00",
+                "name": "Plan 2 Thursday — Work breakfast",
+                "detail": "Breakfast option A or B. 35P / 70G / 12L.",
+                "cal": "540 cal"
+              },
+              {
+                "time": "THU 12:00",
+                "name": "Plan 2 Thursday lunch",
+                "detail": "200 g Mexican bowl + 200 g rice + sweet potato. 48P / 65G / 18L.",
+                "cal": "620 cal"
+              },
+              {
+                "time": "THU 15:30",
+                "name": "Plan 2 Thursday snack",
+                "detail": "Smoothie whey + almond milk. 32P / 45G / 5L.",
+                "cal": "360 cal"
+              },
+              {
+                "time": "THU 18:30",
+                "name": "Plan 2 Thursday dinner",
+                "detail": "200 g salmon + raw vegetables + avocado. 45P / 15G / 28L.",
+                "cal": "500 cal"
+              },
+              {
+                "time": "THU 20:30",
+                "name": "Plan 2 Thursday evening snack",
+                "detail": "2 hard-boiled eggs + 30 g nuts. 18P / 6G / 20L.",
+                "cal": "280 cal"
+              },
+              {
+                "time": "THU TOTAL",
+                "name": "Plan 2 Thursday target",
+                "detail": "Total target: about 2400 cal, 185P, 205G, 72L.",
+                "cal": "≈2400"
+              }
+            ]
+          },
+          {
+            "title": "Friday",
+            "rows": [
+              {
+                "time": "FRI 9:00",
+                "name": "Plan 2 Friday — Session C breakfast",
+                "detail": "Breakfast option A or B. 35P / 70G / 12L.",
+                "cal": "540 cal"
+              },
+              {
+                "time": "FRI 12:00",
+                "name": "Plan 2 Friday lunch",
+                "detail": "200 g Mexican bowl + rice + roasted vegetables. 48P / 60G / 18L.",
+                "cal": "590 cal"
+              },
+              {
+                "time": "FRI 15:30",
+                "name": "Plan 2 Friday snack",
+                "detail": "Allegro 80 g + raw vegetables. 10P / 5G / 2L.",
+                "cal": "80 cal"
+              },
+              {
+                "time": "FRI 18:30",
+                "name": "Plan 2 Friday dinner",
+                "detail": "2 cans tuna + avocado + raw vegetables + olive oil. 50P / 10G / 20L.",
+                "cal": "420 cal"
+              },
+              {
+                "time": "FRI 20:30",
+                "name": "Plan 2 Friday evening snack",
+                "detail": "1 scoop whey + almond milk. 25P / 5G / 3L.",
+                "cal": "150 cal"
+              },
+              {
+                "time": "FRI TOTAL",
+                "name": "Plan 2 Friday target",
+                "detail": "Total target: 2550 cal, 190P, 230G, 80L.",
+                "cal": "2550 cal"
+              }
+            ]
+          },
+          {
+            "title": "Saturday",
+            "rows": [
+              {
+                "time": "SAT 9:00",
+                "name": "Plan 2 Saturday — Active recovery + free meal breakfast",
+                "detail": "Breakfast option A or B. 35P / 70G / 12L.",
+                "cal": "540 cal"
+              },
+              {
+                "time": "SAT 12:00",
+                "name": "Plan 2 Saturday free meal",
+                "detail": "Free meal, aim for 40 g+ protein, Saturday or Sunday, not both.",
+                "cal": "FREE"
+              },
+              {
+                "time": "SAT 15:30",
+                "name": "Plan 2 Saturday snack",
+                "detail": "Smoothie whey + almond milk. 32P / 45G / 5L.",
+                "cal": "360 cal"
+              },
+              {
+                "time": "SAT 18:30",
+                "name": "Plan 2 Saturday dinner",
+                "detail": "200 g Mexican bowl + sweet potato + spinach. 48P / 45G / 20L.",
+                "cal": "560 cal"
+              },
+              {
+                "time": "SAT 20:30",
+                "name": "Plan 2 Saturday evening snack",
+                "detail": "1 scoop whey + peanut butter + almond milk. 30P / 8G / 10L.",
+                "cal": "250 cal"
+              },
+              {
+                "time": "SAT TOTAL",
+                "name": "Plan 2 Saturday target",
+                "detail": "Total target: about 2400 cal, 185P, 200G, 72L.",
+                "cal": "≈2400"
+              }
+            ]
+          },
+          {
+            "title": "Grocery list",
+            "rows": [
+              {
+                "time": "GROCERY",
+                "name": "Plan 2 grocery — Proteins",
+                "detail": "Boneless skinless chicken thighs 1.5 kg, 85% ground beef 1.5 kg, salmon 600 g, 2 dozen eggs, 6 cans tuna, Allegro 1% cheese two bricks, vanilla whey about 10 scoops, frozen edamame 500 g.",
+                "cal": "P2"
+              },
+              {
+                "time": "GROCERY",
+                "name": "Plan 2 grocery — Carbs",
+                "detail": "White rice 1.5 kg, 3 sweet potatoes, quick oats 1 kg, 4-5 bananas, frozen berries 1 kg, whole wheat tortillas.",
+                "cal": "P2"
+              },
+              {
+                "time": "GROCERY",
+                "name": "Plan 2 grocery — Vegetables",
+                "detail": "Broccoli, peppers, carrots, cucumbers, hot peppers, spinach, onions.",
+                "cal": "P2"
+              },
+              {
+                "time": "GROCERY",
+                "name": "Plan 2 grocery — Fats and condiments",
+                "detail": "Avocados, organic unsweetened peanut butter, olive oil, almond milk, sugar-free salsa, cumin, smoked paprika, cinnamon, garlic, mustard.",
+                "cal": "P2"
+              },
+              {
+                "time": "GROCERY",
+                "name": "Plan 2 grocery — Misc",
+                "detail": "Ziplock bags, aluminum foil, 500 ml Mason jars.",
+                "cal": "P2"
+              }
+            ]
+          },
+          {
+            "title": "Rules",
+            "rows": [
+              {
+                "time": "RULES",
+                "name": "Plan 2 rules",
+                "detail": "Option A or B in the morning depending on available time. Smoothie bags prepared Sunday. Wraps rolled Sunday night. Raw vegetables in containers, always ready. Allegro = backup everywhere.",
+                "cal": "P2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
-  "updateTitle": "CoachMax has prepared an update for your protocol.",
-  "updateMessage": "Your nutrition plan has been adjusted.",
+  "updateTitle": "CoachMax has prepared your nutrition plan.",
+  "updateMessage": "Your complete nutrition structure is ready, including two meal-plan options, batch cooking and grocery lists.",
   "releaseNotes": [
-    "Nutrition plan updated"
+    "Two complete nutrition plans",
+    "Training-day and rest-day targets",
+    "Batch cooking instructions",
+    "Weekly grocery lists"
   ]
 }

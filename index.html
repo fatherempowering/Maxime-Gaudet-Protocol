@@ -322,6 +322,20 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-
 .macro-pill{font-size:9px;padding:2px 7px;border-radius:10px;background:var(--card2);color:var(--txt);letter-spacing:0.5px;border:1px solid var(--br);font-weight:500}
 .macro-pill.prot{background:var(--tint);color:var(--txt);border-color:rgba(200,90,0,0.25)}
 .meal-cal{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--orange);letter-spacing:1px;flex-shrink:0;margin-left:10px;margin-top:1px}
+.nutrition-plan-nav{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;margin:14px auto 0;padding:0 14px;max-width:900px}
+.nutrition-plan-nav::-webkit-scrollbar{display:none}
+.nutrition-plan-btn{flex:0 0 auto;border:1px solid var(--br);border-radius:14px;background:var(--card);color:var(--txt);box-shadow:var(--shadow);padding:11px 14px;min-width:118px;text-align:left;cursor:pointer}
+.nutrition-plan-btn-label{display:block;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1.8px;line-height:1;color:var(--txt)}
+.nutrition-plan-btn-title{display:block;font-size:10px;line-height:1.25;color:var(--txt3);margin-top:4px;text-transform:uppercase;letter-spacing:.6px}
+.nutrition-plan-btn.active{border-color:var(--orange);background:var(--tint)}
+.nutrition-plan-btn.active .nutrition-plan-btn-label{color:var(--orange)}
+.nutrition-plan-panel{display:none}
+.nutrition-plan-panel.active{display:block}
+.nutrition-plan-title-card{max-width:900px;margin:14px auto;background:var(--black);border-left:4px solid var(--orange);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.nutrition-plan-title-k{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2.3px;color:var(--orange);line-height:1}
+.nutrition-plan-title-main{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:#fff;line-height:1;margin-top:6px}
+.nutrition-plan-title-sub{font-size:12px;color:rgba(255,255,255,.68);line-height:1.55;margin-top:7px}
+@media(max-width:520px){.nutrition-plan-nav{padding-left:calc(50% - 59px);padding-right:calc(50% - 59px)}}
 .day-totals{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--br)}
 .day-total-cell{background:var(--black);padding:10px 6px;text-align:center}
 .day-total-n{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--orange);line-height:1}
@@ -1538,8 +1552,15 @@ function normalizeTrainingPlan(payload){
   return {plan:plan,version:String((payload&&payload.programVersion)||plan.programVersion||'unversioned'),updatedAt:(payload&&payload.updatedAt)||'',updateTitle:String((payload&&payload.updateTitle)||''),updateMessage:String((payload&&payload.updateMessage)||''),releaseNotes:Array.isArray(payload&&payload.releaseNotes)?payload.releaseNotes:[]};
 }
 function normalizeNutritionPlan(payload){
-  const plan=payload&&payload.nutrition?payload.nutrition:payload;
-  if(!plan||typeof plan!=='object'||!Array.isArray(plan.targets)||!Array.isArray(plan.rules)||!Array.isArray(plan.meals))throw new Error('Invalid nutrition program file');
+  const source=payload&&payload.nutrition?payload.nutrition:payload;
+  if(!source||typeof source!=='object')throw new Error('Invalid nutrition program file');
+  const plan=Object.assign({},source);
+  plan.targets=Array.isArray(source.targets)?source.targets:[];
+  plan.rules=Array.isArray(source.rules)?source.rules:[];
+  plan.meals=Array.isArray(source.meals)?source.meals:[];
+  plan.summary=Array.isArray(source.summary)?source.summary:[];
+  plan.plans=Array.isArray(source.plans)?source.plans:[];
+  if(!plan.targets.length&&!plan.rules.length&&!plan.meals.length&&!plan.summary.length&&!plan.plans.length&&!plan.futureNote)throw new Error('Invalid nutrition program file');
   return {plan:plan,version:String((payload&&payload.programVersion)||plan.programVersion||'unversioned'),updatedAt:(payload&&payload.updatedAt)||'',updateTitle:String((payload&&payload.updateTitle)||''),updateMessage:String((payload&&payload.updateMessage)||''),releaseNotes:Array.isArray(payload&&payload.releaseNotes)?payload.releaseNotes:[]};
 }
 function resolveTrainingWeekCount(plan){
@@ -3679,14 +3700,8 @@ function startTodaysSession(){
   setTimeout(()=>centerWeekNavOnWeek(currentWeek),0);
 }
 function selectNutritionDayForToday(){
-  const day=todayNutritionDay();
-  const activePlan=el('nutri-plan2')&&el('nutri-plan2').classList.contains('active')?'plan2':'plan1';
-  const prefix=activePlan==='plan2'?'nutri-p2-':'nutri-p1-';
-  const panel=el(prefix+day);
-  const container=el(activePlan==='plan2'?'nutri-plan2':'nutri-plan1');
-  if(!panel||!container)return;
-  const btn=[...container.querySelectorAll('.sub-btn')].find(b=>(b.getAttribute('onclick')||'').includes("'"+day+"'"));
-  if(btn)showNutri(day,btn,activePlan);
+  const active=document.querySelector('.nutrition-plan-btn.active')||document.querySelector('.nutrition-plan-btn');
+  if(active)showNutritionPlan(active.dataset.planId,active,{instant:true});
 }
 function getMainNavButton(name){
   return document.querySelector('[data-panel-nav="'+name+'"]');
@@ -5005,16 +5020,105 @@ async function archiveWeeklyCheckin(){
 function sendWeeklyReport(){archiveWeeklyCheckin();}
 
 /* ═════════ PERSONAL NUTRITION PANEL ═════════ */
+function nutritionSafeId(value,index){
+  const id=String(value||('plan-'+(index+1))).toLowerCase().replace(/[^a-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'');
+  return id||('plan-'+(index+1));
+}
+function nutritionRowsHTML(rows){
+  return (rows||[]).map(m=>'<div class="meal-row"><div class="meal-time">'+escapeHTML(m.time||'')+'</div><div class="meal-body"><div class="meal-name">'+escapeHTML(m.name||'')+'</div><div class="meal-detail">'+escapeHTML(m.detail||'')+'</div></div><div class="meal-cal">'+escapeHTML(m.cal||'')+'</div></div>').join('');
+}
+function nutritionPlanSections(plan){
+  if(Array.isArray(plan.sections)&&plan.sections.length)return plan.sections;
+  if(Array.isArray(plan.meals)&&plan.meals.length)return [{title:plan.title||plan.label||'MEAL TEMPLATE',rows:plan.meals}];
+  return [];
+}
+function getNutritionPlans(cfg){
+  const raw=Array.isArray(cfg.plans)?cfg.plans:[];
+  if(raw.length){
+    return raw.map((p,i)=>Object.assign({},p,{
+      id:nutritionSafeId(p&&p.id,i),
+      label:String((p&&p.label)||('PLAN '+(i+1))),
+      title:String((p&&p.title)||''),
+      sections:nutritionPlanSections(p||{})
+    }));
+  }
+  const legacyMeals=Array.isArray(cfg.meals)?cfg.meals:[];
+  if(legacyMeals.length){
+    return [{
+      id:'legacy-nutrition-plan',
+      label:'PLAN',
+      title:'MEAL TEMPLATE',
+      description:'Legacy nutrition format.',
+      sections:[{title:'MEAL TEMPLATE',rows:legacyMeals}]
+    }];
+  }
+  return [];
+}
+function nutritionSummaryHTML(cfg){
+  const summary=Array.isArray(cfg.summary)&&cfg.summary.length?cfg.summary:[];
+  if(!summary.length)return '';
+  return `<div class="card" style="max-width:900px;margin-left:auto;margin-right:auto">
+    <div class="card-hdr"><div class="cdot" style="background:var(--ol)"></div><div class="ctitle">NUTRITION OVERVIEW</div></div>
+    ${nutritionRowsHTML(summary)}
+  </div>`;
+}
+function nutritionPlanPanelHTML(plan,index){
+  const id=nutritionSafeId(plan.id,index);
+  const sections=nutritionPlanSections(plan);
+  const cards=sections.map(section=>{
+    const rows=nutritionRowsHTML(section.rows||[]);
+    const detail=section.detail?'<div style="padding:0 16px 14px;color:var(--txt2);font-size:13px;line-height:1.7">'+escapeHTML(section.detail)+'</div>':'';
+    return `<div class="card" style="max-width:900px;margin-left:auto;margin-right:auto">
+      <div class="card-hdr"><div class="cdot" style="background:var(--ol)"></div><div class="ctitle">${escapeHTML(section.title||'SECTION')}</div></div>
+      ${detail}
+      ${rows}
+    </div>`;
+  }).join('');
+  return `<div class="nutrition-plan-panel" id="nutrition-panel-${escapeHTML(id)}" data-plan-id="${escapeHTML(id)}">
+    <div class="nutrition-plan-title-card">
+      <div class="nutrition-plan-title-k">${escapeHTML(plan.label||('PLAN '+(index+1)))}</div>
+      <div class="nutrition-plan-title-main">${escapeHTML(plan.title||'')}</div>
+      ${plan.description?'<div class="nutrition-plan-title-sub">'+escapeHTML(plan.description)+'</div>':''}
+    </div>
+    ${cards}
+  </div>`;
+}
+function centerNutritionPlanTab(btn,instant){
+  const nav=btn&&btn.closest('.nutrition-plan-nav');
+  if(!nav||!btn)return;
+  const left=btn.offsetLeft-(nav.clientWidth-btn.offsetWidth)/2;
+  nav.scrollTo({left:Math.max(0,left),behavior:instant?'auto':'smooth'});
+}
+function showNutritionPlan(planId,btn,opts){
+  const panel=el('panel-nutrition');
+  if(!panel||!planId)return;
+  panel.querySelectorAll('.nutrition-plan-btn').forEach(b=>b.classList.toggle('active',b.dataset.planId===planId));
+  panel.querySelectorAll('.nutrition-plan-panel').forEach(p=>p.classList.toggle('active',p.dataset.planId===planId));
+  const activeBtn=btn||[...panel.querySelectorAll('.nutrition-plan-btn')].find(b=>b.dataset.planId===planId);
+  centerNutritionPlanTab(activeBtn,opts&&opts.instant);
+}
+function wireNutritionPlanTabs(panel,plans){
+  if(!panel||!plans.length)return;
+  panel.querySelectorAll('.nutrition-plan-btn').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.preventDefault();
+      showNutritionPlan(btn.dataset.planId,btn);
+    });
+  });
+  const first=[...panel.querySelectorAll('.nutrition-plan-btn')].find(b=>b.dataset.planId===plans[0].id)||panel.querySelector('.nutrition-plan-btn');
+  if(first)showNutritionPlan(first.dataset.planId,first,{instant:true});
+}
 function renderPersonalNutritionPanel(){
   const panel=el('panel-nutrition'); if(!panel)return;
   const cfg=NUTRITION_CONFIG;
   const targets=cfg.targets||[];
   const rulesList=cfg.rules||[];
-  const mealsList=cfg.meals||[];
+  const plans=getNutritionPlans(cfg);
   const stats=targets.map(t=>'<div class="stat-cell"><div class="stat-n '+(t.tone||'')+'">'+escapeHTML(t.value)+'</div><div class="stat-l">'+escapeHTML(t.label)+'</div></div>').join('');
   const rules=rulesList.map((r,i)=>'<div class="rule-row"><div class="rule-num">'+(i+1)+'</div><div><div class="rule-title">'+escapeHTML(r.title)+'</div><div class="rule-detail">'+escapeHTML(r.detail)+'</div></div></div>').join('');
-  const meals=mealsList.map(m=>'<div class="meal-row"><div class="meal-time">'+escapeHTML(m.time)+'</div><div class="meal-body"><div class="meal-name">'+escapeHTML(m.name)+'</div><div class="meal-detail">'+escapeHTML(m.detail)+'</div></div><div class="meal-cal">'+escapeHTML(m.cal)+'</div></div>').join('');
-  const hasNutrition=targets.length||rulesList.length||mealsList.length||cfg.futureNote;
+  const tabs=plans.map((p,i)=>'<button class="nutrition-plan-btn" type="button" data-plan-id="'+escapeHTML(p.id)+'"><span class="nutrition-plan-btn-label">'+escapeHTML(p.label||('PLAN '+(i+1)))+'</span><span class="nutrition-plan-btn-title">'+escapeHTML(p.title||'')+'</span></button>').join('');
+  const planPanels=plans.map((p,i)=>nutritionPlanPanelHTML(p,i)).join('');
+  const hasNutrition=targets.length||rulesList.length||plans.length||cfg.summary&&cfg.summary.length||cfg.futureNote;
   panel.innerHTML=`
   <div class="seance-hdr">
     <div class="seance-protocol">${escapeHTML(cfg.kicker)}</div>
@@ -5026,19 +5130,19 @@ function renderPersonalNutritionPanel(){
   </div>
   ${stats?'<div class="stats-row" style="margin-top:14px">'+stats+'</div>':''}
   ${hasNutrition?'':`<div class="card" style="max-width:900px;margin:14px auto"><div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">NUTRITION BUILD IN PROGRESS</div></div><div style="padding:18px;color:var(--txt2);font-size:13px;line-height:1.8">Nutrition targets and meal structure will appear here after Coach Max reviews the intake data.</div></div>`}
+  ${nutritionSummaryHTML(cfg)}
   ${rules?`<div class="card" style="max-width:900px;margin-left:auto;margin-right:auto">
     <div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">BASE RULES</div></div>
     <div style="padding:16px;display:grid;gap:10px">${rules}</div>
   </div>`:''}
-  ${meals?`<div class="card" style="max-width:900px;margin-left:auto;margin-right:auto">
-    <div class="card-hdr"><div class="cdot" style="background:var(--ol)"></div><div class="ctitle">MEAL TEMPLATE</div></div>
-    ${meals}
-  </div>`:''}
+  ${tabs?'<div class="nutrition-plan-nav" aria-label="Nutrition plans">'+tabs+'</div>':''}
+  ${planPanels}
   ${cfg.futureNote?`<div class="card" style="max-width:900px;margin-left:auto;margin-right:auto">
     <div class="card-hdr"><div class="cdot" style="background:var(--green)"></div><div class="ctitle">NOTES FOR FUTURE UPDATES</div></div>
     <div style="padding:16px;color:var(--txt2);font-size:13px;line-height:1.8">${escapeHTML(cfg.futureNote)}</div>
   </div>`:''}
   <div class="spacer"></div>`;
+  wireNutritionPlanTabs(panel,plans);
 }
 
 function openHomeOnLoad(){
