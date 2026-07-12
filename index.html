@@ -226,6 +226,29 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-
 .duration-field:focus-within{border-color:var(--orange)}
 .duration-input{width:32px;border:none;background:transparent;font-size:13px;font-weight:700;color:var(--orange);text-align:center;outline:none;font-family:'DM Sans',sans-serif}
 .duration-unit{font-size:9px;letter-spacing:1px;color:var(--txt3);font-weight:700;text-transform:uppercase}
+.session-variant-card{margin:14px 14px 0;background:var(--card);border:1px solid var(--br);border-radius:14px;box-shadow:var(--shadow);padding:14px}
+.session-variant-kicker{font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:2px;color:var(--txt3);margin-bottom:10px}
+.session-variant-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.session-variant-option{display:block;border:1px solid var(--br);border-radius:12px;background:var(--card2);padding:11px 10px;cursor:pointer}
+.session-variant-option input{position:absolute;opacity:0;pointer-events:none}
+.session-variant-title{display:block;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1.5px;color:var(--txt);line-height:1.1}
+.session-variant-sub{display:block;font-size:10px;color:var(--txt3);line-height:1.35;margin-top:4px}
+.session-variant-option:has(input:checked){border-color:var(--orange);background:var(--tint)}
+.session-variant-option:has(input:checked) .session-variant-title{color:var(--orange)}
+.session-fatigue-option{display:none}
+.sub-panel.variant-fatigue_zone2 .session-standard-work{display:none}
+.sub-panel.variant-fatigue_zone2 .session-fatigue-option{display:block}
+.zone2-card{background:var(--card);border:1px solid var(--br);border-radius:14px;margin:8px 14px 0;overflow:hidden;box-shadow:var(--shadow)}
+.zone2-head{padding:14px 16px;border-bottom:1px solid var(--br);background:var(--black);color:#fff}
+.zone2-label{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:var(--orange)}
+.zone2-instruction{font-size:12px;color:rgba(255,255,255,.72);line-height:1.55;margin-top:5px}
+.zone2-prescription{padding:13px 16px;color:var(--txt2);font-size:12px;line-height:1.7;border-bottom:1px solid var(--br)}
+.zone2-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px}
+.zone2-field{border:1px solid var(--br);border-radius:12px;background:var(--card2);padding:10px}
+.zone2-field label{display:block;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--txt3);margin-bottom:5px}
+.zone2-field-row{display:flex;align-items:center;gap:6px}
+.zone2-input{width:100%;border:none;background:transparent;font-size:20px;font-weight:700;color:var(--orange);outline:none;font-family:'DM Sans',sans-serif}
+.zone2-unit{font-size:10px;letter-spacing:1px;color:var(--txt3);font-weight:700;text-transform:uppercase}
 .hist-completion{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1.2px;font-weight:700}
 .hist-completion.good{color:var(--green)}
 .hist-completion.warn{color:var(--yellow)}
@@ -2319,6 +2342,10 @@ function normalizeBlock(block,week,sid,blockIndex){
   const rawExercises=block.exercises||block.exs||[];
   return {
     label:block.label||('BLOCK '+(blockIndex+1)),
+    variant:block.variant||'standard',
+    optionalReplacement:!!block.optionalReplacement,
+    instruction:block.instruction||'',
+    metrics:Array.isArray(block.metrics)?block.metrics.map(m=>Object.assign({},m)):[],
     exs:rawExercises.map((ex,i)=>normalizeExercise(ex,week,sid,blockIndex,i))
   };
 }
@@ -3240,6 +3267,47 @@ function buildExCard(bloc,week,sid){
   h+='</div>';
   return h;
 }
+function isFatigueOptionBlock(block){return !!(block&&block.variant==='fatigue_zone2');}
+function fatigueOptionBlockForSession(S){
+  return (S&&Array.isArray(S.blocs)?S.blocs:[]).find(isFatigueOptionBlock)||null;
+}
+function hasFatigueOption(week,sid){
+  const S=WEEKS[week]&&WEEKS[week].seances?WEEKS[week].seances[sid]:null;
+  return !!fatigueOptionBlockForSession(S);
+}
+function sessionVariantValue(rec){
+  return rec&&rec.variant==='fatigue_zone2'?'fatigue_zone2':'standard';
+}
+function sessionVariantLabel(value){
+  return value==='fatigue_zone2'?'FATIGUE OPTION — ZONE 2':'STANDARD CONDITIONING';
+}
+function buildSessionVariantSelector(week,sid){
+  if(!hasFatigueOption(week,sid))return '';
+  return '<div class="session-variant-card" data-session-variant-card="'+escapeHTML(sid)+'">'
+    +'<div class="session-variant-kicker">SESSION C VERSION</div>'
+    +'<div class="session-variant-grid">'
+      +'<label class="session-variant-option"><input type="radio" name="variant-'+escapeHTML(sid)+'" value="standard" data-session-variant="'+escapeHTML(sid)+'"><span class="session-variant-title">STANDARD CONDITIONING</span><span class="session-variant-sub">Full athletic conditioning session.</span></label>'
+      +'<label class="session-variant-option"><input type="radio" name="variant-'+escapeHTML(sid)+'" value="fatigue_zone2" data-session-variant="'+escapeHTML(sid)+'"><span class="session-variant-title">FATIGUE OPTION — ZONE 2</span><span class="session-variant-sub">Replacement when fatigue, sleep, workload, or soreness is high.</span></label>'
+    +'</div>'
+  +'</div>';
+}
+function buildFatigueOptionHTML(block,sid){
+  if(!block)return '';
+  const ex=(block.exs&&block.exs[0])||{};
+  const instruction=block.instruction||'Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.';
+  const target=ex.target||'RPE 5-6 · no intervals · no explosive work';
+  return '<div class="session-fatigue-option">'
+    +'<div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">'+escapeHTML(block.label||'FATIGUE OPTION — ZONE 2 CARDIO')+'</div><div class="bloc-line"></div></div>'
+    +'<div class="zone2-card">'
+      +'<div class="zone2-head"><div class="zone2-label">'+escapeHTML(ex.name||'Indoor Bike')+'</div><div class="zone2-instruction">'+escapeHTML(instruction)+'</div></div>'
+      +'<div class="zone2-prescription"><strong>Prescription:</strong> Zone 2 · Target duration: '+escapeHTML(ex.reps||'20-45 min')+' · Target intensity: '+escapeHTML(target)+' · Controlled breathing.</div>'
+      +'<div class="zone2-fields">'
+        +'<div class="zone2-field"><label>Actual Time</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-zone2-metric="zone2ActualTime" placeholder="35"><span class="zone2-unit">min</span></div></div>'
+        +'<div class="zone2-field"><label>Average BPM</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-zone2-metric="zone2AverageBpm" placeholder="128"><span class="zone2-unit">bpm</span></div></div>'
+      +'</div>'
+    +'</div>'
+  +'</div>';
+}
 function buildSeanceHTML(week,sid){
   const S=WEEKS[week].seances[sid];
   let h='';
@@ -3247,8 +3315,13 @@ function buildSeanceHTML(week,sid){
     h+='<div class="warmup"><div class="warmup-label">WARM-UP — REQUIRED</div><div class="warmup-txt">'+escapeHTML(S.warmup)+'</div></div>';
   }
   const blocs=S.blocs||[];
+  const fatigueBlock=fatigueOptionBlockForSession(S);
+  h+=buildSessionVariantSelector(week,sid);
   if(blocs.length){
-    blocs.forEach(b=>{h+=buildExCard(b,week,sid);});
+    h+='<div class="session-standard-work">';
+    blocs.filter(b=>!isFatigueOptionBlock(b)).forEach(b=>{h+=buildExCard(b,week,sid);});
+    h+='</div>';
+    if(fatigueBlock)h+=buildFatigueOptionHTML(fatigueBlock,sid);
   }else{
     h+='<div class="card" style="margin:16px 14px"><div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">PROTOCOL BUILD IN PROGRESS</div></div><div style="padding:18px;color:var(--txt2);font-size:13px;line-height:1.8">This session will be built after Coach Max reviews the Week 0 acquisition data.</div></div>';
   }
@@ -3383,16 +3456,100 @@ function renderEntrainementWeek(){
   renderDash(); renderSideKpis(); renderMens();
 }
 function seanceKey(w,sid){return 's'+w+'_'+sid;}
+function setSessionVariantUI(sid,variant){
+  const panel=el('sub-'+sid); if(!panel)return;
+  const value=variant==='fatigue_zone2'?'fatigue_zone2':'standard';
+  panel.dataset.sessionVariant=value;
+  panel.classList.toggle('variant-fatigue_zone2',value==='fatigue_zone2');
+  panel.classList.toggle('variant-standard',value==='standard');
+  panel.querySelectorAll('[data-session-variant="'+sid+'"]').forEach(r=>{r.checked=r.value===value;});
+}
+function readSessionVariant(sid){
+  if(!hasFatigueOption(currentWeek,sid))return '';
+  const panel=el('sub-'+sid); if(!panel)return 'standard';
+  let selected='standard';
+  panel.querySelectorAll('[data-session-variant="'+sid+'"]').forEach(r=>{if(r.checked)selected=r.value;});
+  return selected==='fatigue_zone2'?'fatigue_zone2':'standard';
+}
+function readZone2Metrics(sid){
+  const panel=el('sub-'+sid); const metrics={};
+  if(!panel||!hasFatigueOption(currentWeek,sid))return metrics;
+  panel.querySelectorAll('[data-zone2-metric]').forEach(inp=>{
+    const v=(inp.value||'').trim();
+    if(v!=='')metrics[inp.dataset.zone2Metric]=v;
+  });
+  return metrics;
+}
+function restoreZone2Metrics(sid,metrics){
+  const panel=el('sub-'+sid); if(!panel)return;
+  panel.querySelectorAll('[data-zone2-metric]').forEach(inp=>{
+    const key=inp.dataset.zone2Metric;
+    inp.value=metrics&&metrics[key]!=null?metrics[key]:'';
+  });
+}
+function hasStandardSessionInput(panel){
+  if(!panel)return false;
+  let has=false;
+  panel.querySelectorAll('.session-standard-work .ex-input,.session-standard-work .duration-input,.session-standard-work .ex-sets-input,.session-standard-work .ex-reps-input').forEach(inp=>{
+    const value=(inp.value||'').trim();
+    const prescribed=(inp.dataset&&inp.dataset.prescribed?String(inp.dataset.prescribed):'').trim();
+    if(value&&value!==prescribed)has=true;
+  });
+  return has;
+}
+function hasZone2MetricInput(panel){
+  if(!panel)return false;
+  let has=false;
+  panel.querySelectorAll('[data-zone2-metric]').forEach(inp=>{if((inp.value||'').trim())has=true;});
+  return has;
+}
+function confirmSessionVariantChange(sid,next){
+  const panel=el('sub-'+sid); if(!panel)return true;
+  const current=panel.dataset.sessionVariant||'standard';
+  if(current===next)return true;
+  const hasData=next==='fatigue_zone2'?hasStandardSessionInput(panel):hasZone2MetricInput(panel);
+  if(!hasData)return true;
+  const msg='Change Session C version?\n\nYour entered values will be preserved locally, but only the selected version will count as the performed Session C for history and CoachMax.';
+  return typeof confirm==='function'?confirm(msg):true;
+}
+function handleSessionVariantChange(sid,next){
+  const panel=el('sub-'+sid); if(!panel)return;
+  const current=panel.dataset.sessionVariant||'standard';
+  const value=next==='fatigue_zone2'?'fatigue_zone2':'standard';
+  if(!confirmSessionVariantChange(sid,value)){setSessionVariantUI(sid,current);return;}
+  setSessionVariantUI(sid,value);
+  autosaveDraft(sid);
+}
+function isZone2VariantRecord(rec){return rec&&rec.variant==='fatigue_zone2';}
+function reportableSessionCharges(week,sid,rec){
+  if(isZone2VariantRecord(rec)&&hasFatigueOption(week,sid))return {};
+  return rec&&rec.charges?rec.charges:{};
+}
+function reportableSessionActuals(week,sid,rec){
+  if(isZone2VariantRecord(rec)&&hasFatigueOption(week,sid))return {};
+  return rec&&rec.actuals?rec.actuals:{};
+}
+function zone2MetricDisplay(rec){
+  const metrics=rec&&rec.metrics?rec.metrics:{};
+  const time=metrics.zone2ActualTime?formatDurationValue(metrics.zone2ActualTime,'min'):'';
+  const bpm=metrics.zone2AverageBpm?String(metrics.zone2AverageBpm)+' BPM':'';
+  return {time,bpm};
+}
 function restoreSeanceFields(sid){
   const rec=D.seances[seanceKey(currentWeek,sid)]||D.drafts[seanceKey(currentWeek,sid)];
-  if(!rec)return;
   const panel=el('sub-'+sid);
   if(!panel)return;
+  if(hasFatigueOption(currentWeek,sid)){
+    setSessionVariantUI(sid,sessionVariantValue(rec));
+    restoreZone2Metrics(sid,rec&&rec.metrics);
+  }
+  if(!rec)return;
   const actuals=rec.actuals||{};
   panel.querySelectorAll('.ex-sets-input').forEach(inp=>{ const k=inp.dataset.key; if(actuals[k]&&actuals[k].sets!=null) inp.value=actuals[k].sets; });
   panel.querySelectorAll('.ex-reps-input').forEach(inp=>{ const k=inp.dataset.key; if(actuals[k]&&actuals[k].reps!=null) inp.value=actuals[k].reps; });
   panel.querySelectorAll('.ex-input').forEach(inp=>{ const k=inp.dataset.key; if(rec.charges&&rec.charges[k]!=null) inp.value=rec.charges[k]; });
   panel.querySelectorAll('.duration-control').forEach(ctrl=>{ const k=ctrl.dataset.key; if(rec.charges&&rec.charges[k]!=null) setDurationControl(ctrl,rec.charges[k]); });
+  if(hasFatigueOption(currentWeek,sid))restoreZone2Metrics(sid,rec.metrics);
   const notes=el('notes-'+sid); if(notes&&rec.notes) notes.value=rec.notes;
 }
 function persistSeanceFields(sid){
@@ -3413,14 +3570,19 @@ function persistSeanceFields(sid){
   panel.querySelectorAll('.ex-input').forEach(inp=>{ if(inp.value.trim()!=='') charges[inp.dataset.key]=inp.value.trim(); });
   panel.querySelectorAll('.duration-control').forEach(ctrl=>{ const total=readDurationControl(ctrl); if(total!=null)charges[ctrl.dataset.key]=String(total); });
   const notes=(el('notes-'+sid)||{}).value||'';
-  return {charges,actuals,notes};
+  const out={charges,actuals,notes};
+  if(hasFatigueOption(currentWeek,sid)){
+    out.variant=readSessionVariant(sid);
+    out.metrics=readZone2Metrics(sid);
+  }
+  return out;
 }
 let _draftTimer=null;
 function autosaveDraft(sid){
   clearTimeout(_draftTimer);
   _draftTimer=setTimeout(()=>{
     const k=seanceKey(currentWeek,sid);
-    if(D.seances[k]&&D.seances[k].done){ const f=persistSeanceFields(sid); D.seances[k].charges=f.charges; D.seances[k].actuals=f.actuals; D.seances[k].notes=f.notes; }
+    if(D.seances[k]&&D.seances[k].done){ const f=persistSeanceFields(sid); D.seances[k].charges=f.charges; D.seances[k].actuals=f.actuals; D.seances[k].notes=f.notes; if(f.variant)D.seances[k].variant=f.variant; if(f.metrics)D.seances[k].metrics=f.metrics; }
     else{ D.drafts[k]=persistSeanceFields(sid); }
     save();
   },600);
@@ -3433,6 +3595,8 @@ function wireSeanceInputs(sid){
   panel.querySelectorAll('.duration-control').forEach(ctrl=>{
     ctrl.querySelectorAll('.duration-input').forEach(inp=>{ inp.addEventListener('input',()=>autosaveDraft(sid)); });
   });
+  panel.querySelectorAll('[data-session-variant="'+sid+'"]').forEach(inp=>{ inp.addEventListener('change',()=>handleSessionVariantChange(sid,inp.value)); });
+  panel.querySelectorAll('[data-zone2-metric]').forEach(inp=>{ inp.addEventListener('input',()=>autosaveDraft(sid)); });
   const notes=el('notes-'+sid); if(notes) notes.addEventListener('input',()=>autosaveDraft(sid));
 }
 function goToWeeklyCheckin(){
@@ -3461,7 +3625,10 @@ function saveSeance(sid){
   if(!isWeekUnlocked(currentWeek)){showLockedWeekModal();return;}
   const k=seanceKey(currentWeek,sid);
   const f=persistSeanceFields(sid);
-  D.seances[k]={done:true,date:new Date().toISOString().slice(0,10),charges:f.charges,actuals:f.actuals,notes:f.notes};
+  const rec={done:true,date:new Date().toISOString().slice(0,10),charges:f.charges,actuals:f.actuals,notes:f.notes};
+  if(f.variant)rec.variant=f.variant;
+  if(f.metrics)rec.metrics=f.metrics;
+  D.seances[k]=rec;
   delete D.drafts[k];
   save(); updateStatus(sid); renderDayNav(); buildWeekNav(); updateHomeStats(); renderDash();
   const btn=el('save-'+sid); if(btn){btn.style.background='var(--green)'; btn.querySelector('.save-btn-label').textContent='SAVED ✓ — SESSION COMPLETED';}
@@ -3819,11 +3986,12 @@ function formatActualsHTML(week,actuals){
 }
 function seanceVolume(week,sid){
   if(parseInt(week)===0)return 0;
-  const rec=D.seances[seanceKey(week,sid)]; if(!rec||!rec.charges)return 0;
+  const rec=D.seances[seanceKey(week,sid)]; if(!rec)return 0;
+  const charges=reportableSessionCharges(week,sid,rec); if(!Object.keys(charges).length)return 0;
   const map=exMap(week); let vol=0;
-  Object.entries(rec.charges).forEach(([k,v])=>{ const n=parseFloat(String(v).replace(',','.')); if(isNaN(n))return;
+  Object.entries(charges).forEach(([k,v])=>{ const n=parseFloat(String(v).replace(',','.')); if(isNaN(n))return;
     const m=map[k]||{sets:1,reps:1}; if(m.sid&&m.sid!==sid)return; if(isDurationUnit(m.unit))return;
-    const actual=(rec.actuals&&rec.actuals[k])||{};
+    const actual=(reportableSessionActuals(week,sid,rec)[k])||{};
     const sets=setsNum(actual.sets,m.sets);
     const reps=repsNum(actual.reps||m.rawReps||m.reps);
     vol+=n*sets*reps;
@@ -3832,9 +4000,10 @@ function seanceVolume(week,sid){
 }
 function weekCharge(week){
   if(parseInt(week)===0)return 0;
-  let tot=0; SEANCE_IDS.forEach(sid=>{ const rec=D.seances[seanceKey(week,sid)]; if(!rec||!rec.charges)return;
+  let tot=0; SEANCE_IDS.forEach(sid=>{ const rec=D.seances[seanceKey(week,sid)]; if(!rec)return;
+    const charges=reportableSessionCharges(week,sid,rec); if(!Object.keys(charges).length)return;
     const map=exMap(week);
-    Object.entries(rec.charges).forEach(([k,v])=>{if(isDurationUnit((map[k]||{}).unit))return;const n=parseFloat(String(v).replace(',','.'));if(!isNaN(n))tot+=n;});});
+    Object.entries(charges).forEach(([k,v])=>{if(isDurationUnit((map[k]||{}).unit))return;const n=parseFloat(String(v).replace(',','.'));if(!isNaN(n))tot+=n;});});
   return Math.round(tot);
 }
 let _volChart=null,_chargeChart=null;
@@ -4319,21 +4488,32 @@ function renderHistoryCheckinEntry(container,x){
 function renderHistorySessionEntry(container,item){
   const w=item.week,sid=item.sid,rec=item.rec,isArchived=item.phaseId===PHASE1_ARCHIVE_ID;
   const e=document.createElement('div');e.className='hist-seance-entry';
-  const nCharges=rec.charges?Object.keys(rec.charges).length:0;
+  const charges=isArchived?(rec.charges||{}):reportableSessionCharges(w,sid,rec);
+  const nCharges=charges?Object.keys(charges).length:0;
   let chargesHTML='';
   if(nCharges){
     chargesHTML='<div style="padding:10px 16px;font-size:12px;color:var(--txt2);line-height:1.8">'
-      +Object.entries(rec.charges).map(([k,v])=>'<strong>'+escapeHTML(k)+'</strong> : '+(isArchived?formatArchiveRecordedFieldHTML(v):formatRecordedFieldHTML(w,k,v))).join(' · ')
+      +Object.entries(charges).map(([k,v])=>'<strong>'+escapeHTML(k)+'</strong> : '+(isArchived?formatArchiveRecordedFieldHTML(v):formatRecordedFieldHTML(w,k,v))).join(' · ')
       +'</div>';
   }
-  const actualsHTML=isArchived?formatArchiveActualsHTML(rec.actuals):formatActualsHTML(w,rec.actuals);
+  const actualsHTML=isArchived?formatArchiveActualsHTML(rec.actuals):formatActualsHTML(w,reportableSessionActuals(w,sid,rec));
   const label=isArchived?('PHASE 1 · WEEK '+w+' · SESSION '+String(sid).toUpperCase()):formatSeanceLabel(w,sid);
-  const thirdValue=isArchived?'P1':seanceVolume(w,sid).toLocaleString('fr-CA');
-  const thirdLabel=isArchived?'ARCHIVE':'VOLUME LBS';
+  const isZone2=!isArchived&&isZone2VariantRecord(rec)&&hasFatigueOption(w,sid);
+  const z=isZone2?zone2MetricDisplay(rec):null;
+  const thirdValue=isArchived?'P1':(isZone2?'ZONE 2':seanceVolume(w,sid).toLocaleString('fr-CA'));
+  const thirdLabel=isArchived?'ARCHIVE':(isZone2?'VERSION':'VOLUME LBS');
+  let variantHTML='';
+  if(!isArchived&&hasFatigueOption(w,sid)){
+    variantHTML='<div class="hist-row"><div class="hist-label">Session C version</div><div class="hist-val">'+escapeHTML(sessionVariantLabel(sessionVariantValue(rec)))+'</div></div>';
+    if(isZone2){
+      variantHTML+='<div class="hist-row"><div class="hist-label">Zone 2 metrics</div><div class="hist-val">'+escapeHTML((z.time||'--')+' · '+(z.bpm||'--'))+'</div></div>';
+    }
+  }
   e.innerHTML='<div class="hist-seance-hdr"><div class="hist-seance-label">'+escapeHTML(label)+'</div><div class="hist-seance-date">'+escapeHTML(rec.date||'')+'</div></div>'
     +'<div class="hist-seance-stats"><div class="hist-seance-stat"><div class="hist-seance-stat-n">✓</div><div class="hist-seance-stat-l">COMPLETED</div></div>'
     +'<div class="hist-seance-stat"><div class="hist-seance-stat-n">'+nCharges+'</div><div class="hist-seance-stat-l">LOADS NOTED</div></div>'
     +'<div class="hist-seance-stat"><div class="hist-seance-stat-n">'+thirdValue+'</div><div class="hist-seance-stat-l">'+thirdLabel+'</div></div></div>'
+    +variantHTML
     +chargesHTML
     +actualsHTML
     +(rec.notes?'<div style="padding:0 16px 12px;font-size:12px;color:var(--txt2);line-height:1.6">'+escapeHTML(rec.notes)+'</div>':'');
@@ -4701,12 +4881,23 @@ function buildReportLines(checkin,week){
     const label=sessionDisplayName(week,sid);
     if(rec&&rec.done){
       L.push('✅ '+label+(rec.date?' · Completed '+rec.date:''));
-      if(rec.charges&&Object.keys(rec.charges).length){
-        Object.entries(rec.charges).forEach(([k,v])=>L.push('   · '+k+' : '+formatRecordedField(week,k,v)));
+      if(hasFatigueOption(week,sid)){
+        const variant=sessionVariantValue(rec);
+        L.push('   · Version: '+sessionVariantLabel(variant));
+        if(variant==='fatigue_zone2'){
+          const z=zone2MetricDisplay(rec);
+          if(z.time)L.push('   · Actual Time: '+z.time);
+          if(z.bpm)L.push('   · Average BPM: '+z.bpm);
+        }
       }
-      if(rec.actuals&&Object.keys(rec.actuals).length){
+      const charges=reportableSessionCharges(week,sid,rec);
+      if(Object.keys(charges).length){
+        Object.entries(charges).forEach(([k,v])=>L.push('   · '+k+' : '+formatRecordedField(week,k,v)));
+      }
+      const actuals=reportableSessionActuals(week,sid,rec);
+      if(Object.keys(actuals).length){
         L.push('   · Sets / reps adjusted:');
-        Object.entries(rec.actuals).forEach(([k,v])=>{
+        Object.entries(actuals).forEach(([k,v])=>{
           const s=actualSetRepSummary(week,k,v);
           L.push('      - '+s.name+' : '+s.done+' (planned '+s.planned+')');
         });

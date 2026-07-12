@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "programVersion": "maxime-gaudet-block-2-v1",
-  "updatedAt": "2026-07-11T00:00:00-04:00",
+  "programVersion": "maxime-gaudet-block-2-v1-zone2-c",
+  "updatedAt": "2026-07-12T00:00:00-04:00",
   "training": {
     "client": "Maxime Gaudet",
     "protocol": "Legacy Protocol — Bloc 2",
@@ -334,6 +334,37 @@
                     "unit": "lbs"
                   }
                 ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
+                  }
+                ]
               }
             ]
           }
@@ -626,6 +657,37 @@
                     "key": "wrist_curl_db",
                     "target": "15 lb",
                     "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
                   }
                 ]
               }
@@ -922,6 +984,37 @@
                     "unit": "lbs"
                   }
                 ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
+                  }
+                ]
               }
             ]
           }
@@ -1216,6 +1309,37 @@
                     "unit": "lbs"
                   }
                 ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
+                  }
+                ]
               }
             ]
           }
@@ -1499,6 +1623,37 @@
                     "key": "wrist_curl_db",
                     "target": "light",
                     "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option as the simplest deload version when fatigue, sleep, construction workload, or leg soreness is high. Keep it easy: no intervals, no explosive work, no added conditioning after this.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
                   }
                 ]
               }
@@ -1795,6 +1950,37 @@
                     "unit": "lbs"
                   }
                 ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
+                  }
+                ]
               }
             ]
           }
@@ -2087,6 +2273,37 @@
                     "key": "wrist_curl_db",
                     "target": "15 lb",
                     "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
                   }
                 ]
               }
@@ -2383,6 +2600,37 @@
                     "unit": "lbs"
                   }
                 ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
+                  }
+                ]
               }
             ]
           }
@@ -2677,6 +2925,37 @@
                     "unit": "lbs"
                   }
                 ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
+                  }
+                ]
               }
             ]
           }
@@ -2960,6 +3239,37 @@
                     "key": "wrist_curl_db",
                     "target": "light",
                     "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option as the simplest deload version when fatigue, sleep, construction workload, or leg soreness is high. Keep it easy: no intervals, no explosive work, no added conditioning after this.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
                   }
                 ]
               }
@@ -3283,6 +3593,37 @@
                     "unit": "lbs"
                   }
                 ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
+                  }
+                ]
               }
             ]
           }
@@ -3602,6 +3943,37 @@
                     "key": "wrist_curl_db",
                     "target": "15 lb",
                     "unit": "lbs"
+                  }
+                ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
                   }
                 ]
               }
@@ -3925,6 +4297,37 @@
                     "unit": "lbs"
                   }
                 ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
+                  }
+                ]
               }
             ]
           }
@@ -4201,6 +4604,37 @@
                     "unit": "lbs"
                   }
                 ]
+              },
+              {
+                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "exercises": [
+                  {
+                    "name": "Indoor Bike",
+                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "sets": "1",
+                    "reps": "20-45 min",
+                    "key": "zone2_indoor_bike_fatigue",
+                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "unit": "min"
+                  }
+                ],
+                "metrics": [
+                  {
+                    "key": "zone2ActualTime",
+                    "label": "Actual Time",
+                    "unit": "min",
+                    "type": "number"
+                  },
+                  {
+                    "key": "zone2AverageBpm",
+                    "label": "Average BPM",
+                    "unit": "bpm",
+                    "type": "number"
+                  }
+                ]
               }
             ]
           }
@@ -4214,6 +4648,7 @@
     "New 14-week training block",
     "Three flexible sessions: A, B and C",
     "Two planned deload weeks",
-    "Zone 2 and fatigue-management options added"
+    "Zone 2 and fatigue-management options added",
+    "Session C now includes a mutually exclusive Zone 2 fatigue option"
   ]
 }
