@@ -1136,7 +1136,7 @@
                     "sets": "4",
                     "reps": "10",
                     "key": "leg_press_hack",
-                    "target": "405 lb",
+                    "target": "360 lb",
                     "unit": "lbs"
                   },
                   {
@@ -4642,14 +4642,15 @@
       }
     ]
   },
-  "updateTitle": "CoachMax corrected one exercise in your training plan.",
-  "updateMessage": "Front Foot Elevated Split Squat is now performed on the Smith Machine. Its target uses total machine load, starting at 50 lb.",
+  "updateTitle": "CoachMax corrected your training targets.",
+  "updateMessage": "Front Foot Elevated Split Squat is now performed on the Smith Machine with total machine load, and Leg Press or Hack Squat stays at 360 lb for weeks 1 to 4.",
   "releaseNotes": [
     "New 14-week training block",
     "Three flexible sessions: A, B and C",
     "Two planned deload weeks",
     "Zone 2 and fatigue-management options added",
     "Session C now includes a mutually exclusive Zone 2 fatigue option",
-    "Front Foot Elevated Split Squat now uses the Smith Machine and total load"
+    "Front Foot Elevated Split Squat now uses the Smith Machine and total load",
+    "Leg Press or Hack Squat target is 360 lb for weeks 1 to 4"
   ]
 }
