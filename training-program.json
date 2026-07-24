@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "programVersion": "maxime-gaudet-block-2-v1-zone2-c",
-  "updatedAt": "2026-07-12T00:00:00-04:00",
+  "programVersion": "maxime-gaudet-block-2-v2-smith-total-load",
+  "updatedAt": "2026-07-24T00:00:00-04:00",
   "training": {
     "client": "Maxime Gaudet",
     "protocol": "Legacy Protocol — Bloc 2",
@@ -165,12 +165,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "3",
-                    "reps": "8/side",
+                    "reps": "8",
                     "key": "ffe_split_squat",
-                    "target": "25 lb/hand",
+                    "target": "50 lb",
                     "unit": "lbs"
                   },
                   {
@@ -490,12 +490,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "3",
-                    "reps": "9/side",
+                    "reps": "9",
                     "key": "ffe_split_squat",
-                    "target": "25 lb/hand",
+                    "target": "50 lb",
                     "unit": "lbs"
                   },
                   {
@@ -811,16 +811,16 @@
                     "sets": "4",
                     "reps": "10",
                     "key": "leg_press_hack",
-                    "target": "360 lb",
+                    "target": "405 lb",
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "3",
-                    "reps": "8/side",
+                    "reps": "8",
                     "key": "ffe_split_squat",
-                    "target": "30 lb/hand",
+                    "target": "60 lb",
                     "unit": "lbs"
                   },
                   {
@@ -1140,12 +1140,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "3",
-                    "reps": "8-9/side",
+                    "reps": "8-9",
                     "key": "ffe_split_squat",
-                    "target": "30 lb/hand",
+                    "target": "60 lb",
                     "unit": "lbs"
                   },
                   {
@@ -1465,12 +1465,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "2",
-                    "reps": "8/side",
+                    "reps": "8",
                     "key": "ffe_split_squat",
-                    "target": "15-20 lb/hand",
+                    "target": "30-40 lb",
                     "unit": "lbs"
                   },
                   {
@@ -1781,12 +1781,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "3",
-                    "reps": "6/side",
+                    "reps": "6",
                     "key": "ffe_split_squat",
-                    "target": "30 lb/hand",
+                    "target": "60 lb",
                     "unit": "lbs"
                   },
                   {
@@ -2106,12 +2106,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "3",
-                    "reps": "6/side",
+                    "reps": "6",
                     "key": "ffe_split_squat",
-                    "target": "35 lb/hand",
+                    "target": "70 lb",
                     "unit": "lbs"
                   },
                   {
@@ -2431,12 +2431,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "3-4",
-                    "reps": "6/side",
+                    "reps": "6",
                     "key": "ffe_split_squat",
-                    "target": "35 lb/hand",
+                    "target": "70 lb",
                     "unit": "lbs"
                   },
                   {
@@ -2756,12 +2756,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "3",
-                    "reps": "6/side",
+                    "reps": "6",
                     "key": "ffe_split_squat",
-                    "target": "35-40 lb/hand",
+                    "target": "70-80 lb",
                     "unit": "lbs"
                   },
                   {
@@ -3081,12 +3081,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "2",
-                    "reps": "8/side",
+                    "reps": "8",
                     "key": "ffe_split_squat",
-                    "target": "20 lb/hand",
+                    "target": "40 lb",
                     "unit": "lbs"
                   },
                   {
@@ -3415,12 +3415,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "3",
-                    "reps": "6/side",
+                    "reps": "6",
                     "key": "ffe_split_squat",
-                    "target": "35 lb/hand",
+                    "target": "70 lb",
                     "unit": "lbs"
                   },
                   {
@@ -3767,12 +3767,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "3",
-                    "reps": "6/side",
+                    "reps": "6",
                     "key": "ffe_split_squat",
-                    "target": "35-40 lb/hand",
+                    "target": "70-80 lb",
                     "unit": "lbs"
                   },
                   {
@@ -4119,12 +4119,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "3",
-                    "reps": "6/side",
+                    "reps": "6",
                     "key": "ffe_split_squat",
-                    "target": "40 lb/hand if clean",
+                    "target": "80 lb if clean",
                     "unit": "lbs"
                   },
                   {
@@ -4435,12 +4435,12 @@
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat",
+                    "name": "Front Foot Elevated Split Squat Smith Machine",
                     "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
                     "sets": "2",
-                    "reps": "8/side",
+                    "reps": "8",
                     "key": "ffe_split_squat",
-                    "target": "30 lb/hand",
+                    "target": "60 lb",
                     "unit": "lbs"
                   },
                   {
@@ -4642,13 +4642,14 @@
       }
     ]
   },
-  "updateTitle": "CoachMax has prepared your next training block.",
-  "updateMessage": "Block 2 is ready. This phase builds durable strength, endurance and continued fat loss while protecting recovery.",
+  "updateTitle": "CoachMax corrected one exercise in your training plan.",
+  "updateMessage": "Front Foot Elevated Split Squat is now performed on the Smith Machine. Its target uses total machine load, starting at 50 lb.",
   "releaseNotes": [
     "New 14-week training block",
     "Three flexible sessions: A, B and C",
     "Two planned deload weeks",
     "Zone 2 and fatigue-management options added",
-    "Session C now includes a mutually exclusive Zone 2 fatigue option"
+    "Session C now includes a mutually exclusive Zone 2 fatigue option",
+    "Front Foot Elevated Split Squat now uses the Smith Machine and total load"
   ]
 }
