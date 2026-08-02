@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "programVersion": "maxime-gaudet-block-2-v2-smith-total-load",
-  "updatedAt": "2026-07-24T00:00:00-04:00",
+  "programVersion": "maxime-gaudet-block-2-v3-farmer-carry-50-55",
+  "updatedAt": "2026-08-02T00:00:00-04:00",
   "training": {
     "client": "Maxime Gaudet",
     "protocol": "Legacy Protocol — Bloc 2",
@@ -238,7 +238,7 @@
                     "sets": "3",
                     "reps": "40 m",
                     "key": "farmer_carry",
-                    "target": "45 lb/hand",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -563,7 +563,7 @@
                     "sets": "3",
                     "reps": "40 m",
                     "key": "farmer_carry",
-                    "target": "45 lb/hand",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -888,7 +888,7 @@
                     "sets": "3",
                     "reps": "40 m",
                     "key": "farmer_carry",
-                    "target": "45 lb/hand",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -1213,7 +1213,7 @@
                     "sets": "3",
                     "reps": "40 m",
                     "key": "farmer_carry",
-                    "target": "55 lb/hand",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -1538,7 +1538,7 @@
                     "sets": "2",
                     "reps": "30 m",
                     "key": "farmer_carry",
-                    "target": "light",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -1854,7 +1854,7 @@
                     "sets": "3",
                     "reps": "40 m",
                     "key": "farmer_carry",
-                    "target": "55 lb/hand",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -2179,7 +2179,7 @@
                     "sets": "3",
                     "reps": "40 m or more distance",
                     "key": "farmer_carry",
-                    "target": "55 lb/hand",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -2504,7 +2504,7 @@
                     "sets": "3",
                     "reps": "40 m",
                     "key": "farmer_carry",
-                    "target": "55-60 lb/hand if grip fresh",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -2829,7 +2829,7 @@
                     "sets": "3",
                     "reps": "40 m",
                     "key": "farmer_carry",
-                    "target": "60 lb/hand if grip fresh",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -3154,7 +3154,7 @@
                     "sets": "2",
                     "reps": "30 m",
                     "key": "farmer_carry",
-                    "target": "light",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -3497,7 +3497,7 @@
                     "sets": "3",
                     "reps": "40 m",
                     "key": "farmer_carry",
-                    "target": "55-60 lb/hand",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -3849,7 +3849,7 @@
                     "sets": "3",
                     "reps": "40 m",
                     "key": "farmer_carry",
-                    "target": "60 lb/hand if grip fresh",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -4201,7 +4201,7 @@
                     "sets": "3",
                     "reps": "40 m",
                     "key": "farmer_carry",
-                    "target": "60 lb/hand maximum",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -4508,7 +4508,7 @@
                     "sets": "2",
                     "reps": "30-40 m",
                     "key": "farmer_carry",
-                    "target": "light-moderate",
+                    "target": "50-55 lb/hand",
                     "unit": "lbs"
                   }
                 ]
@@ -4642,8 +4642,8 @@
       }
     ]
   },
-  "updateTitle": "CoachMax corrected your training targets.",
-  "updateMessage": "Front Foot Elevated Split Squat is now performed on the Smith Machine with total machine load, and Leg Press or Hack Squat stays at 360 lb for weeks 1 to 4.",
+  "updateTitle": "CoachMax updated your Session B carry target.",
+  "updateMessage": "Farmer Carry in Session B is now set to 50-55 lb per hand across the block.",
   "releaseNotes": [
     "New 14-week training block",
     "Three flexible sessions: A, B and C",
@@ -4651,6 +4651,7 @@
     "Zone 2 and fatigue-management options added",
     "Session C now includes a mutually exclusive Zone 2 fatigue option",
     "Front Foot Elevated Split Squat now uses the Smith Machine and total load",
-    "Leg Press or Hack Squat target is 360 lb for weeks 1 to 4"
+    "Leg Press or Hack Squat target is 360 lb for weeks 1 to 4",
+    "Session B Farmer Carry target updated to 50-55 lb per hand"
   ]
 }
