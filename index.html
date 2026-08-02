@@ -4605,6 +4605,7 @@ function closeTimer(){clearInterval(_timerInt);el('timer-modal').classList.remov
 
 /* ═════════ PHOTOS ═════════ */
 let _photoSlot=0;
+const PHOTO_LABELS=['FACE','SIDE','BACK'];
 function photoKey(week,slot){return 'max_personal_photo_s'+week+'_'+slot;}
 function archivedPhasePhotoKey(phaseId,week,slot){return 'archived_'+phaseId+'_photo_s'+week+'_'+slot;}
 function triggerPhoto(slot){_photoSlot=slot;el('photo-input').click();}
@@ -4636,7 +4637,7 @@ function loadPhotos(){
   });
 }
 function collectWeeklyPhotos(week){
-  return Promise.all([0,1,2].map(s=>idbGet(photoKey(week,s)))).then(arr=>arr.filter(Boolean));
+  return Promise.all([0,1,2].map(s=>idbGet(photoKey(week,s)).then(data=>data?{label:PHOTO_LABELS[s]||('PHOTO '+(s+1)),dataUrl:data}:null))).then(arr=>arr.filter(Boolean));
 }
 async function showPhotoSaveError(kicker){
   await appAlert('PHOTO SAVE FAILED','This photo could not be saved on this device. Storage may be full or private browsing may be blocking photo storage.\n\nYour text data was not erased. Free up storage or try again with a smaller image.',{kicker:kicker||'PHOTO',confirmClass:'app-btn-danger'});
@@ -4691,7 +4692,7 @@ function loadWeekZeroPhotos(){
   });
 }
 function collectWeekZeroPhotos(){
-  return Promise.all([0,1,2].map(s=>idbGet(weekZeroPhotoKey(s)))).then(arr=>arr.filter(Boolean));
+  return Promise.all([0,1,2].map(s=>idbGet(weekZeroPhotoKey(s)).then(data=>data?{label:PHOTO_LABELS[s]||('PHOTO '+(s+1)),dataUrl:data}:null))).then(arr=>arr.filter(Boolean));
 }
 
 /* ═════════ RESET (appui long sur le nom) ═════════ */
