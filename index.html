@@ -1931,6 +1931,7 @@ const MAXIME_MIGRATION_DONE_KEY='faem_'+STORAGE_NAMESPACE+'_legacy_mg_v9d_migrat
 const MAXIME_PHOTO_MIGRATION_DONE_KEY='faem_'+STORAGE_NAMESPACE+'_legacy_photos_migrated_v1';
 const MAXIME_MIGRATION_BACKUP_KEY='faem_'+STORAGE_NAMESPACE+'_legacy_mg_v9d_backup_v1';
 const MAXIME_MIGRATION_REPORT_KEY='faem_'+STORAGE_NAMESPACE+'_legacy_mg_v9d_report_v1';
+const MAXIME_ACTIVE_REPAIR_BACKUP_KEY='faem_'+STORAGE_NAMESPACE+'_active_state_repair_backup_v1';
 function isMaximeMigrationPortal(){
   return storageSlug(CLIENT_PROFILE.clientSlug)==='maxime_gaudet';
 }
@@ -2028,6 +2029,36 @@ function resetActiveBlock2State(data,migrationIso,reason){
     activeStateResetReason:reason||'phase1_archive'
   });
   return data;
+}
+function rawDataHasBlock2Marker(rawData){
+  if(!rawData||typeof rawData!=='object')return false;
+  const phase=rawData.activePhase&&typeof rawData.activePhase==='object'?rawData.activePhase:null;
+  const migration=rawData.legacyMigration&&typeof rawData.legacyMigration==='object'?rawData.legacyMigration:null;
+  return !!(
+    (phase&&phase.id===ACTIVE_PHASE_ID) ||
+    (migration&&migration.activePhase===ACTIVE_PHASE_ID) ||
+    (migration&&migration.phase1Archived&&migration.activeStateResetAt)
+  );
+}
+function activeStateProgressCount(data){
+  return Object.keys(data&&data.seances||{}).length+
+    ((data&&Array.isArray(data.checkins))?data.checkins.length:0)+
+    Object.keys(data&&data.drafts||{}).length;
+}
+function preserveActiveStateRepairBackup(data,migrationIso,reason){
+  return safeStorageSet(MAXIME_ACTIVE_REPAIR_BACKUP_KEY,JSON.stringify({
+    version:MAXIME_MIGRATION_VERSION,
+    savedAt:migrationIso,
+    reason:reason||'active_state_repair',
+    activeState:{
+      seances:cleanLegacyObject(data&&data.seances||{}),
+      checkins:cleanLegacyObject(data&&data.checkins||[]),
+      drafts:cleanLegacyObject(data&&data.drafts||{}),
+      unlockedWeek:data&&data.unlockedWeek,
+      activePhase:cleanLegacyObject(data&&data.activePhase||{}),
+      legacyMigration:cleanLegacyObject(data&&data.legacyMigration||{})
+    }
+  }));
 }
 function firstLegacyCheckin(oldData){
   const list=(oldData&&Array.isArray(oldData.checkins)?oldData.checkins:[]).slice().sort((a,b)=>(parseInt(a&&a.week)||0)-(parseInt(b&&b.week)||0));
@@ -2141,7 +2172,7 @@ function repairMaximePhase2ActiveState(data,rawData){
   if(!isMaximeMigrationPortal()||!data||typeof data!=='object')return false;
   const migrationIso=new Date().toISOString();
   data.archivedPhases=normalizeArchivedPhases(data.archivedPhases);
-  const rawHadBlock2=!!(rawData&&rawData.activePhase&&rawData.activePhase.id===ACTIVE_PHASE_ID);
+  const rawHadBlock2=rawDataHasBlock2Marker(rawData);
   const oldRaw=safeStorageGet(MAXIME_LEGACY_DATA_KEY);
   const oldData=parseJSONSafe(oldRaw);
   let changed=false;
@@ -2160,12 +2191,31 @@ function repairMaximePhase2ActiveState(data,rawData){
     Object.keys(data.drafts||{}).length ||
     (parseInt(data.unlockedWeek)||1)>1
   );
-  const activeLooksLikeLegacy=!!(
-    data.archivedPhases[PHASE1_ARCHIVE_ID] &&
-    !rawHadBlock2 &&
-    activeHasLegacyBleed
+  const migrationDone=safeStorageGet(MAXIME_MIGRATION_DONE_KEY)==='1';
+  const activeProgressCount=activeStateProgressCount(data);
+  const hasPhase1Archive=!!data.archivedPhases[PHASE1_ARCHIVE_ID];
+  const activeLooksLikeBlock2Progress=!!(
+    hasPhase1Archive &&
+    migrationDone &&
+    activeProgressCount>0 &&
+    !rawHadBlock2
   );
-  if(activeLooksLikeLegacy){
+  const activeLooksLikeLegacy=!!(
+    hasPhase1Archive &&
+    !rawHadBlock2 &&
+    activeHasLegacyBleed &&
+    !activeLooksLikeBlock2Progress
+  );
+  if(activeLooksLikeBlock2Progress){
+    data.activePhase=normalizeActivePhase(data.activePhase);
+    data.legacyMigration=Object.assign({},data.legacyMigration||{},{
+      activePhase:ACTIVE_PHASE_ID,
+      activePhasePreservedAt:migrationIso,
+      activePhasePreserveReason:'existing_block2_progress'
+    });
+    changed=true;
+  }else if(activeLooksLikeLegacy){
+    preserveActiveStateRepairBackup(data,migrationIso,'repair_legacy_state_bleed');
     resetActiveBlock2State(data,migrationIso,'repair_legacy_state_bleed');
     changed=true;
   }else{
