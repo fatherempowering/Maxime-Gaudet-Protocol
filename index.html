@@ -407,6 +407,13 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-
 .ci-duration[data-duration-id="ci-sommeil-h"] .duration-input{color:var(--txt);-webkit-text-fill-color:var(--txt);caret-color:var(--txt)}
 .ci-duration[data-duration-id="ci-sommeil-h"] .duration-input::placeholder{color:var(--txt3);-webkit-text-fill-color:var(--txt3)}
 .mens-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.mens-grid-base{margin-top:10px}
+.mens-side-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.mens-side-card{border:1px solid var(--br);border-radius:12px;background:var(--card2);padding:10px}
+.mens-side-title{display:flex;align-items:center;gap:8px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--orange);margin-bottom:9px;line-height:1}
+.mens-side-title::after{content:'';height:2px;flex:1;background:linear-gradient(90deg,var(--orange),transparent);border-radius:2px}
+.mens-side-card .mens-field+.mens-field{margin-top:9px}
+.mens-section-row{padding:9px 16px 6px;border-bottom:1px solid var(--br);background:var(--card2);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:var(--orange)}
 .mens-field label{display:block;font-size:10px;letter-spacing:1px;color:var(--txt3);margin-bottom:4px;font-family:'Bebas Neue',sans-serif}
 .mens-field input{width:100%;border:1.5px solid var(--br);border-radius:8px;padding:8px 10px;font-size:13px;font-weight:600;color:var(--txt);background:var(--card2);outline:none;font-family:'DM Sans',sans-serif}
 .mens-field input:focus{border-color:var(--orange)}
@@ -656,6 +663,7 @@ canvas{display:block;width:100%!important}
   .ex-row.duration-row .duration-input{font-size:16px;width:48px;color:var(--txt)}
   .ex-row.duration-row .duration-unit{font-size:10px}
 }
+@media(max-width:380px){.mens-side-grid{grid-template-columns:1fr}}
 /* ═══ DESKTOP LAYOUT ═══ */
 @media(min-width:760px){
   .dash-grid{grid-template-columns:1fr 1fr}
@@ -976,8 +984,12 @@ canvas{display:block;width:100%!important}
             <div class="wz-field"><label>WAIST AT NAVEL (IN)</label><input id="wz-m-waist" data-wz-field type="number" inputmode="decimal" step="0.25" placeholder="in"></div>
             <div class="wz-field"><label>CHEST (IN)</label><input id="wz-m-chest" data-wz-field type="number" inputmode="decimal" step="0.25" placeholder="in"></div>
             <div class="wz-field"><label>HIPS (IN)</label><input id="wz-m-hips" data-wz-field type="number" inputmode="decimal" step="0.25" placeholder="in"></div>
-            <div class="wz-field"><label>RIGHT FLEX ARM (IN)</label><input id="wz-m-arm" data-wz-field type="number" inputmode="decimal" step="0.25" placeholder="in"></div>
-            <div class="wz-field"><label>RIGHT THIGH (IN)</label><input id="wz-m-thigh" data-wz-field type="number" inputmode="decimal" step="0.25" placeholder="in"></div>
+            <div class="wz-field"><label>RIGHT ARM (IN)</label><input id="wz-m-arm-right" data-wz-field type="number" inputmode="decimal" step="0.25" placeholder="in"></div>
+            <div class="wz-field"><label>LEFT ARM (IN)</label><input id="wz-m-arm-left" data-wz-field type="number" inputmode="decimal" step="0.25" placeholder="in"></div>
+            <div class="wz-field"><label>RIGHT LEG (IN)</label><input id="wz-m-leg-right" data-wz-field type="number" inputmode="decimal" step="0.25" placeholder="in"></div>
+            <div class="wz-field"><label>LEFT LEG (IN)</label><input id="wz-m-leg-left" data-wz-field type="number" inputmode="decimal" step="0.25" placeholder="in"></div>
+            <div class="wz-field"><label>RIGHT CALF (IN)</label><input id="wz-m-calf-right" data-wz-field type="number" inputmode="decimal" step="0.25" placeholder="in"></div>
+            <div class="wz-field"><label>LEFT CALF (IN)</label><input id="wz-m-calf-left" data-wz-field type="number" inputmode="decimal" step="0.25" placeholder="in"></div>
             <div class="wz-field" style="grid-column:1/-1"><label>OTHER IMPORTANT MEASUREMENTS</label><textarea id="wz-m-other" data-wz-field placeholder="Neck, calf, hips details, or anything useful..."></textarea></div>
           </div>
           <div class="wz-actions"><button class="wz-btn wz-btn-primary" type="button" onclick="showWeekZeroTab('loads')">NEXT — LOADS</button></div>
@@ -1121,9 +1133,14 @@ canvas{display:block;width:100%!important}
         <div id="mens-list">
           <div class="mens-row"><div class="mens-name">Tour de taille</div><div class="mens-val" id="mv-taille">—</div></div>
           <div class="mens-row"><div class="mens-name">Tour de poitrine</div><div class="mens-val" id="mv-poitrine">—</div></div>
-          <div class="mens-row"><div class="mens-name">Flex Arm</div><div class="mens-val" id="mv-bras">—</div></div>
-          <div class="mens-row"><div class="mens-name">Tour de cuisse</div><div class="mens-val" id="mv-cuisse">—</div></div>
-          <div class="mens-row"><div class="mens-name">Tour de mollet</div><div class="mens-val" id="mv-mollet">—</div></div>
+          <div class="mens-section-row">RIGHT</div>
+          <div class="mens-row"><div class="mens-name">Right Arm</div><div class="mens-val" id="mv-brasDroit">—</div></div>
+          <div class="mens-row"><div class="mens-name">Right Leg</div><div class="mens-val" id="mv-jambeDroite">—</div></div>
+          <div class="mens-row"><div class="mens-name">Right Calf</div><div class="mens-val" id="mv-molletDroit">—</div></div>
+          <div class="mens-section-row">LEFT</div>
+          <div class="mens-row"><div class="mens-name">Left Arm</div><div class="mens-val" id="mv-brasGauche">—</div></div>
+          <div class="mens-row"><div class="mens-name">Left Leg</div><div class="mens-val" id="mv-jambeGauche">—</div></div>
+          <div class="mens-row"><div class="mens-name">Left Calf</div><div class="mens-val" id="mv-molletGauche">—</div></div>
         </div>
       </div>
       <div class="card">
@@ -1203,12 +1220,23 @@ canvas{display:block;width:100%!important}
     </div>
     <div class="ci-row">
       <div class="ci-label">Measurements <span style="font-weight:400;color:var(--txt3);font-size:11px">(inches — optional, every 2 weeks)</span></div>
-      <div class="mens-grid">
+      <div class="mens-grid mens-grid-base">
         <div class="mens-field"><label>WAIST</label><input type="number" inputmode="decimal" step="0.25" id="ci-m-taille" placeholder="in"></div>
         <div class="mens-field"><label>CHEST</label><input type="number" inputmode="decimal" step="0.25" id="ci-m-poitrine" placeholder="in"></div>
-        <div class="mens-field"><label>FLEX ARM</label><input type="number" inputmode="decimal" step="0.25" id="ci-m-bras" placeholder="in"></div>
-        <div class="mens-field"><label>THIGH</label><input type="number" inputmode="decimal" step="0.25" id="ci-m-cuisse" placeholder="in"></div>
-        <div class="mens-field"><label>CALF</label><input type="number" inputmode="decimal" step="0.25" id="ci-m-mollet" placeholder="in"></div>
+      </div>
+      <div class="mens-side-grid">
+        <div class="mens-side-card">
+          <div class="mens-side-title">RIGHT</div>
+          <div class="mens-field"><label>RIGHT ARM</label><input type="number" inputmode="decimal" step="0.25" id="ci-m-bras-droit" placeholder="in"></div>
+          <div class="mens-field"><label>RIGHT LEG</label><input type="number" inputmode="decimal" step="0.25" id="ci-m-jambe-droite" placeholder="in"></div>
+          <div class="mens-field"><label>RIGHT CALF</label><input type="number" inputmode="decimal" step="0.25" id="ci-m-mollet-droit" placeholder="in"></div>
+        </div>
+        <div class="mens-side-card">
+          <div class="mens-side-title">LEFT</div>
+          <div class="mens-field"><label>LEFT ARM</label><input type="number" inputmode="decimal" step="0.25" id="ci-m-bras-gauche" placeholder="in"></div>
+          <div class="mens-field"><label>LEFT LEG</label><input type="number" inputmode="decimal" step="0.25" id="ci-m-jambe-gauche" placeholder="in"></div>
+          <div class="mens-field"><label>LEFT CALF</label><input type="number" inputmode="decimal" step="0.25" id="ci-m-mollet-gauche" placeholder="in"></div>
+        </div>
       </div>
     </div>
     <div class="ci-row">
@@ -1467,11 +1495,14 @@ const TEMPLATE_CONFIG={
     fields:[
       {key:'taille',label:'Waist',goal:'down',weight:2},
       {key:'poitrine',label:'Chest',goal:'up',weight:1},
-      {key:'bras',label:'Flex Arm',goal:'up',weight:1},
-      {key:'cuisse',label:'Thigh',goal:'up',weight:1},
-      {key:'mollet',label:'Calf',goal:'up',weight:1}
+      {key:'brasDroit',label:'Right Arm',goal:'up',weight:1},
+      {key:'brasGauche',label:'Left Arm',goal:'up',weight:1},
+      {key:'jambeDroite',label:'Right Leg',goal:'up',weight:1},
+      {key:'jambeGauche',label:'Left Leg',goal:'up',weight:1},
+      {key:'molletDroit',label:'Right Calf',goal:'up',weight:1},
+      {key:'molletGauche',label:'Left Calf',goal:'up',weight:1}
     ],
-    iconMap:{poids:'bodyweight',taille:'waist',poitrine:'chest',bras:'arm',cuisse:'thigh',mollet:'calf',score:'waist'}
+    iconMap:{poids:'bodyweight',taille:'waist',poitrine:'chest',bras:'arm',cuisse:'thigh',mollet:'calf',brasDroit:'arm',brasGauche:'arm',jambeDroite:'thigh',jambeGauche:'thigh',molletDroit:'calf',molletGauche:'calf',score:'waist'}
   },
   nutrition:{
     kicker:'NUTRITION',
@@ -1908,7 +1939,7 @@ function defaultWeekZeroData(){
     data:{
       client:{name:'',email:''},
       photos:{face:false,side:false,back:false,link:'',comment:''},
-      measurements:{weight:'',waist:'',chest:'',hips:'',arm:'',thigh:'',other:''},
+      measurements:{weight:'',waist:'',chest:'',hips:'',arm:'',thigh:'',calf:'',armRight:'',armLeft:'',legRight:'',legLeft:'',calfRight:'',calfLeft:'',other:''},
       loads:{},
       cardio:{option:'',modality:'',duration:'',distance:'',calories:'',pace:'',difficulty:'',age:'',weight:'',sex:'',trainingLevel:'',minutes:'',seconds:'',watts:'',vo2max:'',classification:'',interpretation:'',comment:''},
       mobility:{painSquat:'No',painHinge:'No',painPush:'No',painPull:'No',painCardio:'No',limitedMovement:'',comfortableMovement:'',tightZone:'',mainPain:'',painIntensity:''},
@@ -2142,9 +2173,12 @@ function buildMaximeMigratedWeekZero(oldData,currentWeekZero,migrationIso){
     const m=firstMens.mens;
     if(m.taille!=null&&!wz.data.measurements.waist)wz.data.measurements.waist=String(m.taille);
     if(m.poitrine!=null&&!wz.data.measurements.chest)wz.data.measurements.chest=String(m.poitrine);
+    if(m.bras!=null&&!wz.data.measurements.armRight)wz.data.measurements.armRight=String(m.bras);
     if(m.bras!=null&&!wz.data.measurements.arm)wz.data.measurements.arm=String(m.bras);
+    if(m.cuisse!=null&&!wz.data.measurements.legRight)wz.data.measurements.legRight=String(m.cuisse);
     if(m.cuisse!=null&&!wz.data.measurements.thigh)wz.data.measurements.thigh=String(m.cuisse);
-    if(m.mollet!=null&&!wz.data.measurements.other)wz.data.measurements.other='Calf: '+String(m.mollet)+' in';
+    if(m.mollet!=null&&!wz.data.measurements.calfRight)wz.data.measurements.calfRight=String(m.mollet);
+    if(m.mollet!=null&&!wz.data.measurements.calf)wz.data.measurements.calf=String(m.mollet);
   }
   const photos=oldData&&oldData.photos&&typeof oldData.photos==='object'?oldData.photos:{};
   const firstSlot=slot=>{
@@ -2915,6 +2949,9 @@ function updateRowerVo2Calculation(){
 function collectWeekZeroData(){
   const loads={};
   const previousPhotos=(D.weekZero&&D.weekZero.data&&D.weekZero.data.photos)||{};
+  const armRight=wzVal('wz-m-arm-right');
+  const legRight=wzVal('wz-m-leg-right');
+  const calfRight=wzVal('wz-m-calf-right');
   WEEK_ZERO_LIFTS.forEach(([key])=>{
     loads[key]={
       exercise:wzVal('wz-load-'+key+'-exercise'),
@@ -2941,8 +2978,15 @@ function collectWeekZeroData(){
       waist:wzVal('wz-m-waist'),
       chest:wzVal('wz-m-chest'),
       hips:wzVal('wz-m-hips'),
-      arm:wzVal('wz-m-arm'),
-      thigh:wzVal('wz-m-thigh'),
+      arm:armRight,
+      thigh:legRight,
+      calf:calfRight,
+      armRight:armRight,
+      armLeft:wzVal('wz-m-arm-left'),
+      legRight:legRight,
+      legLeft:wzVal('wz-m-leg-left'),
+      calfRight:calfRight,
+      calfLeft:wzVal('wz-m-calf-left'),
       other:wzVal('wz-m-other')
     },
     loads,
@@ -2988,8 +3032,12 @@ function restoreWeekZeroForm(){
   setWzVal('wz-m-waist',data.measurements.waist);
   setWzVal('wz-m-chest',data.measurements.chest);
   setWzVal('wz-m-hips',data.measurements.hips);
-  setWzVal('wz-m-arm',data.measurements.arm);
-  setWzVal('wz-m-thigh',data.measurements.thigh);
+  setWzVal('wz-m-arm-right',data.measurements.armRight||data.measurements.arm);
+  setWzVal('wz-m-arm-left',data.measurements.armLeft);
+  setWzVal('wz-m-leg-right',data.measurements.legRight||data.measurements.thigh);
+  setWzVal('wz-m-leg-left',data.measurements.legLeft);
+  setWzVal('wz-m-calf-right',data.measurements.calfRight||data.measurements.calf);
+  setWzVal('wz-m-calf-left',data.measurements.calfLeft);
   setWzVal('wz-m-other',data.measurements.other);
   WEEK_ZERO_LIFTS.forEach(([key])=>{
     const load=data.loads[key]||{};
@@ -3204,8 +3252,12 @@ function buildCoachMaxMessage(data){
   L.push('Waist : '+(data.measurements.waist||'')+(data.measurements.waist?' in':''));
   L.push('Chest : '+(data.measurements.chest||'')+(data.measurements.chest?' in':''));
   L.push('Hips : '+(data.measurements.hips||'')+(data.measurements.hips?' in':''));
-  L.push('Right flex arm : '+(data.measurements.arm||'')+(data.measurements.arm?' in':''));
-  L.push('Right thigh : '+(data.measurements.thigh||'')+(data.measurements.thigh?' in':''));
+  L.push('Right arm : '+((data.measurements.armRight||data.measurements.arm)||'')+((data.measurements.armRight||data.measurements.arm)?' in':''));
+  L.push('Left arm : '+(data.measurements.armLeft||'')+(data.measurements.armLeft?' in':''));
+  L.push('Right leg : '+((data.measurements.legRight||data.measurements.thigh)||'')+((data.measurements.legRight||data.measurements.thigh)?' in':''));
+  L.push('Left leg : '+(data.measurements.legLeft||'')+(data.measurements.legLeft?' in':''));
+  L.push('Right calf : '+((data.measurements.calfRight||data.measurements.calf)||'')+((data.measurements.calfRight||data.measurements.calf)?' in':''));
+  L.push('Left calf : '+(data.measurements.calfLeft||'')+(data.measurements.calfLeft?' in':''));
   L.push('Other : '+(data.measurements.other||''));
   L.push('');
   L.push('CALIBRATION LOADS :');
@@ -4175,16 +4227,17 @@ function lastMens(){ const list=getCombinedCheckins(); for(let i=list.length-1;i
 function prevMens(ref){ const list=getCombinedCheckins(); let found=false; for(let i=list.length-1;i>=0;i--){const c=list[i]; if(ref&&c._phaseId===ref._phaseId&&parseInt(c.week)===parseInt(ref.week)&&c.date===ref.date&&c._viewIndex===ref._viewIndex){found=true;continue;} if(found&&c.mens)return c;} return null; }
 function renderMens(){
   const ref=lastMens(); const prev=ref?prevMens(ref):null;
-  const fields=['taille','poitrine','bras','cuisse','mollet'];
   el('mens-badge').textContent=ref?(checkinViewLabel(ref)+' · IN'):'IN';
-  fields.forEach(f=>{
-    const e1=el('mv-'+f); if(!e1)return;
-    if(ref&&ref.mens[f]!=null){
-      const current=parseFloat(ref.mens[f]);
-      const valueText=isNaN(current)?escapeHTML(ref.mens[f]):current.toFixed(1);
+  MEASURE_FIELDS.forEach(f=>{
+    const e1=el('mv-'+f.key); if(!e1)return;
+    const currentRaw=ref?measurementValue(ref.mens,f.key):null;
+    if(currentRaw!=null&&String(currentRaw).trim()!==''){
+      const current=parseFloat(currentRaw);
+      const valueText=isNaN(current)?escapeHTML(currentRaw):current.toFixed(1);
       let d='';
-      if(prev&&prev.mens[f]!=null){
-        const prevValue=parseFloat(prev.mens[f]);
+      const prevRaw=prev?measurementValue(prev.mens,f.key):null;
+      if(prevRaw!=null&&String(prevRaw).trim()!==''){
+        const prevValue=parseFloat(prevRaw);
         const diff=!isNaN(current)&&!isNaN(prevValue)?current-prevValue:0;
         if(diff!==0)d=' <span style="color:'+(diff<0?'var(--green)':'var(--txt3)')+';font-size:10px">('+(diff>0?'+':'')+diff.toFixed(1)+')</span>';
       }
@@ -4261,10 +4314,24 @@ function clearDurationById(id){
   if(h)h.value='';
   if(m)m.value='';
 }
+const CHECKIN_MEASUREMENT_INPUTS=[
+  ['taille','ci-m-taille'],
+  ['poitrine','ci-m-poitrine'],
+  ['brasDroit','ci-m-bras-droit'],
+  ['brasGauche','ci-m-bras-gauche'],
+  ['jambeDroite','ci-m-jambe-droite'],
+  ['jambeGauche','ci-m-jambe-gauche'],
+  ['molletDroit','ci-m-mollet-droit'],
+  ['molletGauche','ci-m-mollet-gauche']
+];
+const CHECKIN_MEASUREMENT_IDS=CHECKIN_MEASUREMENT_INPUTS.map(item=>item[1]);
 function getCheckinFormEntry(){
   const num=id=>{const v=parseFloat(el(id).value);return isNaN(v)?null:v;};
   const mens={};
-  ['taille','poitrine','bras','cuisse','mollet'].forEach(k=>{const v=num('ci-m-'+k);if(v!=null)mens[k]=v;});
+  CHECKIN_MEASUREMENT_INPUTS.forEach(([key,id])=>{const v=num(id);if(v!=null)mens[key]=v;});
+  if(mens.brasDroit!=null)mens.bras=mens.brasDroit;
+  if(mens.jambeDroite!=null)mens.cuisse=mens.jambeDroite;
+  if(mens.molletDroit!=null)mens.mollet=mens.molletDroit;
   return {
     week:getActiveWeek(),
     date:new Date().toISOString().slice(0,10),
@@ -4280,7 +4347,7 @@ function getCheckinFormEntry(){
     note:el('ci-note').value.trim()
   };
 }
-const CHECKIN_DRAFT_IDS=['ci-poids','ci-energie','ci-sommeil','ci-stress','ci-douleurs','ci-sommeil-h-h','ci-sommeil-h-m','ci-cardio-min-h','ci-cardio-min-m','ci-cardio-zone','ci-m-taille','ci-m-poitrine','ci-m-bras','ci-m-cuisse','ci-m-mollet','ci-note'];
+const CHECKIN_DRAFT_IDS=['ci-poids','ci-energie','ci-sommeil','ci-stress','ci-douleurs','ci-sommeil-h-h','ci-sommeil-h-m','ci-cardio-min-h','ci-cardio-min-m','ci-cardio-zone',...CHECKIN_MEASUREMENT_IDS,'ci-note'];
 let checkinDraftTimer=null;
 function checkinDraftKey(week){
   return 'checkin_w'+(week||getActiveWeek());
@@ -4316,6 +4383,8 @@ function clearCheckinDraft(week){
 }
 function applyCheckinDraftFields(data){
   if(!data)return;
+  const legacyDraftMap={'ci-m-bras':'ci-m-bras-droit','ci-m-cuisse':'ci-m-jambe-droite','ci-m-mollet':'ci-m-mollet-droit'};
+  Object.entries(legacyDraftMap).forEach(([oldId,newId])=>{if(data[newId]==null&&data[oldId]!=null)data[newId]=data[oldId];});
   CHECKIN_DRAFT_IDS.forEach(id=>{const node=el(id);if(node&&data[id]!=null)node.value=data[id];});
   ['energie','sommeil','stress','douleurs'].forEach(updateSlider);
 }
@@ -4337,7 +4406,7 @@ function hasCheckinDraft(){
   return isMeaningfulCheckinDraft(collectCheckinDraftFields());
 }
 function _resetCheckinForm(){
-  ['ci-poids','ci-m-taille','ci-m-poitrine','ci-m-bras','ci-m-cuisse','ci-m-mollet'].forEach(id=>{el(id).value='';});
+  ['ci-poids',...CHECKIN_MEASUREMENT_IDS].forEach(id=>{const node=el(id);if(node)node.value='';});
   clearDurationById('ci-sommeil-h');
   clearDurationById('ci-cardio-min');
   el('ci-note').value='';
@@ -4394,7 +4463,9 @@ function checkinMetricTone(value,mode){
 }
 function checkinMeasureLabel(key){
   const f=(MEASUREMENT_CONFIG.fields||[]).find(x=>x.key===key);
-  return f?f.label:key;
+  if(f)return f.label;
+  const legacyLabels={bras:'Right Arm',cuisse:'Right Leg',mollet:'Right Calf'};
+  return legacyLabels[key]||key;
 }
 function refMetric(label,value,hint,tone){
   return '<div class="ci-last-ref-metric '+(tone||'')+'">'
@@ -4413,9 +4484,8 @@ function buildLastCheckinRefHTML(c){
   metrics.push(refMetric('Stress',escapeHTML(c.stress||'--')+'<small> /10</small>','Lower is better',checkinMetricTone(c.stress,'lowIsGood')));
   metrics.push(refMetric('Soreness',escapeHTML(c.douleurs!=null?c.douleurs:'--')+'<small> /10</small>','Lower is better',checkinMetricTone(c.douleurs,'lowIsGood')));
   const cardio=c.cardioMin!=null?escapeHTML(formatDurationValue(c.cardioMin,'min'))+(c.cardioZone?' · '+escapeHTML(c.cardioZone):''):'';
-  const measurePills=c.mens?Object.entries(c.mens)
-    .filter(([,v])=>v!=null&&v!=='')
-    .map(([k,v])=>'<span class="ci-ref-pill">'+escapeHTML(checkinMeasureLabel(k))+': <strong>'+escapeHTML(v)+'</strong> in</span>')
+  const measurePills=c.mens?measurementDisplayEntries(c.mens)
+    .map(item=>'<span class="ci-ref-pill">'+escapeHTML(item.label)+': <strong>'+escapeHTML(item.value)+'</strong> in</span>')
     .join(''):'';
   return '<div class="ci-last-ref-head">'
     +'<div><div class="ci-last-ref-label">PREVIOUS WEEK REFERENCE</div><div class="ci-last-ref-sub">Use this snapshot to compare how this week feels before archiving.</div></div>'
@@ -4432,6 +4502,24 @@ function buildLastCheckinRefHTML(c){
 /* ═════════ CHARTS PROGRESSION ═════════ */
 let _wChart=null,_cChart=null,_bChart=null,_mChart=null;
 const MEASURE_FIELDS=MEASUREMENT_CONFIG.fields;
+const MEASURE_LEGACY_FALLBACKS={brasDroit:'bras',jambeDroite:'cuisse',molletDroit:'mollet'};
+const MEASURE_LEGACY_KEYS=Object.values(MEASURE_LEGACY_FALLBACKS);
+function measurementValue(mens,key){
+  if(!mens||typeof mens!=='object')return null;
+  let value=mens[key];
+  if((value==null||String(value).trim()==='')&&MEASURE_LEGACY_FALLBACKS[key])value=mens[MEASURE_LEGACY_FALLBACKS[key]];
+  return value==null||String(value).trim()===''?null:value;
+}
+function measurementDisplayEntries(mens){
+  if(!mens||typeof mens!=='object')return [];
+  const canonical=MEASURE_FIELDS.map(f=>({key:f.key,label:f.label,value:measurementValue(mens,f.key)}))
+    .filter(item=>item.value!=null&&String(item.value).trim()!=='');
+  const known=new Set(MEASURE_FIELDS.map(f=>f.key).concat(MEASURE_LEGACY_KEYS));
+  const extra=Object.entries(mens)
+    .filter(([key,value])=>!known.has(key)&&value!=null&&String(value).trim()!=='')
+    .map(([key,value])=>({key,label:checkinMeasureLabel(key),value}));
+  return canonical.concat(extra);
+}
 function measureIcon(key){
   return 'measure-icons/'+(MEASUREMENT_CONFIG.iconMap[key]||'waist')+'.png';
 }
@@ -4445,7 +4533,7 @@ function measurementCheckins(){
   return getCombinedCheckins()
     .filter(c=>c.mens&&typeof c.mens==='object')
     .map(c=>({week:c.week,mens:c.mens,label:checkinViewLabel(c),_phaseId:c._phaseId,_viewIndex:c._viewIndex,date:c.date}))
-    .filter(c=>MEASURE_FIELDS.some(f=>parseFloat(c.mens[f.key])||parseFloat(c.mens[f.key])===0));
+    .filter(c=>MEASURE_FIELDS.some(f=>{const n=parseFloat(measurementValue(c.mens,f.key));return !isNaN(n);}));
 }
 function measureStatus(field,delta){
   const threshold=0.25;
@@ -4474,16 +4562,16 @@ function renderMeasurementBlocks(){
   }
   const weightCard=(startW&&latestW)?'<div class="measure-cell"><div class="measure-label"><span class="measure-label-icon" '+measureIconAttr('poids')+'></span>BODYWEIGHT</div><div class="measure-val">'+parseFloat(startW.poids).toFixed(1)+' <small>→</small> '+parseFloat(latestW.poids).toFixed(1)+'<small> lbs</small></div><div class="measure-sub">'+escapeHTML(checkinViewLabel(startW))+' to '+escapeHTML(checkinViewLabel(latestW))+' · score separate</div></div>':'';
   startBox.innerHTML=weightCard+MEASURE_FIELDS.map(f=>{
-    const a=parseFloat(start.mens[f.key]);
-    const b=parseFloat(latest.mens[f.key]);
+    const a=parseFloat(measurementValue(start.mens,f.key));
+    const b=parseFloat(measurementValue(latest.mens,f.key));
     const startTxt=isNaN(a)?'--':a.toFixed(1);
     const latestTxt=isNaN(b)?'--':b.toFixed(1);
     return '<div class="measure-cell"><div class="measure-label"><span class="measure-label-icon" '+measureIconAttr(f.key)+'></span>'+f.label.toUpperCase()+'</div><div class="measure-val">'+startTxt+' <small>→</small> '+latestTxt+'<small> in</small></div><div class="measure-sub">'+escapeHTML(start.label||('W'+start.week))+' to '+escapeHTML(latest.label||('W'+latest.week))+'</div></div>';
   }).join('');
   let score=0;
   changeBox.innerHTML=MEASURE_FIELDS.map(f=>{
-    const a=parseFloat(start.mens[f.key]);
-    const b=parseFloat(latest.mens[f.key]);
+    const a=parseFloat(measurementValue(start.mens,f.key));
+    const b=parseFloat(measurementValue(latest.mens,f.key));
     if(isNaN(a)||isNaN(b))return '<div class="change-card warn"><div class="change-label"><span class="change-label-icon" '+measureIconAttr(f.key)+'></span>'+f.label.toUpperCase()+'</div><div class="change-val warn">--</div><div class="change-sub">Missing data</div></div>';
     const delta=b-a;
     const st=measureStatus(f,delta);
@@ -4540,8 +4628,9 @@ function renderCharts(){
   if(mContainer)mContainer.style.display=mData.length?'block':'none';
   if(!mData.length){if(_mChart){_mChart.destroy();_mChart=null;}return;}
   const mLabels=mData.map(c=>c.label||('W'+c.week));
-  const mSet=(key,color)=>({data:mData.map(c=>{const n=parseFloat(c.mens[key]);return isNaN(n)?null:n;}),borderColor:color,backgroundColor:'transparent',tension:0.32,pointRadius:3,pointBackgroundColor:color,spanGaps:true});
-  _mChart=mk(_mChart,el('measureChart'),{type:'line',data:{labels:mLabels,datasets:[mSet('taille','#E8751A'),mSet('poitrine','#C85A00'),mSet('bras','#3FA456')]},options:baseOpts});
+  const mSet=(key,color)=>({data:mData.map(c=>{const n=parseFloat(measurementValue(c.mens,key));return isNaN(n)?null:n;}),borderColor:color,backgroundColor:'transparent',tension:0.32,pointRadius:3,pointBackgroundColor:color,spanGaps:true});
+  const mColors=['#E8751A','#C85A00','#3FA456','#2a7a3b','#8884d8','#6C7A89','#F0C43A','#C0392B'];
+  _mChart=mk(_mChart,el('measureChart'),{type:'line',data:{labels:mLabels,datasets:MEASURE_FIELDS.map((f,i)=>mSet(f.key,mColors[i%mColors.length]))},options:baseOpts});
 }
 
 /* ═════════ HISTORIQUE ═════════ */
@@ -4577,7 +4666,10 @@ function renderHistoryCheckinEntry(container,x){
   if(x.sommeilH!=null)rows+='<div class="hist-row"><div class="hist-label">Sleep hours</div><div class="hist-val">'+escapeHTML(formatDurationValue(x.sommeilH,'h'))+'</div></div>';
   rows+='<div class="hist-row"><div class="hist-label">Energy / Sleep / Stress'+(x.douleurs!=null?' / Soreness':'')+'</div><div class="hist-val">'+escapeHTML(x.energie!=null?x.energie:'--')+' · '+escapeHTML(x.sommeil!=null?x.sommeil:'--')+' · '+escapeHTML(x.stress!=null?x.stress:'--')+(x.douleurs!=null?' · '+escapeHTML(x.douleurs):'')+'</div></div>';
   if(x.cardioMin!=null)rows+='<div class="hist-row"><div class="hist-label">Cardio</div><div class="hist-val">'+escapeHTML(formatDurationValue(x.cardioMin,'min'))+(x.cardioZone?' · '+escapeHTML(x.cardioZone):'')+'</div></div>';
-  if(x.mens)rows+='<div class="hist-row"><div class="hist-label">Measurements</div><div class="hist-val">'+Object.entries(x.mens).map(([k,v])=>escapeHTML(checkinMeasureLabel(k))+' '+escapeHTML(v)+' in').join(' · ')+'</div></div>';
+  if(x.mens){
+    const entries=measurementDisplayEntries(x.mens);
+    if(entries.length)rows+='<div class="hist-row"><div class="hist-label">Measurements</div><div class="hist-val">'+entries.map(item=>escapeHTML(item.label)+' '+escapeHTML(item.value)+' in').join(' · ')+'</div></div>';
+  }
   if(x.note)rows+='<div class="hist-note">'+escapeHTML(x.note)+'</div>';
   e.innerHTML=rows;container.appendChild(e);
 }
@@ -4966,9 +5058,11 @@ function buildReportLines(checkin,week){
   if(checkin.douleurs!=null)L.push('🩹 Soreness: '+checkin.douleurs+'/10');
   if(checkin.cardioMin!=null)L.push('❤️ Cardio: '+formatDurationValue(checkin.cardioMin,'min')+(checkin.cardioZone?' · '+checkin.cardioZone:''));
   if(checkin.mens){
-    L.push('📏 Measurements (in):');
-    const names=Object.fromEntries(MEASURE_FIELDS.map(f=>[f.key,f.label]));
-    Object.entries(checkin.mens).forEach(([k,v])=>L.push('   · '+(names[k]||k)+' : '+v+' in'));
+    const entries=measurementDisplayEntries(checkin.mens);
+    if(entries.length){
+      L.push('📏 Measurements (in):');
+      entries.forEach(item=>L.push('   · '+item.label+' : '+item.value+' in'));
+    }
   }
   L.push('───────────────');
   // Séances de la semaine
