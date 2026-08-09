@@ -212,6 +212,7 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-
 .ex-note{font-size:10px;color:var(--txt3);margin-top:2px;line-height:1.4}
 .ex-editable{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--orange);text-align:center;border:1px solid transparent;border-radius:8px;background:transparent;width:100%;outline:none;padding:6px 2px;box-sizing:border-box}
 .ex-editable-rep{font-size:15px;color:var(--txt2);font-weight:600;text-align:center;border:1px solid transparent;border-radius:8px;background:transparent;width:100%;outline:none;font-family:'DM Sans',sans-serif;padding:6px 2px;box-sizing:border-box}
+.ex-editable-rep.compact{font-size:11px;padding-left:1px;padding-right:1px}
 .ex-editable:focus,.ex-editable-rep:focus{border-color:var(--orange);background:var(--card2)}
 .ex-editable::placeholder,.ex-editable-rep::placeholder{color:var(--txt3)}
 .ex-target{font-size:12px;font-weight:700;color:var(--txt);text-align:center;background:var(--card2);border-radius:8px;padding:7px 4px;border:1px solid var(--br)}
@@ -655,6 +656,12 @@ canvas{display:block;width:100%!important}
 .coach-field-full{grid-column:1/-1}
 .coach-save{margin-top:12px;background:var(--orange);border:none;border-radius:8px;color:#fff;width:100%;padding:12px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;cursor:pointer}
 @media(max-width:759px){
+  .ex-thead{grid-template-columns:54px minmax(82px,1fr) minmax(78px,1fr) minmax(76px,1fr);gap:6px;padding:9px 10px}
+  .ex-thead .ex-th:first-child{display:none}
+  .ex-row{grid-template-columns:54px minmax(82px,1fr) minmax(78px,1fr) minmax(76px,1fr);gap:6px;padding:12px 10px;align-items:start}
+  .ex-row>div:first-child{grid-column:1/-1}
+  .ex-editable,.ex-editable-rep,.ex-target,.ex-input-wrap{min-height:36px}
+  .ex-target{font-size:10px;overflow-wrap:anywhere}
   .ex-row.duration-row{grid-template-columns:minmax(0,1fr) 40px 54px 76px;gap:5px;align-items:start}
   .ex-row.duration-row .duration-control{grid-column:1/-1;width:100%;margin-top:8px}
   .ex-row.duration-row .duration-control::before{content:'ACTUAL DURATION';display:block;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:1.8px;color:var(--orange);margin:0 0 6px 1px}
@@ -3386,6 +3393,7 @@ function initWeekZero(){
 
 /* ═════════ HTML SÉANCE ═════════ */
 function escapeHTML(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function cleanSetsLabel(value){return String(value==null?'':value).replace(/\s*optional\b/ig,'').trim();}
 function isDurationUnit(unit){return unit==='min'||unit==='duration'||unit==='time';}
 function durationControlHTML(ex){
   const target=parseDurationToMinutes(ex.reps,ex.unit||'min')||0;
@@ -3402,8 +3410,11 @@ function actualInputHTML(ex){
 }
 function actualSetsRepsHTML(ex){
   const safeName=escapeHTML(ex.name);
-  return '<input class="ex-editable ex-sets-input" inputmode="numeric" data-key="'+escapeHTML(ex.key)+'" data-prescribed="'+escapeHTML(ex.sets)+'" value="'+escapeHTML(ex.sets)+'" aria-label="Sets completed for '+safeName+'">'
-    +'<input class="ex-editable-rep ex-reps-input" inputmode="text" data-key="'+escapeHTML(ex.key)+'" data-prescribed="'+escapeHTML(ex.reps)+'" value="'+escapeHTML(ex.reps)+'" aria-label="Reps completed for '+safeName+'">';
+  const cleanSets=cleanSetsLabel(ex.sets);
+  const repsText=String(ex.reps==null?'':ex.reps);
+  const repsClass='ex-editable-rep ex-reps-input'+(repsText.length>9?' compact':'');
+  return '<input class="ex-editable ex-sets-input" inputmode="numeric" data-key="'+escapeHTML(ex.key)+'" data-prescribed="'+escapeHTML(cleanSets)+'" value="'+escapeHTML(cleanSets)+'" aria-label="Sets completed for '+safeName+'">'
+    +'<input class="'+repsClass+'" inputmode="text" data-key="'+escapeHTML(ex.key)+'" data-prescribed="'+escapeHTML(repsText)+'" value="'+escapeHTML(repsText)+'" aria-label="Reps completed for '+safeName+'">';
 }
 function buildExCard(bloc,week,sid){
   let h='<div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">'+escapeHTML(bloc.label)+'</div><div class="bloc-line"></div></div>';
@@ -3699,7 +3710,7 @@ function restoreSeanceFields(sid){
   }
   if(!rec)return;
   const actuals=rec.actuals||{};
-  panel.querySelectorAll('.ex-sets-input').forEach(inp=>{ const k=inp.dataset.key; if(actuals[k]&&actuals[k].sets!=null) inp.value=actuals[k].sets; });
+  panel.querySelectorAll('.ex-sets-input').forEach(inp=>{ const k=inp.dataset.key; if(actuals[k]&&actuals[k].sets!=null) inp.value=cleanSetsLabel(actuals[k].sets); });
   panel.querySelectorAll('.ex-reps-input').forEach(inp=>{ const k=inp.dataset.key; if(actuals[k]&&actuals[k].reps!=null) inp.value=actuals[k].reps; });
   panel.querySelectorAll('.ex-input').forEach(inp=>{ const k=inp.dataset.key; if(rec.charges&&rec.charges[k]!=null) inp.value=rec.charges[k]; });
   panel.querySelectorAll('.duration-control').forEach(ctrl=>{ const k=ctrl.dataset.key; if(rec.charges&&rec.charges[k]!=null) setDurationControl(ctrl,rec.charges[k]); });
@@ -3711,11 +3722,11 @@ function persistSeanceFields(sid){
   if(!panel)return {charges,actuals,notes:''};
   panel.querySelectorAll('.ex-sets-input').forEach(inp=>{
     const k=inp.dataset.key;
-    const sets=(inp.value||'').trim();
+    const sets=cleanSetsLabel(inp.value);
     let repsInput=null;
     panel.querySelectorAll('.ex-reps-input').forEach(node=>{if(node.dataset.key===k)repsInput=node;});
     const reps=repsInput?(repsInput.value||'').trim():'';
-    const prescribedSets=(inp.dataset.prescribed||'').trim();
+    const prescribedSets=cleanSetsLabel(inp.dataset.prescribed);
     const prescribedReps=repsInput?(repsInput.dataset.prescribed||'').trim():'';
     if((sets&&sets!==prescribedSets)||(reps&&reps!==prescribedReps)){
       actuals[k]={sets:sets||prescribedSets,reps:reps||prescribedReps};
@@ -4121,8 +4132,8 @@ function formatRecordedFieldHTML(week,key,value){
 function actualSetRepSummary(week,key,actual){
   const ex=exerciseByKey(week,key);
   const name=ex?ex.name:key;
-  const planned=ex?(String(ex.sets||'')+' x '+String(ex.reps||'')):'planned';
-  const done=String((actual&&actual.sets)||'')+' x '+String((actual&&actual.reps)||'');
+  const planned=ex?(cleanSetsLabel(ex.sets)+' x '+String(ex.reps||'')):'planned';
+  const done=cleanSetsLabel(actual&&actual.sets)+' x '+String((actual&&actual.reps)||'');
   return {name,planned,done};
 }
 function formatActualsHTML(week,actuals){
