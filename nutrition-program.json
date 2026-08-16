@@ -831,10 +831,5 @@
   },
   "updateTitle": "CoachMax has prepared your nutrition plan.",
   "updateMessage": "Your complete nutrition structure is ready, including two meal-plan options, batch cooking and grocery lists.",
-  "releaseNotes": [
-    "Two complete nutrition plans",
-    "Training-day and rest-day targets",
-    "Batch cooking instructions",
-    "Weekly grocery lists"
-  ]
+  "releaseNotes": []
 }

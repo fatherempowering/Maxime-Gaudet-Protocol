@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "programVersion": "maxime-gaudet-block-2-v5-week-6-intensification",
+  "programVersion": "maxime-gaudet-block-2-v5-1-week-6-copyfix",
   "updatedAt": "2026-08-16T00:00:00-04:00",
   "training": {
     "client": "Maxime Gaudet",
@@ -4620,23 +4620,7 @@
       }
     ]
   },
-  "updateTitle": "Semaine 6 mise à jour — Intensification contrôlée",
-  "updateMessage": "Ta semaine 6 a été mise à jour. L’objectif est de reprendre progressivement l’intensification après le deload tout en respectant ta récupération. Les charges indiquées sont des cibles : respecte toujours le RPE, commence les exercices unilatéraux du côté gauche et réduis la charge si la technique, le dos, le genou ou ton énergie l’exigent. En cas de fatigue importante, remplace entièrement la séance C par la version Zone 2.",
-  "releaseNotes": [
-    "New 14-week training block",
-    "Three flexible sessions: A, B and C",
-    "Two planned deload weeks",
-    "Zone 2 and fatigue-management options added",
-    "Session C now includes a mutually exclusive Zone 2 fatigue option",
-    "Front Foot Elevated Split Squat now uses the Smith Machine and total load",
-    "Leg Press or Hack Squat target is 360 lb for weeks 1 to 4",
-    "Session B Farmer Carry target updated to 50-55 lb per hand",
-    "Week 5 deload personalized with lower loads, optional carries and recovery-only conditioning",
-    "Week 5 optional exercise set labels cleaned for readability",
-    "Week 5 long rep labels tightened to prevent visual overflow",
-    "Mise à jour complète de la semaine 6",
-    "Séances A, B et C ajustées pour l’intensification contrôlée",
-    "Option Zone 2 conservée comme remplacement complet de la séance C",
-    "Règles unilatérales et limites de douleur précisées"
-  ]
+  "updateTitle": "UPDATE DE LA SEMAINE 6",
+  "updateMessage": "La semaine 6 est prête.",
+  "releaseNotes": []
 }
