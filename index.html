@@ -244,6 +244,13 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-
 .zone2-label{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:var(--orange)}
 .zone2-instruction{font-size:12px;color:rgba(255,255,255,.72);line-height:1.55;margin-top:5px}
 .zone2-prescription{padding:13px 16px;color:var(--txt2);font-size:12px;line-height:1.7;border-bottom:1px solid var(--br)}
+.zone2-exercise-list{border-bottom:1px solid var(--br)}
+.zone2-exercise-row{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:13px 16px}
+.zone2-exercise-row+.zone2-exercise-row{border-top:1px solid var(--br)}
+.zone2-exercise-index{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--tint);color:var(--orange);font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px}
+.zone2-exercise-name{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1.2px;color:var(--txt);line-height:1.2;overflow-wrap:anywhere}
+.zone2-exercise-rx{font-size:11px;font-weight:700;color:var(--orange);line-height:1.5;margin-top:3px;overflow-wrap:anywhere}
+.zone2-exercise-note{font-size:11px;color:var(--txt2);line-height:1.55;margin-top:4px;overflow-wrap:anywhere}
 .zone2-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px}
 .zone2-field{border:1px solid var(--br);border-radius:12px;background:var(--card2);padding:10px}
 .zone2-field label{display:block;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--txt3);margin-bottom:5px}
@@ -3458,9 +3465,36 @@ function buildSessionVariantSelector(week,sid){
 }
 function buildFatigueOptionHTML(block,sid){
   if(!block)return '';
-  const ex=(block.exs&&block.exs[0])||{};
+  const exercises=Array.isArray(block.exs)?block.exs:[];
+  const ex=exercises[0]||{};
   const instruction=block.instruction||'Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.';
   const target=ex.target||'RPE 5-6 · no intervals · no explosive work';
+  if(exercises.length>1){
+    const exerciseRows=block.exs.map((ex,i)=>{
+      const prescription=[];
+      if(ex.sets)prescription.push(ex.sets+(String(ex.sets).trim()==='1'?' SET':' SETS'));
+      if(ex.reps)prescription.push(ex.reps);
+      if(ex.target)prescription.push(ex.target);
+      return '<div class="zone2-exercise-row">'
+        +'<div class="zone2-exercise-index">'+(i+1)+'</div>'
+        +'<div><div class="zone2-exercise-name">'+escapeHTML(ex.name||('RECOVERY EXERCISE '+(i+1)))+'</div>'
+          +(prescription.length?'<div class="zone2-exercise-rx">'+escapeHTML(prescription.join(' · '))+'</div>':'')
+          +(ex.note?'<div class="zone2-exercise-note">'+escapeHTML(ex.note)+'</div>':'')
+        +'</div>'
+      +'</div>';
+    }).join('');
+    return '<div class="session-fatigue-option">'
+      +'<div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">'+escapeHTML(block.label||'FATIGUE OPTION — ZONE 2 CARDIO')+'</div><div class="bloc-line"></div></div>'
+      +'<div class="zone2-card">'
+        +'<div class="zone2-head"><div class="zone2-label">RECOVERY SESSION</div><div class="zone2-instruction">'+escapeHTML(instruction)+'</div></div>'
+        +'<div class="zone2-exercise-list">'+exerciseRows+'</div>'
+        +'<div class="zone2-fields">'
+          +'<div class="zone2-field"><label>Actual Time</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-zone2-metric="zone2ActualTime" placeholder="35"><span class="zone2-unit">min</span></div></div>'
+          +'<div class="zone2-field"><label>Average BPM</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-zone2-metric="zone2AverageBpm" placeholder="128"><span class="zone2-unit">bpm</span></div></div>'
+        +'</div>'
+      +'</div>'
+    +'</div>';
+  }
   return '<div class="session-fatigue-option">'
     +'<div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">'+escapeHTML(block.label||'FATIGUE OPTION — ZONE 2 CARDIO')+'</div><div class="bloc-line"></div></div>'
     +'<div class="zone2-card">'
