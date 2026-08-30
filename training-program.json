@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "programVersion": "maxime-gaudet-block-2-v6-week-7-specific-build",
-  "updatedAt": "2026-08-23T00:00:00-04:00",
+  "programVersion": "maxime-gaudet-block-2-v7-week-8-specific-build",
+  "updatedAt": "2026-08-30T00:00:00-04:00",
   "training": {
     "client": "Maxime Gaudet",
     "protocol": "Legacy Protocol — Bloc 2",
@@ -2301,60 +2301,60 @@
       },
       {
         "week": 8,
-        "phase": "INTENSIFICATION CONTRÔLÉE",
-        "desc": "Build strength and recomposition while staying under the recovery ceiling.",
-        "msg": "INTENSIFICATION CONTRÔLÉE. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Construction-fatigue rule: if work week, sleep, grip, low back or legs are heavy, reduce major lifts 5-10%, keep reps clean, remove optional grip work, and do not force progression next week. Zone 2 is flexible: 35-45 min at RPE 5-6 on bike, incline walk or brisk walk. If fatigue is high, replace Session C with Zone 2 + TRX Plank + hip/ankle mobility instead of adding a fourth session.",
+        "phase": "SPECIFIC BUILD 1 / CONVERSION ATHLÉTIQUE",
+        "desc": "Convertir progressivement la force générale en qualités plus transférables au motocross.",
+        "msg": "Cette semaine, nous commençons à convertir ta force générale vers des qualités plus utiles pour le motocross. La vitesse, la stabilité et la qualité d’exécution passent avant les charges. Respecte un maximum général de RPE 7 à 8, sauf sur les efforts forts du Tacx où la cible est RPE 8,5 à 9. Évite tout grind et adapte le volume si ton sommeil, ton dos ou ta récupération ne sont pas à leur niveau normal. Statut jaune : retire une série des accessoires sans descendre sous une série et limite le Bloc 3 de la Session C à deux rounds. Statut rouge : aucun travail balistique ni hinge sous fatigue; remplace entièrement la Session C standard par la variante de récupération.",
         "sessions": {
           "a": {
-            "title": "Upper + Hinge Strength",
-            "warmup": "5 min easy rower or bike · Band Pull-Apart 2x15 · Thoracic Rotation 2x8/side · Hip Hinge Drill 2x10 · 2 progressive Trap Bar warm-up sets",
+            "title": "Force utile + Upper",
+            "warmup": "8-10 min · Vélo ou rameur 5 min progressives · Band Pull-Apart 2x15 · Rotation thoracique 2x8/côté · Hip Hinge Drill 2x8 · Dead Bug 1x8/côté · Trap Bar 2-3 séries progressives d’échauffement",
             "blocks": [
               {
-                "label": "STRENGTH / HINGE",
+                "label": "FORCE RAPIDE / UPPER",
                 "exercises": [
                   {
-                    "name": "Trap Bar Deadlift",
-                    "note": "RPE cap 8.5. Rest: 2-3 min. No grind. Targets are guidelines, never obligations. Actual RPE wins over the table; reduce 5-10%, repeat the load, or use the substitution if speed, technique, sleep, fatigue or pain says so. No grinders, no failure. Substitution: light RDL if trap bar unavailable.",
-                    "sets": "5",
-                    "reps": "4",
+                    "name": "Trap Bar Deadlift — Force rapide",
+                    "note": "RPE 7-7,5. Repos : 2 min 30 à 3 min. Reset complet entre les répétitions. Concentrique volontairement rapide. Rechercher 12 répétitions totales de haute qualité, sans grind. Passer à 225 lb uniquement si 215 lb est très rapide et ne dépasse pas RPE 7. Ne pas augmenter si la vitesse ou la qualité diminue.",
+                    "sets": "4",
+                    "reps": "3",
                     "key": "trap_bar_deadlift",
-                    "target": "230 lb",
+                    "target": "215 lb total",
                     "unit": "lbs"
                   },
                   {
-                    "name": "Chest Supported Row",
-                    "note": "RPE 7-8. Rest: 90 sec. Chest supported, strict pull, short squeeze. Substitution: strict Cable Row.",
-                    "sets": "4",
-                    "reps": "6",
+                    "name": "Chest-Supported Row",
+                    "note": "RPE 7-8. Repos : 90-120 sec. Pause de 1 sec en contraction. Conserver le support thoracique et éliminer tout mouvement lombaire. Réduire la charge si nécessaire.",
+                    "sets": "3",
+                    "reps": "6-8",
                     "key": "chest_supported_row",
-                    "target": "120 lb",
+                    "target": "105 lb",
                     "unit": "lbs"
                   },
                   {
-                    "name": "DB Bench Press - Neutral Grip",
-                    "note": "RPE 7-8. Rest: 90 sec. Control, no failure. Substitution: Machine Chest Press.",
-                    "sets": "4",
-                    "reps": "6",
+                    "name": "DB Bench Press — prise neutre",
+                    "note": "RPE 7-8. Repos : 90-120 sec. Rester à 55 lb/main si cette charge produit déjà le stimulus recherché. Aucune augmentation automatique.",
+                    "sets": "3",
+                    "reps": "6-8",
                     "key": "db_bench_neutral",
-                    "target": "60 lb/hand",
+                    "target": "55-60 lb/main",
                     "unit": "lbs"
                   },
                   {
-                    "name": "Neutral Grip Lat Pulldown",
-                    "note": "RPE 8 max. Rest: 75-90 sec. Clean range of motion. Substitution: Assisted Pull-Up.",
+                    "name": "Neutral-Grip Lat Pulldown",
+                    "note": "RPE 7. Repos : 90 sec. Scapulas contrôlées, aucun momentum. Réduire la charge si le contrôle scapulaire diminue.",
                     "sets": "3",
                     "reps": "8",
                     "key": "neutral_lat_pulldown",
-                    "target": "130 lb",
+                    "target": "120-125 lb total",
                     "unit": "lbs"
                   },
                   {
-                    "name": "Romanian Deadlift",
-                    "note": "Accessory hinge. Tempo 3 sec down. Rest: 90 sec. If Trap Bar exceeds target RPE, low back is tired or hamstrings are heavy, reduce 10-15% or replace with Hamstring Curl. Substitution: Cable Pull-Through or Hamstring Curl.",
+                    "name": "Leg Curl",
+                    "note": "RPE 7. Repos : 70 sec. Tempo 2-1-3. Entraîner les ischio-jambiers sans ajouter une deuxième contrainte lombaire lourde. Retirer une série en statut jaune.",
                     "sets": "3",
-                    "reps": "6",
-                    "key": "romanian_deadlift",
-                    "target": "185 lb",
+                    "reps": "10-12",
+                    "key": "leg_curl",
+                    "target": "44 lb machine",
                     "unit": "lbs"
                   }
                 ]
@@ -2363,136 +2363,127 @@
                 "label": "CORE / CARRY / SHOULDER HEALTH",
                 "exercises": [
                   {
-                    "name": "Face Pull",
-                    "note": "RPE 7 or easier on deload. Rest: 60 sec. Shoulders down, controlled. Substitution: Band Face Pull.",
-                    "sets": "2-3",
-                    "reps": "15",
-                    "key": "face_pull",
-                    "target": "24-25 lb",
-                    "unit": "lbs"
-                  },
-                  {
-                    "name": "Pallof Press",
-                    "note": "RPE 6-7. Rest: 45 sec. Do not rotate. Substitution: Dead Bug.",
+                    "name": "Pallof Press — stance athlétique",
+                    "note": "Repos : 60 sec. Pause de 2 sec avec les bras tendus. Garder une posture athlétique et le bassin complètement stable. Réduire la charge si le bassin bouge. Retirer une série en statut jaune.",
                     "sets": "3",
-                    "reps": "10/side",
+                    "reps": "8-10/côté",
                     "key": "pallof_press",
-                    "target": "light-moderate",
+                    "target": "20 lb à la poulie",
                     "unit": "lbs"
                   },
                   {
                     "name": "Suitcase Carry",
-                    "note": "Moderate posture work, not maximal. Rest: 60 sec. Substitute: light Farmer Carry. Remove if grip is fatigued.",
+                    "note": "Repos : 70 sec. Marche contrôlée, tronc vertical, aucune inclinaison vers la charge. Arrêter si la posture ne peut plus être conservée. Retirer une série en statut jaune.",
                     "sets": "3",
-                    "reps": "30 m/side",
+                    "reps": "30 m/côté",
                     "key": "suitcase_carry",
-                    "target": "moderate-heavy",
+                    "target": "À déterminer · une main",
                     "unit": "lbs"
                   },
                   {
-                    "name": "Dead Hang",
-                    "note": "Easy only. Remove if grip or forearms are fatigued. Substitution: light Scapular Pulldown.",
-                    "sets": "1-2 optional",
-                    "reps": "max clean",
-                    "key": "dead_hang",
-                    "target": "bodyweight",
-                    "unit": "bodyweight"
+                    "name": "Face Pull",
+                    "note": "Repos : 60 sec. Qualité d’exécution seulement. Ne pas augmenter la charge au détriment de la qualité. Retirer une série en statut jaune.",
+                    "sets": "2",
+                    "reps": "15",
+                    "key": "face_pull",
+                    "target": "33 lb total",
+                    "unit": "lbs"
                   }
                 ]
               }
             ]
           },
           "b": {
-            "title": "Lower + Push + Unilateral",
-            "warmup": "5 min easy bike · Dynamic Leg Swing 2x10/side · Hip Circle 2x10 · Bodyweight Goblet Squat 2x10 · Split Squat Iso Hold 2x20 sec/side",
+            "title": "Unilatéral + Stabilité + Force des jambes",
+            "warmup": "8-10 min · Vélo 5 min · Knee-to-Wall Ankle Mobility 2x8/côté · Dynamic Leg Swing 2x10/côté · Hip Circle 2x10 · Squat au poids du corps 1-2x8 · Step-Up léger 1x6/côté comme échauffement",
             "blocks": [
               {
                 "label": "LOWER STRENGTH / UNILATERAL",
                 "exercises": [
                   {
-                    "name": "Leg Press or Hack Squat",
-                    "note": "RPE cap 8. Rest: 2 min. Control, tolerated range, no bounce, no violent lockout. Do only if knee pain is 0-2/10, speed is stable and technique is clean. If knee pain is above 2/10, reduce 10-15%, use 3x8 at RPE 7, control range and stop progression. Substitution: Goblet Box Squat.",
-                    "sets": "4",
-                    "reps": "8",
-                    "key": "leg_press_hack",
-                    "target": "450 lb",
+                    "name": "Step-Up contrôlé — charge contralatérale",
+                    "note": "RPE 7. Repos : 80 sec. Retour lent. Charge dans la main opposée à la jambe qui travaille. Pied complet sur la box, propulsion par la jambe supérieure, bassin contrôlé. Réduire la hauteur ou la charge si le contrôle diminue.",
+                    "sets": "3",
+                    "reps": "8/côté",
+                    "key": "step_up_contralateral",
+                    "target": "À déterminer · une main",
                     "unit": "lbs"
                   },
                   {
-                    "name": "Front Foot Elevated Split Squat Smith Machine",
-                    "note": "RPE 7. Rest: 90 sec. Controlled tempo. Substitution: Assisted Split Squat.",
-                    "sets": "3-4",
-                    "reps": "6",
-                    "key": "ffe_split_squat",
-                    "target": "70 lb",
+                    "name": "Leg Press",
+                    "note": "RPE 7-7,5. Repos : 120 sec. Ne pas traiter cet exercice comme un test hebdomadaire. 450 lb n’est pas une cible obligatoire. Le RPE gagne toujours contre la charge.",
+                    "sets": "3",
+                    "reps": "8",
+                    "key": "leg_press_hack",
+                    "target": "360-400 lb total",
                     "unit": "lbs"
                   },
                   {
                     "name": "Hip Thrust",
-                    "note": "RPE 7-8. Rest: 90 sec. Pause 1 sec at top. Substitution: Glute Bridge.",
-                    "sets": "4",
+                    "note": "RPE 7. Repos : 120 sec. Pause de 1 sec au sommet. Effectuer trois séries cette semaine. Arrêter ou réduire si le dos réagit.",
+                    "sets": "3",
                     "reps": "6",
                     "key": "hip_thrust",
-                    "target": "195 lb",
+                    "target": "180-185 lb total",
                     "unit": "lbs"
                   }
                 ]
               },
               {
-                "label": "PUSH / PULL / CORE / CARRY",
+                "label": "STABILITY / UPPER / CORE / CARRY",
                 "exercises": [
                   {
-                    "name": "Half Kneeling DB Press",
-                    "note": "RPE 7. Rest: 75 sec. Solid core. Substitution: Landmine Press.",
+                    "name": "Half-Kneeling DB Press",
+                    "note": "Repos : 90 sec. Un haltère tenu dans la main active. Maintenir la stabilité du bassin et du tronc. Réduire la charge si la stabilité diminue.",
                     "sets": "3",
-                    "reps": "8/side",
+                    "reps": "8/côté",
                     "key": "half_kneeling_db_press",
-                    "target": "50 lb if clean",
+                    "target": "45 lb · main active",
                     "unit": "lbs"
                   },
                   {
-                    "name": "Seated Cable Row",
-                    "note": "RPE 7-8. Rest: 75-90 sec. Shoulders down, short squeeze, no momentum. Substitution: Chest Supported Row.",
+                    "name": "Single-Arm Cable Row — stance athlétique",
+                    "note": "RPE 7-8. Repos : 90 sec. Utiliser une posture athlétique et maintenir le contrôle antirotation. Réduire la charge si le tronc tourne.",
                     "sets": "3",
-                    "reps": "10",
-                    "key": "seated_cable_row",
-                    "target": "135 lb",
+                    "reps": "10/côté",
+                    "key": "single_arm_cable_row_athletic",
+                    "target": "À déterminer",
                     "unit": "lbs"
                   },
                   {
-                    "name": "Hip Abduction",
-                    "note": "RPE 7. Rest: 60 sec. Use 2 sets or remove if legs are heavy. Substitution: Band Walk.",
+                    "name": "Copenhagen Plank",
+                    "note": "Repos : 70 sec. Utiliser la version déjà connue. Ne pas poursuivre jusqu’au tremblement maximal et arrêter avant la perte de position. Retirer une série en statut jaune.",
+                    "sets": "2",
+                    "reps": "20-25 sec/côté",
+                    "key": "copenhagen_plank",
+                    "target": "Poids du corps",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Seated Calf Raise / Soleus",
+                    "note": "RPE 7. Repos : 70 sec. Tempo 1-1-3. Développer la capacité de la cheville et du mollet à absorber et stabiliser. Retirer une série en statut jaune.",
                     "sets": "3",
-                    "reps": "12",
-                    "key": "hip_abduction",
-                    "target": "80 lb",
+                    "reps": "12-15",
+                    "key": "seated_calf_raise_soleus",
+                    "target": "À déterminer",
                     "unit": "lbs"
                   },
                   {
                     "name": "Dead Bug Loaded",
-                    "note": "Clean core work. Rest: 45 sec. Low back stable. Substitution: bodyweight Dead Bug.",
-                    "sets": "3",
-                    "reps": "10/side",
+                    "note": "Repos : 60 sec. Mouvement contrôlé. Utiliser la charge seulement si le contrôle est parfait; réduire ou retirer la charge si le contrôle diminue. Retirer une série en statut jaune.",
+                    "sets": "2-3",
+                    "reps": "8-10/côté",
                     "key": "dead_bug_loaded",
-                    "target": "10-15 lb",
+                    "target": "10-15 lb total",
                     "unit": "lbs"
                   },
                   {
-                    "name": "Side Plank",
-                    "note": "Clean position, hips high. Rest: 45 sec. Substitution: knee Side Plank.",
-                    "sets": "3",
-                    "reps": "30 sec/side",
-                    "key": "side_plank",
-                    "target": "bodyweight",
-                    "unit": "sec"
-                  },
-                  {
                     "name": "Farmer Carry",
-                    "note": "Moderate posture and control, not maximal. Rest: 60 sec. Remove or lighten if grip is fatigued.",
-                    "sets": "3",
+                    "note": "Repos : 90 sec. Marche contrôlée. Objectif : grip et bracing sans épuiser les avant-bras. Arrêter si la posture ou le bracing se dégrade. Retirer une série en statut jaune.",
+                    "sets": "2",
                     "reps": "40 m",
                     "key": "farmer_carry",
-                    "target": "50-55 lb/hand",
+                    "target": "50-55 lb/main",
                     "unit": "lbs"
                   }
                 ]
@@ -2500,109 +2491,128 @@
             ]
           },
           "c": {
-            "title": "Conditioning maison athlétique",
-            "warmup": "6 min light progressive Tacx before anaerobic block · Hip/ankle mobility 3 min · 1 light circuit round if needed",
+            "title": "Power + Repeated Effort + Motocross Conditioning",
+            "warmup": "8-10 min · Tacx progressif 6 min · Mobilité chevilles et hanches · Squats rapides au poids du corps 2x5 · Accélérations Tacx sous-maximales 2-3x5 sec",
             "blocks": [
               {
-                "label": "HOME ATHLETIC CONDITIONING",
+                "label": "BLOC 1 — PUISSANCE",
                 "exercises": [
                   {
-                    "name": "Tacx Anaerobic Intervals",
-                    "note": "RPE 8 max. No maximal sprint. Stay clean and controlled. Compare quality, breathing and recovery week to week.",
-                    "sets": "1",
-                    "reps": "6 min",
-                    "key": "tacx_anaerobic",
-                    "target": "10 sec strong / 20 sec easy",
-                    "unit": "min"
-                  },
-                  {
-                    "name": "TRX Row Explosive",
-                    "note": "Explosive up, controlled down.",
-                    "sets": "3",
-                    "reps": "10",
-                    "key": "trx_row_explosive",
-                    "target": "bodyweight",
-                    "unit": "bodyweight"
-                  },
-                  {
-                    "name": "DB Romanian Deadlift",
-                    "note": "Controlled hinge. No excessive low-back fatigue. Version fatigue: 2 sets. Substitution: Hip Hinge Drill controlled.",
-                    "sets": "3",
-                    "reps": "12",
-                    "key": "db_romanian_deadlift_home",
-                    "target": "35 lb/hand",
-                    "unit": "lbs"
-                  },
-                  {
-                    "name": "Sprawl",
-                    "note": "Athletic rhythm, no technique loss.",
-                    "sets": "3",
-                    "reps": "8",
-                    "key": "sprawl",
-                    "target": "bodyweight",
-                    "unit": "bodyweight"
-                  },
-                  {
-                    "name": "TRX Plank",
-                    "note": "Stable pelvis, clean brace.",
-                    "sets": "3",
-                    "reps": "40 sec",
-                    "key": "trx_plank",
-                    "target": "bodyweight",
-                    "unit": "sec"
-                  },
-                  {
                     "name": "Broad Jump",
-                    "note": "Controlled landing, stable knees, no pain.",
+                    "note": "Repos : 60-90 sec. Chaque saut doit être puissant avec une réception complètement contrôlée. Arrêter si la distance ou la qualité diminue clairement. Retirer si le genou ou le dos ne tolère pas parfaitement le mouvement; ne pas remplacer par un autre exercice avec impact.",
                     "sets": "3",
-                    "reps": "5",
+                    "reps": "3",
                     "key": "broad_jump",
-                    "target": "bodyweight",
+                    "target": "Poids du corps",
                     "unit": "bodyweight"
-                  },
-                  {
-                    "name": "DB Swing",
-                    "note": "Hip power, not a low-back pull. Version fatigue: 2 sets. Substitution: remove or Hip Hinge Drill controlled.",
-                    "sets": "3",
-                    "reps": "12",
-                    "key": "db_swing",
-                    "target": "35 lb",
-                    "unit": "lbs"
-                  },
-                  {
-                    "name": "Dead Hang TRX",
-                    "note": "Rest: 60 sec. Remove if grip or forearms are fatigued.",
-                    "sets": "3",
-                    "reps": "max clean, max 60 sec",
-                    "key": "dead_hang_trx",
-                    "target": "bodyweight",
-                    "unit": "sec"
-                  },
-                  {
-                    "name": "Wrist Curl DB",
-                    "note": "Control, no wrist or elbow pain. Version fatigue: 2 sets.",
-                    "sets": "3",
-                    "reps": "20",
-                    "key": "wrist_curl_db",
-                    "target": "15 lb",
-                    "unit": "lbs"
                   }
                 ]
               },
               {
-                "label": "FATIGUE OPTION — ZONE 2 CARDIO",
-                "variant": "fatigue_zone2",
-                "optionalReplacement": true,
-                "instruction": "Use this option instead of the full conditioning session when fatigue, sleep, construction workload, or leg soreness is high.",
+                "label": "BLOC 2 — TACX / REPEATED POWER",
                 "exercises": [
                   {
-                    "name": "Indoor Bike",
-                    "note": "Zone 2 only. No intervals. No explosive work. Controlled breathing. Choose this instead of the full conditioning session when fatigue is high.",
+                    "name": "Tacx — Repeated Power",
+                    "note": "Exception de la semaine : RPE 8,5-9 pendant les efforts forts. Deux blocs de 6 intervalles : 10 sec fortes / 20 sec faciles. Pédaler facilement 2 min entre les blocs. Aucun sprint désespéré. Maintenir une puissance relativement stable et observer la baisse entre les premiers et derniers efforts. Utiliser la variante rouge si symptômes lombaires ou fatigue inhabituelle.",
+                    "sets": "2 blocs",
+                    "reps": "6 intervalles/bloc",
+                    "key": "tacx_repeated_power",
+                    "target": "12 efforts · 10 sec fortes / 20 sec faciles",
+                    "unit": "min"
+                  }
+                ]
+              },
+              {
+                "label": "BLOC 3 — 3 ROUNDS · RÉSISTANCE POSITIONNELLE",
+                "exercises": [
+                  {
+                    "name": "TRX Row Explosive",
+                    "note": "Une série par round. Traction rapide, retour contrôlé. Repos : 20-30 sec avant le prochain exercice. Effectuer seulement deux rounds en statut jaune.",
+                    "sets": "3",
+                    "reps": "8/round",
+                    "key": "trx_row_explosive",
+                    "target": "Poids du corps",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "Split Squat Iso Hold",
+                    "note": "Une série par round. Maintien isométrique avec un angle confortable et stable. Repos : 20-30 sec avant le prochain exercice. Effectuer seulement deux rounds en statut jaune.",
+                    "sets": "3",
+                    "reps": "20 sec/côté",
+                    "key": "split_squat_iso_hold",
+                    "target": "Aucune charge",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "TRX Plank",
+                    "note": "Une série par round. Maintien isométrique. Repos : 20-30 sec avant le prochain exercice. Arrêter si la position se dégrade. Effectuer seulement deux rounds en statut jaune.",
+                    "sets": "3",
+                    "reps": "30-35 sec",
+                    "key": "trx_plank",
+                    "target": "Poids du corps",
+                    "unit": "sec"
+                  },
+                  {
+                    "name": "Sprawl contrôlé",
+                    "note": "Une série par round. Repos : 20-30 sec avant le prochain exercice. Ne pas effectuer 8 répétitions dans le rouge. Effectuer seulement deux rounds en statut jaune.",
+                    "sets": "3",
+                    "reps": "6/round",
+                    "key": "sprawl",
+                    "target": "Poids du corps",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "DB Static Hold",
+                    "note": "Une série par round. Rester debout avec une posture solide. Travailler le grip sans chercher l’épuisement. Repos : 90 sec avant le prochain round. Effectuer seulement deux rounds en statut jaune.",
+                    "sets": "3",
+                    "reps": "30-40 sec",
+                    "key": "db_static_hold",
+                    "target": "35 lb/main",
+                    "unit": "sec"
+                  }
+                ]
+              },
+              {
+                "label": "VARIANTE ROUGE — RÉCUPÉRATION",
+                "variant": "fatigue_zone2",
+                "optionalReplacement": true,
+                "instruction": "Cette variante remplace entièrement le Standard Conditioning en présence de symptômes lombaires ou de fatigue inhabituelle. Aucun travail balistique ni hinge sous fatigue.",
+                "exercises": [
+                  {
+                    "name": "Zone 2 — Indoor Bike",
+                    "note": "Utiliser le protocole déjà connu : aucun intervalle, aucun travail explosif, respiration contrôlée.",
                     "sets": "1",
                     "reps": "20-45 min",
                     "key": "zone2_indoor_bike_fatigue",
-                    "target": "RPE 5-6 · no intervals · no explosive work",
+                    "target": "RPE 5-6",
                     "unit": "min"
+                  },
+                  {
+                    "name": "TRX Row",
+                    "note": "Exécution contrôlée. Ne pas rechercher la fatigue maximale.",
+                    "sets": "2",
+                    "reps": "10",
+                    "key": "zone2_trx_row_recovery",
+                    "target": "Poids du corps",
+                    "unit": "bodyweight"
+                  },
+                  {
+                    "name": "Pallof Press",
+                    "note": "Contrôle antirotation, bassin stable.",
+                    "sets": "2",
+                    "reps": "10/côté",
+                    "key": "zone2_pallof_press_recovery",
+                    "target": "Léger et contrôlé",
+                    "unit": "lbs"
+                  },
+                  {
+                    "name": "Box Breathing",
+                    "note": "Cycle 4-4-4-4 : inspiration 4 sec, rétention 4 sec, expiration 4 sec, rétention 4 sec.",
+                    "sets": "",
+                    "reps": "Cycle 4-4-4-4",
+                    "key": "zone2_box_breathing_recovery",
+                    "target": "Respiration contrôlée",
+                    "unit": "sec"
                   }
                 ],
                 "metrics": [
@@ -4630,7 +4640,7 @@
       }
     ]
   },
-  "updateTitle": "Semaine 7 disponible",
-  "updateMessage": "Ta semaine 7 convertit progressivement ta force vers des qualités plus spécifiques au motocross, avec priorité à la vitesse, à la stabilité et à la récupération.",
+  "updateTitle": "Semaine 8 disponible",
+  "updateMessage": "Ta semaine 8 est prête. Elle reprend la structure validée de la semaine 7.",
   "releaseNotes": []
 }
