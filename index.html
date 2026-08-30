@@ -201,6 +201,7 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-
 .bloc-hdr{display:flex;align-items:center;gap:10px;margin:14px 14px 0}
 .bloc-line{flex:1;height:1px;background:var(--br)}
 .bloc-label{font-size:9px;letter-spacing:2px;color:var(--txt3);white-space:nowrap;font-weight:600;font-family:'Bebas Neue',sans-serif}
+.bloc-instruction{margin:8px 14px 0;padding:10px 12px;border-left:3px solid var(--orange);background:var(--tint);color:var(--txt2);font-size:11px;line-height:1.6}
 .ex-card{background:var(--card);border-radius:14px;border:1px solid var(--br);margin:8px 14px 0;overflow:hidden;box-shadow:var(--shadow)}
 .ex-thead{display:grid;grid-template-columns:1fr 44px 44px 66px 66px;gap:4px;padding:8px 14px;background:var(--black);border-bottom:1px solid rgba(255,255,255,0.07)}
 .ex-th{font-size:9px;letter-spacing:1.5px;color:rgba(255,255,255,0.5);font-weight:600;font-family:'Bebas Neue',sans-serif;text-align:center}
@@ -239,6 +240,8 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-
 .session-fatigue-option{display:none}
 .sub-panel.variant-fatigue_zone2 .session-standard-work{display:none}
 .sub-panel.variant-fatigue_zone2 .session-fatigue-option{display:block}
+.sub-panel.variant-replacement .session-standard-work{display:none}
+.sub-panel.variant-replacement .session-fatigue-option{display:block}
 .zone2-card{background:var(--card);border:1px solid var(--br);border-radius:14px;margin:8px 14px 0;overflow:hidden;box-shadow:var(--shadow)}
 .zone2-head{padding:14px 16px;border-bottom:1px solid var(--br);background:var(--black);color:#fff}
 .zone2-label{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:var(--orange)}
@@ -257,6 +260,9 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-
 .zone2-field-row{display:flex;align-items:center;gap:6px}
 .zone2-input{width:100%;border:none;background:transparent;font-size:20px;font-weight:700;color:var(--orange);outline:none;font-family:'DM Sans',sans-serif}
 .zone2-unit{font-size:10px;letter-spacing:1px;color:var(--txt3);font-weight:700;text-transform:uppercase}
+.variant-metric-text{grid-column:1/-1}
+.variant-textarea{display:block;min-height:78px;resize:vertical;font-size:13px;line-height:1.5;color:var(--txt);padding:2px 0}
+@media(max-width:480px){.session-variant-grid,.zone2-fields{grid-template-columns:1fr}.variant-metric-text{grid-column:auto}}
 .hist-completion{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1.2px;font-weight:700}
 .hist-completion.good{color:var(--green)}
 .hist-completion.warn{color:var(--yellow)}
@@ -2495,6 +2501,10 @@ function normalizeBlock(block,week,sid,blockIndex){
     variant:block.variant||'standard',
     optionalReplacement:!!block.optionalReplacement,
     instruction:block.instruction||'',
+    standardVariant:block.standardVariant||'standard',
+    standardLabel:block.standardLabel||'',
+    standardDescription:block.standardDescription||'',
+    replacementDescription:block.replacementDescription||'',
     metrics:Array.isArray(block.metrics)?block.metrics.map(m=>Object.assign({},m)):[],
     exs:rawExercises.map((ex,i)=>normalizeExercise(ex,week,sid,blockIndex,i))
   };
@@ -2507,6 +2517,7 @@ function normalizeSession(session,week,sid){
     day:session.day||SEANCE_DAYS[sid]||sid.toUpperCase(),
     label:session.label||meta.label||'',
     title:session.title||meta.title||session.day||SEANCE_DAYS[sid]||sid.toUpperCase(),
+    displayTitle:session.displayTitle||'',
     suggestedDay:normalizeDayCode(session.suggestedDay||meta.suggestedDay||session.day||SEANCE_DAYS[sid]),
     warmup:session.warmup||'',
     cardio:!!session.cardio,
@@ -3425,6 +3436,7 @@ function actualSetsRepsHTML(ex){
 }
 function buildExCard(bloc,week,sid){
   let h='<div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">'+escapeHTML(bloc.label)+'</div><div class="bloc-line"></div></div>';
+  if(bloc.instruction)h+='<div class="bloc-instruction">'+escapeHTML(bloc.instruction)+'</div>';
   h+='<div class="ex-card"><div class="ex-thead"><div class="ex-th">EXERCISE</div><div class="ex-th">SETS</div><div class="ex-th">REPS</div><div class="ex-th">TARGET LOAD</div><div class="ex-th th-reel">ACTUAL LOAD</div></div>';
   bloc.exs.forEach(ex=>{
     const actualFields=actualSetsRepsHTML(ex);
@@ -3439,27 +3451,47 @@ function buildExCard(bloc,week,sid){
   h+='</div>';
   return h;
 }
-function isFatigueOptionBlock(block){return !!(block&&block.variant==='fatigue_zone2');}
+function isFatigueOptionBlock(block){return !!(block&&block.optionalReplacement&&block.variant&&block.variant!=='standard');}
 function fatigueOptionBlockForSession(S){
   return (S&&Array.isArray(S.blocs)?S.blocs:[]).find(isFatigueOptionBlock)||null;
 }
-function hasFatigueOption(week,sid){
+function replacementOptionBlock(week,sid){
   const S=WEEKS[week]&&WEEKS[week].seances?WEEKS[week].seances[sid]:null;
-  return !!fatigueOptionBlockForSession(S);
+  return fatigueOptionBlockForSession(S);
 }
-function sessionVariantValue(rec){
-  return rec&&rec.variant==='fatigue_zone2'?'fatigue_zone2':'standard';
+function hasFatigueOption(week,sid){
+  return !!replacementOptionBlock(week,sid);
 }
-function sessionVariantLabel(value){
-  return value==='fatigue_zone2'?'FATIGUE OPTION — ZONE 2':'STANDARD CONDITIONING';
+function standardVariantValue(week,sid){
+  const block=replacementOptionBlock(week,sid);
+  return block&&block.standardVariant?block.standardVariant:'standard';
+}
+function sessionVariantValue(rec,week,sid){
+  const block=replacementOptionBlock(week,sid);
+  const standardValue=standardVariantValue(week,sid);
+  if(block&&rec&&rec.variant===block.variant)return block.variant;
+  if(rec&&rec.variant===standardValue)return standardValue;
+  return standardValue;
+}
+function sessionVariantLabel(value,week,sid){
+  const block=replacementOptionBlock(week,sid);
+  const standardValue=standardVariantValue(week,sid);
+  if(block&&value===block.variant)return block.label||(value==='fatigue_zone2'?'FATIGUE OPTION — ZONE 2':String(value).replace(/_/g,' ').toUpperCase());
+  return block&&block.standardLabel?block.standardLabel:(standardValue==='standard_conditioning'?'STANDARD CONDITIONING':'STANDARD CONDITIONING');
 }
 function buildSessionVariantSelector(week,sid){
-  if(!hasFatigueOption(week,sid))return '';
+  const block=replacementOptionBlock(week,sid);
+  if(!block)return '';
+  const standardValue=standardVariantValue(week,sid);
+  const standardLabel=block.standardLabel||'STANDARD CONDITIONING';
+  const standardDescription=block.standardDescription||'Full athletic conditioning session.';
+  const replacementLabel=sessionVariantLabel(block.variant,week,sid);
+  const replacementDescription=block.replacementDescription||(block.variant==='fatigue_zone2'?'Replacement when fatigue, sleep, workload, or soreness is high.':'Replaces the full Session C.');
   return '<div class="session-variant-card" data-session-variant-card="'+escapeHTML(sid)+'">'
     +'<div class="session-variant-kicker">SESSION C VERSION</div>'
     +'<div class="session-variant-grid">'
-      +'<label class="session-variant-option"><input type="radio" name="variant-'+escapeHTML(sid)+'" value="standard" data-session-variant="'+escapeHTML(sid)+'"><span class="session-variant-title">STANDARD CONDITIONING</span><span class="session-variant-sub">Full athletic conditioning session.</span></label>'
-      +'<label class="session-variant-option"><input type="radio" name="variant-'+escapeHTML(sid)+'" value="fatigue_zone2" data-session-variant="'+escapeHTML(sid)+'"><span class="session-variant-title">FATIGUE OPTION — ZONE 2</span><span class="session-variant-sub">Replacement when fatigue, sleep, workload, or soreness is high.</span></label>'
+      +'<label class="session-variant-option"><input type="radio" name="variant-'+escapeHTML(sid)+'" value="'+escapeHTML(standardValue)+'" data-session-variant="'+escapeHTML(sid)+'"><span class="session-variant-title">'+escapeHTML(standardLabel)+'</span><span class="session-variant-sub">'+escapeHTML(standardDescription)+'</span></label>'
+      +'<label class="session-variant-option"><input type="radio" name="variant-'+escapeHTML(sid)+'" value="'+escapeHTML(block.variant)+'" data-session-variant="'+escapeHTML(sid)+'"><span class="session-variant-title">'+escapeHTML(replacementLabel)+'</span><span class="session-variant-sub">'+escapeHTML(replacementDescription)+'</span></label>'
     +'</div>'
   +'</div>';
 }
@@ -3489,8 +3521,8 @@ function buildFatigueOptionHTML(block,sid){
         +'<div class="zone2-head"><div class="zone2-label">RECOVERY SESSION</div><div class="zone2-instruction">'+escapeHTML(instruction)+'</div></div>'
         +'<div class="zone2-exercise-list">'+exerciseRows+'</div>'
         +'<div class="zone2-fields">'
-          +'<div class="zone2-field"><label>Actual Time</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-zone2-metric="zone2ActualTime" placeholder="35"><span class="zone2-unit">min</span></div></div>'
-          +'<div class="zone2-field"><label>Average BPM</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-zone2-metric="zone2AverageBpm" placeholder="128"><span class="zone2-unit">bpm</span></div></div>'
+          +'<div class="zone2-field"><label>Actual Time</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-variant-metric="zone2ActualTime" placeholder="35"><span class="zone2-unit">min</span></div></div>'
+          +'<div class="zone2-field"><label>Average BPM</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-variant-metric="zone2AverageBpm" placeholder="128"><span class="zone2-unit">bpm</span></div></div>'
         +'</div>'
       +'</div>'
     +'</div>';
@@ -3501,11 +3533,37 @@ function buildFatigueOptionHTML(block,sid){
       +'<div class="zone2-head"><div class="zone2-label">'+escapeHTML(ex.name||'Indoor Bike')+'</div><div class="zone2-instruction">'+escapeHTML(instruction)+'</div></div>'
       +'<div class="zone2-prescription"><strong>Prescription:</strong> Zone 2 · Target duration: '+escapeHTML(ex.reps||'20-45 min')+' · Target intensity: '+escapeHTML(target)+' · Controlled breathing.</div>'
       +'<div class="zone2-fields">'
-        +'<div class="zone2-field"><label>Actual Time</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-zone2-metric="zone2ActualTime" placeholder="35"><span class="zone2-unit">min</span></div></div>'
-        +'<div class="zone2-field"><label>Average BPM</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-zone2-metric="zone2AverageBpm" placeholder="128"><span class="zone2-unit">bpm</span></div></div>'
+        +'<div class="zone2-field"><label>Actual Time</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-variant-metric="zone2ActualTime" placeholder="35"><span class="zone2-unit">min</span></div></div>'
+        +'<div class="zone2-field"><label>Average BPM</label><div class="zone2-field-row"><input class="zone2-input" inputmode="numeric" pattern="[0-9]*" data-variant-metric="zone2AverageBpm" placeholder="128"><span class="zone2-unit">bpm</span></div></div>'
       +'</div>'
     +'</div>'
   +'</div>';
+}
+function buildVariantMetricFields(block){
+  return (block&&Array.isArray(block.metrics)?block.metrics:[]).map(metric=>{
+    const key=metric.key||'';
+    const label=(metric.label||key)+(metric.required?' *':'');
+    const unit=metric.unit||'';
+    const placeholder=metric.placeholder||'';
+    if(metric.type==='text'){
+      return '<div class="zone2-field variant-metric-text"><label>'+escapeHTML(label)+'</label><textarea class="zone2-input variant-textarea" data-variant-metric="'+escapeHTML(key)+'" placeholder="'+escapeHTML(placeholder)+'"></textarea></div>';
+    }
+    return '<div class="zone2-field"><label>'+escapeHTML(label)+'</label><div class="zone2-field-row"><input class="zone2-input" inputmode="decimal" data-variant-metric="'+escapeHTML(key)+'" placeholder="'+escapeHTML(placeholder)+'"><span class="zone2-unit">'+escapeHTML(unit)+'</span></div></div>';
+  }).join('');
+}
+function buildMotocrossOptionHTML(block,sid){
+  if(!block)return '';
+  return '<div class="session-fatigue-option">'
+    +'<div class="bloc-hdr"><div class="bloc-line"></div><div class="bloc-label">'+escapeHTML(block.label||'SÉANCE EXIGEANTE DE MOTOCROSS')+'</div><div class="bloc-line"></div></div>'
+    +'<div class="zone2-card">'
+      +'<div class="zone2-head"><div class="zone2-label">MOTOCROSS REPLACEMENT</div><div class="zone2-instruction">'+escapeHTML(block.instruction||'Select this version when a demanding motocross session replaces the full Standard Conditioning session.')+'</div></div>'
+      +'<div class="zone2-prescription"><strong>Session C replacement:</strong> Complete the fields below, then mark Session C completed. The standard workout and motocross version remain mutually exclusive.</div>'
+      +'<div class="zone2-fields">'+buildVariantMetricFields(block)+'</div>'
+    +'</div>'
+  +'</div>';
+}
+function buildReplacementOptionHTML(block,sid){
+  return block&&block.variant==='motocross'?buildMotocrossOptionHTML(block,sid):buildFatigueOptionHTML(block,sid);
 }
 function buildSeanceHTML(week,sid){
   const S=WEEKS[week].seances[sid];
@@ -3520,7 +3578,7 @@ function buildSeanceHTML(week,sid){
     h+='<div class="session-standard-work">';
     blocs.filter(b=>!isFatigueOptionBlock(b)).forEach(b=>{h+=buildExCard(b,week,sid);});
     h+='</div>';
-    if(fatigueBlock)h+=buildFatigueOptionHTML(fatigueBlock,sid);
+    if(fatigueBlock)h+=buildReplacementOptionHTML(fatigueBlock,sid);
   }else{
     h+='<div class="card" style="margin:16px 14px"><div class="card-hdr"><div class="cdot" style="background:var(--orange)"></div><div class="ctitle">PROTOCOL BUILD IN PROGRESS</div></div><div style="padding:18px;color:var(--txt2);font-size:13px;line-height:1.8">This session will be built after Coach Max reviews the Week 0 acquisition data.</div></div>';
   }
@@ -3551,8 +3609,9 @@ function sessionMeta(week,sid){
   const hasCatalog=!!catalog.id;
   const catalogTitle=(catalog.title||'').trim();
   const sessionTitle=(S&&S.title&&S.title!==S.day)?String(S.title).trim():'';
+  const displayTitle=(S&&S.displayTitle)?String(S.displayTitle).trim():'';
   const label=(catalog.label||(S&&S.label)||(!catalogTitle&&legacy.day!=='DAY'?legacy.day:'SESSION '+sid.toUpperCase())).toUpperCase();
-  const title=(catalogTitle||(hasCatalog?sessionTitle:'')||legacy.title||sessionTitle||label).toUpperCase();
+  const title=(displayTitle||catalogTitle||(hasCatalog?sessionTitle:'')||legacy.title||sessionTitle||label).toUpperCase();
   const suggestedDay=normalizeDayCode((S&&S.suggestedDay)||catalog.suggestedDay||(S&&S.day)||SEANCE_DAYS[sid]);
   return {id:sid,label,title,suggestedDay};
 }
@@ -3657,34 +3716,54 @@ function renderEntrainementWeek(){
 function seanceKey(w,sid){return 's'+w+'_'+sid;}
 function setSessionVariantUI(sid,variant){
   const panel=el('sub-'+sid); if(!panel)return;
-  const value=variant==='fatigue_zone2'?'fatigue_zone2':'standard';
+  const block=replacementOptionBlock(currentWeek,sid);
+  const standardValue=standardVariantValue(currentWeek,sid);
+  const value=block&&variant===block.variant?block.variant:standardValue;
+  const isReplacement=!!(block&&value===block.variant);
   panel.dataset.sessionVariant=value;
   panel.classList.toggle('variant-fatigue_zone2',value==='fatigue_zone2');
-  panel.classList.toggle('variant-standard',value==='standard');
+  panel.classList.toggle('variant-replacement',isReplacement);
+  panel.classList.toggle('variant-standard',!isReplacement);
   panel.querySelectorAll('[data-session-variant="'+sid+'"]').forEach(r=>{r.checked=r.value===value;});
 }
 function readSessionVariant(sid){
   if(!hasFatigueOption(currentWeek,sid))return '';
-  const panel=el('sub-'+sid); if(!panel)return 'standard';
-  let selected='standard';
+  const panel=el('sub-'+sid); const standardValue=standardVariantValue(currentWeek,sid);
+  if(!panel)return standardValue;
+  let selected=standardValue;
   panel.querySelectorAll('[data-session-variant="'+sid+'"]').forEach(r=>{if(r.checked)selected=r.value;});
-  return selected==='fatigue_zone2'?'fatigue_zone2':'standard';
+  const block=replacementOptionBlock(currentWeek,sid);
+  return block&&selected===block.variant?block.variant:standardValue;
 }
-function readZone2Metrics(sid){
+function readVariantMetrics(sid){
   const panel=el('sub-'+sid); const metrics={};
   if(!panel||!hasFatigueOption(currentWeek,sid))return metrics;
-  panel.querySelectorAll('[data-zone2-metric]').forEach(inp=>{
+  panel.querySelectorAll('[data-variant-metric]').forEach(inp=>{
     const v=(inp.value||'').trim();
-    if(v!=='')metrics[inp.dataset.zone2Metric]=v;
+    if(v!=='')metrics[inp.dataset.variantMetric]=v;
   });
   return metrics;
 }
-function restoreZone2Metrics(sid,metrics){
+function restoreVariantMetrics(sid,metrics){
   const panel=el('sub-'+sid); if(!panel)return;
-  panel.querySelectorAll('[data-zone2-metric]').forEach(inp=>{
-    const key=inp.dataset.zone2Metric;
+  panel.querySelectorAll('[data-variant-metric]').forEach(inp=>{
+    const key=inp.dataset.variantMetric;
     inp.value=metrics&&metrics[key]!=null?metrics[key]:'';
   });
+}
+function requiredVariantMetricErrors(sid){
+  const block=replacementOptionBlock(currentWeek,sid);
+  if(!block||readSessionVariant(sid)!==block.variant)return [];
+  const panel=el('sub-'+sid); if(!panel)return [];
+  const values=readVariantMetrics(sid);
+  const errors=[];
+  (block.metrics||[]).forEach(metric=>{
+    if(!metric.required)return;
+    const value=values[metric.key];
+    if(value==null||String(value).trim()==='')errors.push(metric.label||metric.key);
+    else if(metric.type==='number'&&!Number.isFinite(Number(value)))errors.push((metric.label||metric.key)+' (number required)');
+  });
+  return errors;
 }
 function hasStandardSessionInput(panel){
   if(!panel)return false;
@@ -3696,36 +3775,44 @@ function hasStandardSessionInput(panel){
   });
   return has;
 }
-function hasZone2MetricInput(panel){
+function hasVariantMetricInput(panel){
   if(!panel)return false;
   let has=false;
-  panel.querySelectorAll('[data-zone2-metric]').forEach(inp=>{if((inp.value||'').trim())has=true;});
+  panel.querySelectorAll('[data-variant-metric]').forEach(inp=>{if((inp.value||'').trim())has=true;});
   return has;
 }
 function confirmSessionVariantChange(sid,next){
   const panel=el('sub-'+sid); if(!panel)return true;
-  const current=panel.dataset.sessionVariant||'standard';
+  const standardValue=standardVariantValue(currentWeek,sid);
+  const block=replacementOptionBlock(currentWeek,sid);
+  const current=panel.dataset.sessionVariant||standardValue;
   if(current===next)return true;
-  const hasData=next==='fatigue_zone2'?hasStandardSessionInput(panel):hasZone2MetricInput(panel);
+  const hasData=block&&next===block.variant?hasStandardSessionInput(panel):hasVariantMetricInput(panel);
   if(!hasData)return true;
   const msg='Change Session C version?\n\nYour entered values will be preserved locally, but only the selected version will count as the performed Session C for history and CoachMax.';
   return typeof confirm==='function'?confirm(msg):true;
 }
 function handleSessionVariantChange(sid,next){
   const panel=el('sub-'+sid); if(!panel)return;
-  const current=panel.dataset.sessionVariant||'standard';
-  const value=next==='fatigue_zone2'?'fatigue_zone2':'standard';
+  const block=replacementOptionBlock(currentWeek,sid);
+  const standardValue=standardVariantValue(currentWeek,sid);
+  const current=panel.dataset.sessionVariant||standardValue;
+  const value=block&&next===block.variant?block.variant:standardValue;
   if(!confirmSessionVariantChange(sid,value)){setSessionVariantUI(sid,current);return;}
   setSessionVariantUI(sid,value);
   autosaveDraft(sid);
 }
 function isZone2VariantRecord(rec){return rec&&rec.variant==='fatigue_zone2';}
+function isReplacementVariantRecord(week,sid,rec){
+  const block=replacementOptionBlock(week,sid);
+  return !!(block&&rec&&rec.variant===block.variant);
+}
 function reportableSessionCharges(week,sid,rec){
-  if(isZone2VariantRecord(rec)&&hasFatigueOption(week,sid))return {};
+  if(isReplacementVariantRecord(week,sid,rec))return {};
   return rec&&rec.charges?rec.charges:{};
 }
 function reportableSessionActuals(week,sid,rec){
-  if(isZone2VariantRecord(rec)&&hasFatigueOption(week,sid))return {};
+  if(isReplacementVariantRecord(week,sid,rec))return {};
   return rec&&rec.actuals?rec.actuals:{};
 }
 function zone2MetricDisplay(rec){
@@ -3734,13 +3821,24 @@ function zone2MetricDisplay(rec){
   const bpm=metrics.zone2AverageBpm?String(metrics.zone2AverageBpm)+' BPM':'';
   return {time,bpm};
 }
+function replacementMetricDisplay(week,sid,rec){
+  const block=replacementOptionBlock(week,sid);
+  const values=rec&&rec.metrics?rec.metrics:{};
+  if(!block)return [];
+  return (block.metrics||[]).map(metric=>{
+    const raw=values[metric.key];
+    if(raw==null||String(raw).trim()==='')return null;
+    const value=metric.unit?String(raw)+' '+metric.unit:String(raw);
+    return {label:metric.label||metric.key,value};
+  }).filter(Boolean);
+}
 function restoreSeanceFields(sid){
   const rec=D.seances[seanceKey(currentWeek,sid)]||D.drafts[seanceKey(currentWeek,sid)];
   const panel=el('sub-'+sid);
   if(!panel)return;
   if(hasFatigueOption(currentWeek,sid)){
-    setSessionVariantUI(sid,sessionVariantValue(rec));
-    restoreZone2Metrics(sid,rec&&rec.metrics);
+    setSessionVariantUI(sid,sessionVariantValue(rec,currentWeek,sid));
+    restoreVariantMetrics(sid,rec&&rec.metrics);
   }
   if(!rec)return;
   const actuals=rec.actuals||{};
@@ -3748,7 +3846,7 @@ function restoreSeanceFields(sid){
   panel.querySelectorAll('.ex-reps-input').forEach(inp=>{ const k=inp.dataset.key; if(actuals[k]&&actuals[k].reps!=null) inp.value=actuals[k].reps; });
   panel.querySelectorAll('.ex-input').forEach(inp=>{ const k=inp.dataset.key; if(rec.charges&&rec.charges[k]!=null) inp.value=rec.charges[k]; });
   panel.querySelectorAll('.duration-control').forEach(ctrl=>{ const k=ctrl.dataset.key; if(rec.charges&&rec.charges[k]!=null) setDurationControl(ctrl,rec.charges[k]); });
-  if(hasFatigueOption(currentWeek,sid))restoreZone2Metrics(sid,rec.metrics);
+  if(hasFatigueOption(currentWeek,sid))restoreVariantMetrics(sid,rec.metrics);
   const notes=el('notes-'+sid); if(notes&&rec.notes) notes.value=rec.notes;
 }
 function persistSeanceFields(sid){
@@ -3772,7 +3870,7 @@ function persistSeanceFields(sid){
   const out={charges,actuals,notes};
   if(hasFatigueOption(currentWeek,sid)){
     out.variant=readSessionVariant(sid);
-    out.metrics=readZone2Metrics(sid);
+    out.metrics=readVariantMetrics(sid);
   }
   return out;
 }
@@ -3795,7 +3893,7 @@ function wireSeanceInputs(sid){
     ctrl.querySelectorAll('.duration-input').forEach(inp=>{ inp.addEventListener('input',()=>autosaveDraft(sid)); });
   });
   panel.querySelectorAll('[data-session-variant="'+sid+'"]').forEach(inp=>{ inp.addEventListener('change',()=>handleSessionVariantChange(sid,inp.value)); });
-  panel.querySelectorAll('[data-zone2-metric]').forEach(inp=>{ inp.addEventListener('input',()=>autosaveDraft(sid)); });
+  panel.querySelectorAll('[data-variant-metric]').forEach(inp=>{ inp.addEventListener('input',()=>autosaveDraft(sid)); });
   const notes=el('notes-'+sid); if(notes) notes.addEventListener('input',()=>autosaveDraft(sid));
 }
 function goToWeeklyCheckin(){
@@ -3822,6 +3920,11 @@ function showLockedWeekModal(){
 }
 function saveSeance(sid){
   if(!isWeekUnlocked(currentWeek)){showLockedWeekModal();return;}
+  const metricErrors=requiredVariantMetricErrors(sid);
+  if(metricErrors.length){
+    appAlert('COMPLETE MOTOCROSS DETAILS','Complete the following before saving Session C:\n\n'+metricErrors.join('\n'),{kicker:'SESSION C'});
+    return;
+  }
   const k=seanceKey(currentWeek,sid);
   const f=persistSeanceFields(sid);
   const rec={done:true,date:new Date().toISOString().slice(0,10),charges:f.charges,actuals:f.actuals,notes:f.notes};
@@ -4731,15 +4834,21 @@ function renderHistorySessionEntry(container,item){
   }
   const actualsHTML=isArchived?formatArchiveActualsHTML(rec.actuals):formatActualsHTML(w,reportableSessionActuals(w,sid,rec));
   const label=isArchived?('PHASE 1 · WEEK '+w+' · SESSION '+String(sid).toUpperCase()):formatSeanceLabel(w,sid);
-  const isZone2=!isArchived&&isZone2VariantRecord(rec)&&hasFatigueOption(w,sid);
+  const isReplacement=!isArchived&&isReplacementVariantRecord(w,sid,rec);
+  const isZone2=isReplacement&&isZone2VariantRecord(rec);
   const z=isZone2?zone2MetricDisplay(rec):null;
-  const thirdValue=isArchived?'P1':(isZone2?'ZONE 2':seanceVolume(w,sid).toLocaleString('fr-CA'));
-  const thirdLabel=isArchived?'ARCHIVE':(isZone2?'VERSION':'VOLUME LBS');
+  const thirdValue=isArchived?'P1':(isReplacement?(rec.variant==='motocross'?'MOTOCROSS':'ZONE 2'):seanceVolume(w,sid).toLocaleString('fr-CA'));
+  const thirdLabel=isArchived?'ARCHIVE':(isReplacement?'VERSION':'VOLUME LBS');
   let variantHTML='';
   if(!isArchived&&hasFatigueOption(w,sid)){
-    variantHTML='<div class="hist-row"><div class="hist-label">Session C version</div><div class="hist-val">'+escapeHTML(sessionVariantLabel(sessionVariantValue(rec)))+'</div></div>';
+    const variant=sessionVariantValue(rec,w,sid);
+    variantHTML='<div class="hist-row"><div class="hist-label">Session C version</div><div class="hist-val">'+escapeHTML(sessionVariantLabel(variant,w,sid))+'</div></div>';
     if(isZone2){
       variantHTML+='<div class="hist-row"><div class="hist-label">Zone 2 metrics</div><div class="hist-val">'+escapeHTML((z.time||'--')+' · '+(z.bpm||'--'))+'</div></div>';
+    }else if(isReplacement){
+      replacementMetricDisplay(w,sid,rec).forEach(metric=>{
+        variantHTML+='<div class="hist-row"><div class="hist-label">'+escapeHTML(metric.label)+'</div><div class="hist-val">'+escapeHTML(metric.value)+'</div></div>';
+      });
     }
   }
   e.innerHTML='<div class="hist-seance-hdr"><div class="hist-seance-label">'+escapeHTML(label)+'</div><div class="hist-seance-date">'+escapeHTML(rec.date||'')+'</div></div>'
@@ -5118,12 +5227,14 @@ function buildReportLines(checkin,week){
     if(rec&&rec.done){
       L.push('✅ '+label+(rec.date?' · Completed '+rec.date:''));
       if(hasFatigueOption(week,sid)){
-        const variant=sessionVariantValue(rec);
-        L.push('   · Version: '+sessionVariantLabel(variant));
+        const variant=sessionVariantValue(rec,week,sid);
+        L.push('   · Version: '+sessionVariantLabel(variant,week,sid));
         if(variant==='fatigue_zone2'){
           const z=zone2MetricDisplay(rec);
           if(z.time)L.push('   · Actual Time: '+z.time);
           if(z.bpm)L.push('   · Average BPM: '+z.bpm);
+        }else if(isReplacementVariantRecord(week,sid,rec)){
+          replacementMetricDisplay(week,sid,rec).forEach(metric=>L.push('   · '+metric.label+': '+metric.value));
         }
       }
       const charges=reportableSessionCharges(week,sid,rec);
@@ -5815,8 +5926,8 @@ var ST_KEY=(typeof SK!=='undefined'?SK:'fe')+'_popup_streaks';
 function getShown(k){try{var r=localStorage.getItem(k);return r?JSON.parse(r):[];}catch(e){return [];}}
 function setShown(k,a){try{localStorage.setItem(k,JSON.stringify(a));}catch(e){}}
 
-function popSession(){
- showProtocolPopup({iconType:'check',title:'SESSION COMPLETE',messageLine1:'The work is logged.',messageLine2:'You kept the standard today.',
+function popSession(messageLine2){
+ showProtocolPopup({iconType:'check',title:'SESSION COMPLETE',messageLine1:'The work is logged.',messageLine2:messageLine2||'You kept the standard today.',
   stat:{variant:'split',icon:'dumbbell',big:'+1',lines:[{t:'session completed',cls:'l1'},{t:'this week',cls:'l2'}]},
   primaryText:'CONTINUE',primaryArrow:true,secondaryText:'VIEW WEEK',
   primaryAction:advance,secondaryAction:function(){goTraining(true);}});
@@ -5895,9 +6006,15 @@ window.saveSeance=function(sid){
  var wasDone=!!(D.seances[k]&&D.seances[k].done);
  var wasComplete=isWeekComplete(wk);
  origSaveSeance(sid);
+ var nowDone=!!(D.seances[k]&&D.seances[k].done);
+ if(!nowDone)return;
  var nowComplete=isWeekComplete(wk);
  if(!wasComplete&&nowComplete){popWeek(wk);}
- else if(!wasDone){popSession();}
+ else if(!wasDone){
+  var rec=D.seances[k],line='You kept the standard today.';
+  if(hasFatigueOption(wk,sid)&&isReplacementVariantRecord(wk,sid,rec))line='You completed '+sessionVariantLabel(sessionVariantValue(rec,wk,sid),wk,sid)+'.';
+  popSession(line);
+ }
  checkStreak();
  checkMilestones();
 };
